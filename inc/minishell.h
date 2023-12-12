@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
+/*   Updated: 2023/12/12 18:42:52 by iblanco-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+
+typedef struct s_env
+{
+    char            *name;
+    char            *value;
+	struct s_env    *next;
+} t_env;
+
+typedef struct s_cmds
+{
+	char			**opts;
+	t_env			*env;
+} t_cmds;
+
+int		ft_pwd(t_cmds *cmds);
+char	*ft_strndup(const char *s, size_t n);
+char	*ft_strdup(const char *s);
+void	ft_lstadd_back(t_env **lst, t_env *new);
+int		ft_strcmp(const char *str1, const char *str2);
+int		ft_unset(t_cmds *cmds);
+int		ft_export(t_cmds *cmds);
+int		ft_env(t_cmds *cmds);
+int		ft_isalpha(int a);
+
+#endif
