@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:00:55 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/12 18:17:54 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:39:02 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int ft_pwd(t_cmds *cmds)
+int ft_pwd()
 {
 	char	*pwd;
 	int		ret;
 
-	cmds = NULL;
 	pwd = NULL;
 	ret = 1;
 	pwd = getcwd(pwd, sizeof(pwd));

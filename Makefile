@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
+#    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2023/12/12 18:43:08 by iblanco-         ###   ########.fr        #
+#    Updated: 2023/12/13 19:12:45 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@ CC = gcc -Wall -Werror -Wextra
 
 RM = rm -f
 
-SRCS = main.c \
-       builtin/ft_cd.c \
-       builtin/tester_main.c \
-       utils/utils_1.c \
-	   utils/utils_2.c \
+SRCS = builtin/tester_main.c \
+	   builtin/ft_echo.c \
 	   builtin/ft_pwd.c \
 	   builtin/ft_env.c \
 	   builtin/ft_unset.c \
 	   builtin/ft_export.c \
+	   builtin/utils_1.c \
+	   builtin/utils_2.c \
+	   #builtin/ft_cd.c 
 
 OBJS = $(SRCS:.c=.o)
 

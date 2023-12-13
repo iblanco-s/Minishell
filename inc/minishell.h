@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/12 18:42:52 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:56:44 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_cmds
 	t_env			*env;
 } t_cmds;
 
-int		ft_pwd(t_cmds *cmds);
+int		ft_pwd();
 char	*ft_strndup(const char *s, size_t n);
 char	*ft_strdup(const char *s);
 void	ft_lstadd_back(t_env **lst, t_env *new);
@@ -41,5 +41,9 @@ int		ft_unset(t_cmds *cmds);
 int		ft_export(t_cmds *cmds);
 int		ft_env(t_cmds *cmds);
 int		ft_isalpha(int a);
+int		check_alpha_env(t_cmds *cmds ,char *str, char *name_command);
+int		ft_echo(t_cmds *cmds);
+int		ft_isdigit(int a);
+int		ft_atoi(const char *str);
 
 #endif
