@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
+#    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2023/12/13 19:12:45 by inigo            ###   ########.fr        #
+#    Updated: 2023/12/14 16:53:56 by iblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = builtin/tester_main.c \
 	   builtin/ft_env.c \
 	   builtin/ft_unset.c \
 	   builtin/ft_export.c \
+	   builtin/ft_exit.c \
 	   builtin/utils_1.c \
 	   builtin/utils_2.c \
 	   #builtin/ft_cd.c 

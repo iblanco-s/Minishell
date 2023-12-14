@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:56:44 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:53:34 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <assert.h>
 
 typedef struct s_env
 {
@@ -45,5 +46,6 @@ int		check_alpha_env(t_cmds *cmds ,char *str, char *name_command);
 int		ft_echo(t_cmds *cmds);
 int		ft_isdigit(int a);
 int		ft_atoi(const char *str);
+int		ft_exit(t_cmds *cmds);
 
 #endif

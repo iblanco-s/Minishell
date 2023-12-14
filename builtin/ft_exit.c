@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:48:58 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/13 19:58:12 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/14 18:51:45 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-//TODO: revisar si funciona todos los casos, hacer el ft_cd,
-//poner comentarios, revisar leaks, revisar norminette
+
 int	ft_exit(t_cmds *cmds)
 {
 	int i;
 
 	i = 0;
-	if (cmds->opts[0] == NULL)
+	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 		exit(0);
 	if (cmds->opts[1] != NULL)
 	{

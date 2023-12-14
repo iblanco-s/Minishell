@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tester_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:49:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:16:42 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/14 17:44:29 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int main(int argc, char **argv, char **env)
 	// cmds->opts = non_alpha_opts4;
 	// ft_export(cmds);
 
-	// char *non_alpha_opts41[] = {NULL};
+	// char *non_alpha_opts41[] = {"TEST111=", NULL};
 	// cmds->opts = non_alpha_opts41;
 	// ft_export(cmds);
-	// printf("hola");
+
 	// ft_env(cmds);
 
 	// char *opts2[] = {"Hello", "World", NULL};
@@ -104,7 +104,26 @@ int main(int argc, char **argv, char **env)
 	// char *opts5[] = {"-nnnnnnnna", "Hello", "World", NULL};
 	// cmds->opts = opts5;
 	// ft_echo(cmds);
+	
+    // Test ft_exit with one non-numeric argument
+    // char *opts2[] = {"abc", NULL};
+    // cmds->opts = opts2;
+    // assert(ft_exit(cmds) == 255);
 
+    // Test ft_exit with too many arguments
+    char *opts3[] = {"123", "456", NULL};
+    cmds->opts = opts3;
+    assert(ft_exit(cmds) == 1);
+	
+    // Test ft_exit with no arguments
+    // cmds->opts = NULL;
+    // assert(ft_exit(cmds) == 0);
+
+    // Test ft_exit with one numeric argument
+    // char *opts1[] = {"123", NULL};
+    // cmds->opts = opts1;
+    // assert(ft_exit(cmds) == 123);
+	
 	free(cmds);
 	return 0;
 }
