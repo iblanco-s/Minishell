@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:50:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/13 18:49:31 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/15 17:04:41 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int check_var_exists(t_cmds *cmds, char *name_env, char *value_env)
-{
-	t_env *node;
-
-	node = cmds->env;
-	while (node)
-	{
-		if (ft_strcmp(node->name, name_env) == 0)
-		{
-			node->value = value_env;
-			return (1);
-		}
-		node = node->next;
-	}
-	return (0);
-}
 
 int create_enviroment(t_cmds *cmds, char *name_env, int equal_sign)
 {
@@ -35,7 +18,7 @@ int create_enviroment(t_cmds *cmds, char *name_env, int equal_sign)
 	char *value_env;
 
 	value_env = ft_strdup(&cmds->opts[0][equal_sign] + 1);
-	if (check_var_exists(cmds, name_env, value_env) == 0)
+	if (change_env_value(cmds, name_env, value_env) == 0)
 	{
 		node = (t_env *)malloc(sizeof(t_env));
 		node->name = name_env;
@@ -68,7 +51,7 @@ int ft_export(t_cmds *cmds)
     int equal_sign;
 	
 	equal_sign = 0;
-	if (cmds->opts[0] == NULL)
+	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 		return (no_args_case(cmds));
 	while (cmds->opts[0][equal_sign] != '=' && cmds->opts[0][equal_sign])
 		equal_sign++;

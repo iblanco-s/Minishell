@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:49:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/14 17:44:29 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/15 17:18:34 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ int main(int argc, char **argv, char **env)
     // assert(ft_exit(cmds) == 255);
 
     // Test ft_exit with too many arguments
-    char *opts3[] = {"123", "456", NULL};
-    cmds->opts = opts3;
-    assert(ft_exit(cmds) == 1);
+    // char *opts3[] = {"123", "456", NULL};
+    // cmds->opts = opts3;
+    // assert(ft_exit(cmds) == 1);
 	
     // Test ft_exit with no arguments
     // cmds->opts = NULL;
@@ -123,7 +123,11 @@ int main(int argc, char **argv, char **env)
     // char *opts1[] = {"123", NULL};
     // cmds->opts = opts1;
     // assert(ft_exit(cmds) == 123);
-	
+	ft_env(cmds);
+	printf("\n\n");
+	chdir(".");
+	ft_env(cmds);
+	printf("\n\n");
 	free(cmds);
 	return 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:42:26 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/13 19:56:32 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/15 17:17:45 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,22 @@ int	ft_atoi(const char *str)
 	return (a * n);
 }
 
+int change_env_value(t_cmds *cmds, char *name_env, char *value_env)
+{
+	t_env *node;
+
+	node = cmds->env;
+	while (node)
+	{
+		if (ft_strcmp(node->name, name_env) == 0)
+		{
+			if (node->value)
+				free(node->value);
+			node->value = value_env;
+			return (1);
+		}
+		node = node->next;
+	}
+	return (0);
+}
 

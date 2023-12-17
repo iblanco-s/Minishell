@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:24:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/13 18:35:22 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/15 16:09:42 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int ft_unset(t_cmds *cmds)
     t_env *prev = NULL;
     t_env *current = cmds->env;
 
-	if (cmds->opts[0] == NULL || 
+	if (cmds->opts == NULL || cmds->opts[0] == NULL || 
 			check_alpha_env(cmds, cmds->opts[0], "unset") == 0)
 		return (0);
     while (current != NULL)

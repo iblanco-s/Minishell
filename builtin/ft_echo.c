@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:51:36 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:26 by inigo            ###   ########.fr       */
+/*   Updated: 2023/12/15 16:08:43 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_echo(t_cmds *cmds)
 	int j;
 
 	j = 0;
-	if (cmds->opts[0] == NULL)
+	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 	{
 		printf("\n");
 		return (0);
