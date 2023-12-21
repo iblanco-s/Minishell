@@ -6,16 +6,16 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:55:57 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/14 16:38:48 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:55:44 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int ft_env(t_cmds *cmds)
+int	ft_env(t_cmds *cmds)
 {
-	t_env 	*env;
-	t_env 	*aux;
+	t_env	*env;
+	t_env	*aux;
 	int		ret;
 
 	ret = 0;

@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:42:26 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/15 17:17:45 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:01:14 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_isalpha(int a)
 	if (('A' <= a && a <= 'Z') || ('a' <= a && a <= 'z'))
 		return (1);
 	else
-		return (0);
+		return (-1);
 }
 
-int	check_alpha_env(t_cmds *cmds ,char *str, char *name_command)
+int	check_alpha_env(t_cmds *cmds, char *str, char *name_command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -38,7 +38,8 @@ int	check_alpha_env(t_cmds *cmds ,char *str, char *name_command)
 			return (1);
 		i++;
 	}
-	printf("minishell: %s: `%s': not a valid identifier\n",name_command, cmds->opts[0]);
+	printf("minishell: %s: `%s': not a valid identifier\n",
+		name_command, cmds->opts[0]);
 	return (0);
 }
 
@@ -67,9 +68,9 @@ int	ft_atoi(const char *str)
 	return (a * n);
 }
 
-int change_env_value(t_cmds *cmds, char *name_env, char *value_env)
+int	change_env_value(t_cmds *cmds, char *name_env, char *value_env)
 {
-	t_env *node;
+	t_env	*node;
 
 	node = cmds->env;
 	while (node)
@@ -85,4 +86,3 @@ int change_env_value(t_cmds *cmds, char *name_env, char *value_env)
 	}
 	return (0);
 }
-

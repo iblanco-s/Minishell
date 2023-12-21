@@ -6,12 +6,11 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:38:11 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/12 18:40:15 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:00:08 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
 
 int	ft_strcmp(const char *str1, const char *str2)
 {
@@ -71,6 +70,7 @@ char	*ft_strndup(const char *s, size_t n)
 	ret[j] = '\0';
 	return (ret);
 }
+
 t_env	*ft_lstlast(t_env *lst)
 {
 	if (!lst)
@@ -83,8 +83,7 @@ t_env	*ft_lstlast(t_env *lst)
 void	ft_lstadd_back(t_env **lst, t_env *new)
 {
 	if (!*lst)
-			*lst = new;
+		*lst = new;
 	else
 		ft_lstlast(*lst)->next = new;
 }
-

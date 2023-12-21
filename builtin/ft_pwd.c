@@ -6,13 +6,13 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:00:55 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/15 16:09:26 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:53:04 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*pwd;
 	int		ret;
@@ -24,5 +24,5 @@ int ft_pwd(void)
 		printf("%s", pwd);
 	else
 		ret = 0;
-	return ret;
+	return (ret);
 }

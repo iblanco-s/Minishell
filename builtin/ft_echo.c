@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:51:36 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/15 16:08:43 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:55:40 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_n_case(t_cmds *cmds)
 {
-	int i;
+	int	i;
 
 	i = 2;
 	if (!(cmds->opts[0][0] && cmds->opts[0][1]))
@@ -32,8 +32,8 @@ int	check_n_case(t_cmds *cmds)
 
 int	ft_echo(t_cmds *cmds)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)

@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:48:58 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/14 18:51:45 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:56:58 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_exit(t_cmds *cmds)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)
@@ -30,7 +30,8 @@ int	ft_exit(t_cmds *cmds)
 		if (ft_isdigit(cmds->opts[0][i]) == 0)
 		{
 			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n", cmds->opts[0]);
+			printf("minishell: exit: %s: numeric argument required\n",
+				cmds->opts[0]);
 			exit(255);
 		}
 		i++;
