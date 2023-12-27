@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:00:55 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/21 17:53:04 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:19:01 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	ft_pwd(void)
 		printf("%s", pwd);
 	else
 		ret = 0;
+	free(pwd);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:50:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/21 17:51:09 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:24:06 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	change_pwd_and_oldpwd(t_cmds *cmds)
 	char	*oldpwd;
 
 	pwd = getcwd(NULL, 0);
-	oldpwd = get_env_value(cmds, "PWD");
+	oldpwd = ft_strdup(get_env_value(cmds, "PWD"));
 	if (oldpwd != NULL)
 	{
 		if (change_env_value(cmds, "OLDPWD", oldpwd) == 0)
@@ -54,7 +54,7 @@ int	change_pwd_and_oldpwd(t_cmds *cmds)
 		create_oldpwd(cmds, NULL);
 	if (pwd != NULL)
 		change_env_value(cmds, "PWD", pwd);
-	free(pwd);
+	//free(pwd);
 	return (1);
 }
 

@@ -6,13 +6,13 @@
 #    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2023/12/14 16:53:56 by iblanco-         ###   ########.fr        #
+#    Updated: 2023/12/27 20:20:02 by iblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -Wall -Werror -Wextra
+CC = gcc -Wall -Werror -Wextra -fsanitize=address -g3
 
 RM = rm -f
 
@@ -25,7 +25,8 @@ SRCS = builtin/tester_main.c \
 	   builtin/ft_exit.c \
 	   builtin/utils_1.c \
 	   builtin/utils_2.c \
-	   #builtin/ft_cd.c 
+	   builtin/ft_cd.c \
+	   builtin/ft_cd_aux.c \
 
 OBJS = $(SRCS:.c=.o)
 

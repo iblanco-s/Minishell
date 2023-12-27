@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/21 18:54:56 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:19:13 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ int		ft_isdigit(int a);
 int		ft_atoi(const char *str);
 int		ft_exit(t_cmds *cmds);
 int		change_env_value(t_cmds *cmds, char *name_env, char *value_env);
+int		ft_cd(t_cmds *cmds);
+char	*get_env_value(t_cmds *cmds, char *name);
+int		change_pwd_and_oldpwd(t_cmds *cmds);
+int		go_to_path(t_cmds *cmds, char *path);
 
 #endif

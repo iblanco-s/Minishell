@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:50:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/21 18:57:54 by iblanco-         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:04:54 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_export(t_cmds *cmds)
 		return (no_args_case(cmds));
 	while (cmds->opts[0][equal_sign] != '=' && cmds->opts[0][equal_sign])
 		equal_sign++;
-	if (cmds->opts[0][equal_sign])
+	if (cmds->opts[0][equal_sign] && equal_sign > 0)
 	{
 		name_env = ft_strndup(cmds->opts[0], equal_sign - 1);
 		if (check_alpha_env(cmds, name_env, "export") == 0)
