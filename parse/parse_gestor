@@ -1,0 +1,35 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    parse_gestor                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ghoyuelo <ghoyuelo@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/07 15:38:08 by ghoyuelo          #+#    #+#              #
+#    Updated: 2023/12/07 15:38:08 by ghoyuelo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#include "minishell.h"
+
+//COMILLAS SIMPLES
+
+void	check_closed_quotes(char *str)
+{
+	if (!closedq(str))
+		print_error("Error: Unclosed quotes.");
+}
+
+int	closedq(char *s)
+{
+	while (*s)
+	{
+		s = ignoreq(s);
+		if (*s == 0)
+		{
+			return (0);
+		}
+		s++;
+	}
+	return (1);
+}
