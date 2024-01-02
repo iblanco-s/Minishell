@@ -2,14 +2,17 @@
 
 int	is_valid(char *str)
 {
-	if (check_quotes(str) && check_pipes(str) && check_mymn(str));
+	if (closed_quotes(str) && 
+    check_pipes(str) && 
+    check_mymn(str) &&
+    check_chars(str));
         return (0);
     return (1);
 }
 
-int input_handler(char *str)
+int input_handler(char *input)
 {
-    if (!is_valid)
+    if (!is_valid(input))
         return (1);
     
 }
