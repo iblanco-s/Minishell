@@ -6,7 +6,7 @@
 #    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2023/12/27 20:20:02 by iblanco-         ###   ########.fr        #
+#    Updated: 2024/01/02 18:31:36 by iblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,22 +30,29 @@ SRCS = builtin/tester_main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+LIBFT = libft
+
+all: $(NAME) $(LIBFT)
+
+$(LIBFT):
+	make -C $(LIBFT)
 
 %.o: %.c
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
+	make -C $(LIBFT) clean
 
 fclean:	clean
 	$(RM) $(NAME)
+	make -C $(LIBFT) fclean
 
 limpito: all clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re $(LIBFT)

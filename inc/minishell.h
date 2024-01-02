@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/27 17:19:13 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:39:41 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdarg.h>
 # include <assert.h>
+# include "../libft/libft.h"
 
 typedef struct s_env
 {
@@ -33,24 +34,24 @@ typedef struct s_cmds
 	t_env			*env;
 }	t_cmds;
 
+//BUILTINS
 int		ft_pwd(void);
 char	*ft_strndup(const char *s, size_t n);
-char	*ft_strdup(const char *s);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 int		ft_strcmp(const char *str1, const char *str2);
 int		ft_unset(t_cmds *cmds);
 int		ft_export(t_cmds *cmds);
 int		ft_env(t_cmds *cmds);
-int		ft_isalpha(int a);
 int		check_alpha_env(t_cmds *cmds, char *str, char *name_command);
 int		ft_echo(t_cmds *cmds);
-int		ft_isdigit(int a);
-int		ft_atoi(const char *str);
 int		ft_exit(t_cmds *cmds);
 int		change_env_value(t_cmds *cmds, char *name_env, char *value_env);
 int		ft_cd(t_cmds *cmds);
 char	*get_env_value(t_cmds *cmds, char *name);
 int		change_pwd_and_oldpwd(t_cmds *cmds);
 int		go_to_path(t_cmds *cmds, char *path);
+
+//INITIATION
+
 
 #endif

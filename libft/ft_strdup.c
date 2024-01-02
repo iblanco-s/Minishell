@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 18:38:11 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/01/02 18:38:15 by iblanco-         ###   ########.fr       */
+/*   Created: 2022/09/16 17:56:33 by iblanco-          #+#    #+#             */
+/*   Updated: 2022/09/19 19:08:26 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	ft_strcmp(const char *str1, const char *str2)
-{
-	size_t	i;
-
-	i = 0;
-	while ((str1[i] != '\0' || str2[i] != '\0'))
-	{
-		if (str1[i] != str2[i])
-			return (1);
-		else if (str1[i] == str2[i])
-			i++;
-	}
-	return (0);
-}
-
-char	*ft_strndup(const char *s, size_t n)
+char	*ft_strdup(const char *s)
 {
 	char	*ret;
 	size_t	i;
@@ -35,7 +20,7 @@ char	*ft_strndup(const char *s, size_t n)
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0' && i <= n)
+	while (s[i] != '\0')
 		i++;
 	ret = ((char *) malloc((i + 1) * sizeof(char)));
 	if (ret == NULL)
@@ -47,21 +32,4 @@ char	*ft_strndup(const char *s, size_t n)
 	}
 	ret[j] = '\0';
 	return (ret);
-}
-
-t_env	*ft_lstlast(t_env *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_env **lst, t_env *new)
-{
-	if (!*lst)
-		*lst = new;
-	else
-		ft_lstlast(*lst)->next = new;
 }
