@@ -37,7 +37,7 @@ int	forbidden_chars(char *str)
            /* && special_char(str[i], '(')
 		    && special_char(str[i], ')')
 		    && special_char(str[i], '*')
-            && special_char(str[i], '`')*/   /* hay que tener en cuenta tambien \\?* o #/
+            && special_char(str[i], '`')*/   /* hay que tener en cuenta tambien \\? o #  */
 		    && special_char(str[i], ';')
 		    && special_char(str, 92));  // 92 es '\' en ascii 	
 		        return (1);
