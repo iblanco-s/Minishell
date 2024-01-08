@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
+#    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:41:17 by iblanco-          #+#    #+#              #
-#    Updated: 2022/10/03 16:55:19 by iblanco-         ###   ########.fr        #
+#    Updated: 2024/01/03 13:35:40 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS = ft_strlcat.c  ft_putnbr_fd.c ft_putendl_fd.c ft_putstr_fd.c ft_putchar_fd
 
 OBJS = $(SRCS:.c=.o)
 
-BONUS = ft_lstnew.c ft_lstmap.c ft_lstclear.c ft_lstiter.c ft_lstdelone.c ft_lstlast.c ft_lstsize.c ft_lstadd_front.c ft_lstadd_back.c
+BONUS = ft_lstnew.c ft_lstmap.c ft_lstclear.c ft_lstiter.c ft_lstdelone.c ft_lstsize.c ft_lstadd_front.c
 
 BONUS_OBJS = $(BONUS:.c=.o)
 

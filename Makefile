@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+         #
+#    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/01/02 20:14:51 by iblanco-         ###   ########.fr        #
+#    Updated: 2024/01/05 19:16:53 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ CC = gcc -Wall -Werror -Wextra -fsanitize=address -g3
 
 RM = rm -f
 
-SRCS = builtin/tester_main.c \
-	   builtin/ft_echo.c \
+SRCS = builtin/ft_echo.c \
 	   builtin/ft_pwd.c \
 	   builtin/ft_env.c \
 	   builtin/ft_unset.c \
@@ -27,7 +26,10 @@ SRCS = builtin/tester_main.c \
 	   builtin/utils_2.c \
 	   builtin/ft_cd.c \
 	   builtin/ft_cd_aux.c \
-
+	   initiation/main.c \
+	   initiation/obtain_env.c \
+	   initiation/setup.c \
+	   
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
@@ -35,13 +37,13 @@ LIBFT = libft
 all: $(NAME) $(LIBFT)
 
 $(LIBFT):
-	make -C $(LIBFT)
+	make bonus -C $(LIBFT)
 
 %.o: %.c
 	$(CC) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
