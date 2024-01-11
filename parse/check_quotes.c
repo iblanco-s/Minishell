@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
-
-#include <stdio.h> //printf,
-#include <stdlib.h> //exit,
+#include "../parse/minishell.h"
 
 char	*search_quotes(char *str, char c)
 {

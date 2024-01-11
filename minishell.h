@@ -16,14 +16,34 @@
 #include <stdio.h> //printf,
 #include <stdlib.h> //exit,
 
-typedef struct s_data
-{
-    char    *mini_env;
-}   t_data;
+/******* PARSE_QUOTES *******/
+int     closed_quotes(char *str);
+char    *is_quote(char *str);
+char    *search_quotes(char *st, char c);
 
-/******* PARSE_QUOTES ********/
-int	closed_quotes(char *str);
+/******* PARSE PIPES ********/
+int check_pipes(char *str);
+int first(char *str);
+int last(char *str);
+int alone(char *str);
 
-/******* PARSE PIPES *******/
+/******* PARSE MYMN *********/
+int check_mymn(char *str);
+int alone(char *str);
+int last(char *str);
+
+/******* PARRSE CHARS *******/
+int forbidden_chars(char *str);
+int special_char(char *str,char c);
+int search_char(char *str,char c);
+
+/******** IS VALID **********/
+int input_handler(char *input);
+int is_valid(char *str);
+
+/******** SIGNALS ***********/
+void        signal_waiting(int i);
+static void signal_handler(int signal);
+static void child_handler(int signal);
 
 #endif
