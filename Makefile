@@ -6,7 +6,7 @@
 #    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/01/05 19:16:53 by inigo            ###   ########.fr        #
+#    Updated: 2024/01/13 19:09:22 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,20 +29,24 @@ SRCS = builtin/ft_echo.c \
 	   initiation/main.c \
 	   initiation/obtain_env.c \
 	   initiation/setup.c \
-	   
+	   parse/tokenizer.c \
+	   parse/general_split.c \
+	   parse/split_special_chars.c \
+
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
+LIBFT_A = $(LIBFT)/libft.a
 
-all: $(NAME) $(LIBFT)
+all: $(NAME)
 
-$(LIBFT):
+$(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
 	$(CC) -c $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT_A)
 	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -o $(NAME)
 
 clean:
@@ -57,4 +61,4 @@ limpito: all clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re $(LIBFT)
+.PHONY:	all clean fclean re

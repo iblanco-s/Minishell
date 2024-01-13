@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:42:26 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/01/02 18:37:20 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:15:55 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	change_env_value(t_cmds *cmds, char *name_env, char *value_env)
 	{
 		if (ft_strcmp(node->name, name_env) == 0)
 		{
-			if (node->value) 
+			if (node->value)
 				free(node->value);
 			node->value = value_env;
 			return (1);

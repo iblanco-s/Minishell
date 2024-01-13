@@ -6,16 +6,16 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:46:49 by inigo             #+#    #+#             */
-/*   Updated: 2024/01/05 19:18:50 by inigo            ###   ########.fr       */
+/*   Updated: 2024/01/13 19:13:30 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void update_SHLVL(t_cmds *cmds)
+void	update_shlvl(t_cmds *cmds)
 {
-	char *value;
-	int lvl;
+	char	*value;
+	int		lvl;
 
 	value = get_env_value(cmds, "SHLVL");
 	if (value)
@@ -28,11 +28,12 @@ void update_SHLVL(t_cmds *cmds)
 		change_env_value(cmds, "SHLVL", "1");
 }
 
-void setup_program(t_cmds *cmds, char **env)
+t_cmds	*setup_program(char **env)
 {
+	t_cmds	*cmds;
+
 	cmds = malloc(sizeof(t_cmds));
 	cmds->env = env_to_list(env);
-	//necesito settear en ENV path y _ ???
-	//necesito el pid ???
-	update_SHLVL(cmds);
+	update_shlvl(cmds);
+	return (cmds);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_aux.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:50:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/27 17:24:06 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:56:05 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_env_value(t_cmds *cmds, char *name)
 	current = cmds->env;
 	while (current != NULL)
 	{
-		if (strcmp(current->name, name) == 0)
+		if (ft_strcmp(current->name, name) == 0)
 			return (current->value);
 		current = current->next;
 	}

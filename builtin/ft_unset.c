@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:24:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/27 20:03:30 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:18:16 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	remove_env(t_cmds *cmds, t_env *current, t_env *prev)
 	free(current->value);
 	free(current);
 }
+
 void	find_env(char *opts, t_cmds *cmds)
 {
 	t_env	*prev;
@@ -48,7 +49,7 @@ int	ft_unset(t_cmds *cmds)
 	if (cmds->opts == NULL || cmds->opts[0] == NULL
 		|| check_alpha_env(cmds, cmds->opts[0], "unset") == 0)
 		return (0);
-	while(cmds->opts[i])
+	while (cmds->opts[i])
 	{
 		find_env(cmds->opts[i], cmds);
 		i++;
