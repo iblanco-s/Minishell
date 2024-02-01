@@ -31,7 +31,7 @@ static void	signal_handler(int signal)
 static void	child_handler(int signal)
 {
 	if (signal == SIGINT)
-		ft_error = 130;
+		g_error = 130;
 	else if (signal == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 10);
@@ -39,17 +39,23 @@ static void	child_handler(int signal)
 	}
 	return ;
 }
-
-void	signal_waiting(int i)
+//a signal waiting le pasamos el pid del proceso hijo
+void	signal_waiting(int sig)
 {
 	struct sigaction	sig_act;
+	pid_t				pid;
 
-	if (i)
-		sig_act.sa_handler = &signal_handler;
-	else
+	pid = fork();
+	if (pid == -1)
+		g_error = 1;
+		exit(1);
+	else	
+	if (pid == 0)
 		sig_act.sa_handler = &child_handler;
+	else
+		sig_act.sa_handler = &csignal_handler;
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	sigaction(SIGTERM, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);//limpia la memoria
 }
