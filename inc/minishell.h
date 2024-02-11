@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/01/13 18:57:57 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/02 16:46:35 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				single_quote;
 	struct s_env	*next;
 }	t_env;
 
@@ -69,8 +70,9 @@ t_cmds	*setup_program(char **env);
 
 //PARSE
 void	handle_input(char *line, t_cmds *cmds);
-char	**general_split(char *line);
-void	split_dollar(t_env *tokens_list);
+t_env	*general_split(char *line, t_cmds *cmds);
+void	split_dollar(t_env *tokens_list, t_cmds *cmds);
 void	divide_str_by_char(t_env *token_list, int i);
 void	check_pipes_and_redirs(t_env *token_list);
+char	**list_to_array(t_env *token_list);
 #endif

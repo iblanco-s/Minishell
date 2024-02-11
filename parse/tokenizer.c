@@ -6,37 +6,64 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/01/13 19:11:48 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/11 18:01:39 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**expander(char **tokenized_line, t_cmds *cmds)
+// char	**expander(char **tokenized_line, t_cmds *cmds)
+// {
+// 	int		i;
+// 	char	*value;
+
+// 	i = 0;
+// 	while (tokenized_line[i])
+// 	{
+// 		if (tokenized_line[i][0] == '$')
+// 		{
+// 			value = get_env_value(cmds, &tokenized_line[i][1]);
+// 			free(tokenized_line[i]);
+// 			if (value)
+// 				tokenized_line[i] = ft_strdup(value);
+// 			else
+// 				tokenized_line[i] = ft_strdup("");
+// 		}
+// 		i++;
+// 	}
+// 	return (tokenized_line);
+// }
+t_env *expander(t_env *env_list, t_cmds *cmds)
 {
-	int		i;
-	char	*value;
+	t_env *current = env_list;
+	char *value;
 
-	i = 0;
-	while (tokenized_line[i])
+	while (current)
 	{
-		if (tokenized_line[i][0] == '$')
+		if (current->name[0] == '$' && current->single_quote == 0)
 		{
-			value = get_env_value(cmds, &tokenized_line[i][1]);
-			free(tokenized_line[i]);
+			value = get_env_value(cmds, &current->name[1]);
+			free(current->name);
 			if (value)
-				tokenized_line[i] = ft_strdup(value);
+				current->name = ft_strdup(value);
 			else
-				tokenized_line[i] = ft_strdup("");
+				current->name = ft_strdup("");
 		}
-		i++;
+		current = current->next;
 	}
-	return (tokenized_line);
+	return env_list;
 }
-
 void	handle_input(char *line, t_cmds *cmds)
 {
 	char	**tokenized_line;
 
-	tokenized_line = expander(general_split(line), cmds);
+	tokenized_line = list_to_array(general_split(line, cmds));
+	//test print
+	int i = 0;
+	while (tokenized_line[i])
+	{
+		printf("Lista final Nº%d: %s\n", i, tokenized_line[i]);
+		i++;
+	}
+	printf("\n");
 }

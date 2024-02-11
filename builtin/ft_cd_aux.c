@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:50:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/01/11 15:56:05 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/02 17:11:22 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env_value(t_cmds *cmds, char *name)
 	while (current != NULL)
 	{
 		if (ft_strcmp(current->name, name) == 0)
-			return (current->value);
+			return (ft_strdup(current->value));
 		current = current->next;
 	}
 	return (NULL);
