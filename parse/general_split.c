@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/11 18:23:41 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/14 12:20:56 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,16 @@ t_env	*general_split(char *line, t_cmds *cmds)
 		tmp = *tmp.next;
 	}
 	printf("Lista final: %s\n", tmp.name);
+	//free all env and  cmd
+	t_env *tmp2;
+	while (token_list)
+	{
+		tmp2 = token_list;
+		token_list = token_list->next;
+		free(tmp2->name);
+		free(tmp2);
+	}
+	free_general(cmds);
+	exit(0);
 	return (token_list);
 }

@@ -3,20 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/01/13 19:14:14 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/14 12:17:07 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	ft_free_envs(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env->next;
+		free(env->name);
+		if (env->value)
+			free(env->value);
+		free(env);
+		env = tmp;
+	}
+}
+
 void	free_general(t_cmds *cmds)
 {
-	//free cmds
-	//free env
-	printf("%s", cmds->env->name);
+	if (cmds)
+	{
+		if (cmds->env)
+			ft_free_envs(cmds->env);
+		free(cmds);
+	}
 }
 
 void	ft_error(char *msg, t_cmds *cmds)

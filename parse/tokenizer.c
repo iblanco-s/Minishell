@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/12 19:49:20 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/14 12:12:07 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	handle_input(char *line, t_cmds *cmds)
 	char	**tokenized_line;
 
 	tokenized_line = list_to_array(general_split(line, cmds));
-	printf("tokenized_line: %s\n", tokenized_line[0]);
 }

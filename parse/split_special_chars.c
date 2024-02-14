@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_special_chars.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:07:09 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/13 11:57:50 by inigo            ###   ########.fr       */
+/*   Updated: 2024/02/14 12:24:48 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void divide_and_get_char(t_env *token_list, int i)
 	{
 		node_after_char = malloc(sizeof(t_env));
 		node_after_char->name = ft_strdup(&token_list->name[i + 1]); // esta bien cortado por ahi?
+		node_after_char->single_quote = token_list->single_quote;
 		token_list->name[i + 1] = '\0'; // esto da leaks no?
 		node_after_char->next = token_list->next;
 		token_list->next = node_after_char;
@@ -31,6 +32,7 @@ void divide_and_get_char(t_env *token_list, int i)
 	{
 		node_with_char = malloc(sizeof(t_env));
 		node_with_char->name = ft_strdup(&token_list->name[i]);
+		node_with_char->single_quote = token_list->single_quote;
 		token_list->name[i] = '\0';
 		if (node_after_char)
 			node_with_char->next = node_after_char;
@@ -108,6 +110,7 @@ void expand_and_combine(t_env *actual_node, t_cmds *cmds, char **split_by_dollar
 		stringToExpand = get_env_value(cmds, split_by_dollar[i]);
 		if (stringToExpand)
 			combine(actual_node, stringToExpand);
+		free(stringToExpand);
 		free(split_by_dollar[i]);
 		if (splitted_single_quote)
 		{
@@ -117,10 +120,9 @@ void expand_and_combine(t_env *actual_node, t_cmds *cmds, char **split_by_dollar
 		}
 		i++;
 	}
-	free(split_by_dollar);
 }
-// TEST LINE= $PWD"$PWD"'$PWD'aaa$PWD"aaa$PWD"'aaa$PWD'$PWDaaa"$PWDaaa"'$PWDaaa'bbb$PWDbbb$PWD"bbb$PWDbbb$PWD"'bbb$PWDbbb$PWD'
-// COEMNTAR FUNCIONES LUEGO  NO ME ACUERDO
+// TEST LINE= $PWD"$PWD"'$PWD'aaa$PWD"aaa$PWD"'aaa$PWD'$PWDaaa"$PWDaaa"'$PWDaaa'bbb$PWDbbb$PWD"bbb$PWDbbb$PWD"'bbb$PWDbbb$PWD' a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
+// COEMNTAR FUNCIONES LUEGO  NO ME ACUERDO a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
 void divide_dollars(t_env *actual_node, t_cmds *cmds, int i)
 {
 	char **split_by_dollar;
@@ -130,6 +132,7 @@ void divide_dollars(t_env *actual_node, t_cmds *cmds, int i)
 	{
 		actual_node->name[i] = '\0'; /// esto da leaks no?
 		i = 1;
+		free(split_by_dollar[0]);
 	}
 	else
 	{
@@ -137,6 +140,7 @@ void divide_dollars(t_env *actual_node, t_cmds *cmds, int i)
 		actual_node->name = NULL;
 	}
 	expand_and_combine(actual_node, cmds, split_by_dollar, i);
+	free(split_by_dollar);
 }
 
 void split_dollar(t_env *token_list, t_cmds *cmds)
