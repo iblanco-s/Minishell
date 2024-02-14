@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:20:56 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/14 12:29:31 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_env	*get_next_quote(char **line, int single_quote, char quote_type)
 	return (node);
 }
 
-//ERROR= "'$HOME'"y'"$HOME"'
 t_env	*general_split(char *line, t_cmds *cmds)
 {
 	t_env	*token_list;

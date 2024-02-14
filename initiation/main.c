@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/02/14 12:17:07 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/14 12:29:55 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	main_loop(t_cmds *cmds)
 			ft_error("minishell: init: readline error", cmds);
 		add_history(line);
 		handle_input(line, cmds);
-		//parsear linea
 		//ejecutar linea
 		//free line
 		//MAKE HACE RELINK

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_special_chars.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:07:09 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:24:48 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/14 12:28:57 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void divide_and_get_char(t_env *token_list, int i)
 		node_after_char = malloc(sizeof(t_env));
 		node_after_char->name = ft_strdup(&token_list->name[i + 1]); // esta bien cortado por ahi?
 		node_after_char->single_quote = token_list->single_quote;
-		token_list->name[i + 1] = '\0'; // esto da leaks no?
+		token_list->name[i + 1] = '\0'; 
 		node_after_char->next = token_list->next;
 		token_list->next = node_after_char;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javi <javi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:46:49 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:20:56 by javi             ###   ########.fr       */
+/*   Updated: 2024/02/14 12:30:50 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ void	update_shlvl(t_cmds *cmds)
 		lvl = ft_atoi(value);
 		lvl++;
 		change_env_value(cmds, "SHLVL", ft_itoa(lvl));
+		free(value);
 	}
 	else
 		change_env_value(cmds, "SHLVL", "1");
-	if (value !=  NULL)
-		free(value);
 }
 
 t_cmds	*setup_program(char **env)
