@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:29:18 by inigo            ###   ########.fr       */
+/*   Updated: 2024/03/24 10:31:15 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ t_env *expander(t_env *env_list, t_cmds *cmds)
 	}
 	return env_list;
 }
+
 void	handle_input(char *line, t_cmds *cmds)
 {
 	char	**tokenized_line;
 
 	tokenized_line = list_to_array(general_split(line, cmds));
+	if (!tokenized_line)
+		printf("Error\n");
 }

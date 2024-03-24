@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/02/14 12:31:15 by inigo            ###   ########.fr       */
+/*   Updated: 2024/03/24 11:39:39 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ void	split_dollar(t_env *tokens_list, t_cmds *cmds);
 void	divide_str_by_char(t_env *token_list, int i);
 void	check_pipes_and_redirs(t_env *token_list);
 char	**list_to_array(t_env *token_list);
+
+//GROUP BY PIPES
+void	group_by_pipes(t_env **token_list);
 
 //MAIN
 void	free_general(t_cmds *cmds);

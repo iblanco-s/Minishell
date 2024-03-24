@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:29:31 by inigo            ###   ########.fr       */
+/*   Updated: 2024/03/24 11:40:12 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_env	*general_split(char *line, t_cmds *cmds)
 		}
 	}
 	split_dollar(token_list, cmds);
+	group_by_pipes(&token_list);
 	t_env tmp = *token_list;
 	while (tmp.next)
 	{
