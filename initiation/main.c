@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/02/14 12:29:55 by inigo            ###   ########.fr       */
+/*   Updated: 2024/03/29 11:10:14 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ void	free_general(t_cmds *cmds)
 	}
 }
 
+/**
+ * @brief Si hay un error, salir por aqui, 
+ * donde se liberara la memoria y sacar mensaje de error
+ * 
+ * @param msg Mensaje de error
+ * @param cmds Estructura con los env ya obtenidos para free
+*/
 void	ft_error(char *msg, t_cmds *cmds)
 {
 	ft_putstr_fd(msg, 2);
@@ -44,6 +51,13 @@ void	ft_error(char *msg, t_cmds *cmds)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * @brief Loop principal del minishell
+ * donde se leera la entrada del usuario
+ * y se procesara una y otra vez 
+ * 
+ * @param cmds Estructura con los env ya obtenidos
+*/
 void	main_loop(t_cmds *cmds)
 {
 	char	*line;
@@ -55,14 +69,14 @@ void	main_loop(t_cmds *cmds)
 			ft_error("minishell: init: readline error", cmds);
 		add_history(line);
 		handle_input(line, cmds);
-		//ejecutar linea
-		//free line
-		//MAKE HACE RELINK
+		// TODO: ejecutar linea y liberar memoria de la linea
 	}
 }
 
+// ENTRY POINT
 int	main(int argc, char **argv, char **env)
 {
+	// NO PERMITIR ARGUMENTOS SOLO ./MINISHELL
 	if (argc > 1 && argv)
 		ft_error(ERROR_MANY_ARGS, NULL);
 	main_loop(setup_program(env));
