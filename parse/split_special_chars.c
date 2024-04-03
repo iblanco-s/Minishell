@@ -6,25 +6,28 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:07:09 by inigo             #+#    #+#             */
-/*   Updated: 2024/02/14 12:28:57 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:13:18 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void divide_and_get_char(t_env *token_list, int i)
-{
-	t_env *node_after_char;
-	t_env *node_with_char;
+//"testing: echo \"hello > world\" | cat echo \"hello > world\" > 
+//cat hola > adios hola >> adios hola > adios hola >> adios hola> 
+//adios hola >adios hola>adios hola>>adios hola<< adios hola <<adios"
 
-	node_after_char = NULL;
+void	divide_and_get_char(t_env *token_list, int i,
+	int char_num, t_env	*node_after_char)
+{
+	t_env	*node_with_char;
+
 	node_with_char = NULL;
-	if (token_list->name[i + 1])
+	if (token_list->name[i + char_num])
 	{
 		node_after_char = malloc(sizeof(t_env));
-		node_after_char->name = ft_strdup(&token_list->name[i + 1]); // esta bien cortado por ahi?
+		node_after_char->name = ft_strdup(&token_list->name[i + char_num]);
 		node_after_char->single_quote = token_list->single_quote;
-		token_list->name[i + 1] = '\0'; 
+		token_list->name[i + char_num] = '\0';
 		node_after_char->next = token_list->next;
 		token_list->next = node_after_char;
 	}
@@ -42,130 +45,36 @@ void divide_and_get_char(t_env *token_list, int i)
 	}
 }
 
-void check_pipes_and_redirs(t_env *token_list)
+/**
+ * @brief Check if there are pipes or redirections in the input
+ * and divide them into different nodes
+ * 
+ * @param token_list to check
+*/
+void	check_pipes_and_redirs(t_env *token_list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	token_list = ft_lstlast(token_list);
 	while (token_list->name[i])
 	{
-		if (token_list->name[i] == '|' || token_list->name[i] == '<' || token_list->name[i] == '>')
+		if (token_list->name[i] == '|')
 		{
 			if (i > 0 || token_list->name[i + 1])
+				divide_and_get_char(token_list, i, 1, NULL);
+		}
+		else if (token_list->name[i] == '<' || token_list->name[i] == '>')
+		{
+			if (token_list->name[i + 1] && token_list->name[i + 1]
+				== token_list->name[i])
 			{
-				divide_and_get_char(token_list, i);
-				// if (token_list->next->next) //esto para q
-				// 	token_list = token_list->next;
-			}
-			break; // NOSE SI EL BREAK VA DENTRO
-		}
-		i++;
-	}
-}
-// Combines the og token + expanded value
-// ex: test$HOME -> test /home/user -> test/home/user
-void combine(t_env *node, char *value_to_add)
-{
-	char *tmp;
-
-	if (node->name == NULL)
-		node->name = ft_strdup(value_to_add);
-	else
-	{
-		tmp = node->name;
-		node->name = ft_strjoin(node->name, value_to_add);
-		free(tmp);
-	}
-}
-
-char *check_single_quote(char *string_to_check)
-{
-	char *return_str;
-	int i;
-
-	i = 0;
-	return_str = NULL;
-	while (string_to_check[i])
-	{
-		if (string_to_check[i] == '\'')
-		{
-			return_str = ft_strdup(&string_to_check[i]);
-			string_to_check[i] = '\0';
-			break;
-		}
-		i++;
-	}
-	return (return_str);
-}
-
-void expand_and_combine(t_env *actual_node, t_cmds *cmds, char **split_by_dollar, int i)
-{
-	char *splitted_single_quote;
-	char *stringToExpand;
-
-	while (split_by_dollar[i])
-	{
-		splitted_single_quote = check_single_quote(split_by_dollar[i]);
-		stringToExpand = get_env_value(cmds, split_by_dollar[i]);
-		if (stringToExpand)
-			combine(actual_node, stringToExpand);
-		free(stringToExpand);
-		free(split_by_dollar[i]);
-		if (splitted_single_quote)
-		{
-			combine(actual_node, splitted_single_quote);
-			free(splitted_single_quote);
-			splitted_single_quote = NULL;
-		}
-		i++;
-	}
-}
-// TEST LINE= $PWD"$PWD"'$PWD'aaa$PWD"aaa$PWD"'aaa$PWD'$PWDaaa"$PWDaaa"'$PWDaaa'bbb$PWDbbb$PWD"bbb$PWDbbb$PWD"'bbb$PWDbbb$PWD' a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
-// COEMNTAR FUNCIONES LUEGO  NO ME ACUERDO a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
-void divide_dollars(t_env *actual_node, t_cmds *cmds, int i)
-{
-	char **split_by_dollar;
-
-	split_by_dollar = ft_split(actual_node->name, '$');
-	if (i > 0)
-	{
-		actual_node->name[i] = '\0'; /// esto da leaks no?
-		i = 1;
-		free(split_by_dollar[0]);
-	}
-	else
-	{
-		free(actual_node->name);
-		actual_node->name = NULL;
-	}
-	expand_and_combine(actual_node, cmds, split_by_dollar, i);
-	free(split_by_dollar);
-}
-
-void split_dollar(t_env *token_list, t_cmds *cmds)
-{
-	int i;
-	t_env *head;
-
-	i = 0;
-	head = token_list;
-	while (token_list && token_list->name)
-	{
-		if (token_list->single_quote != 1)
-		{
-			while (token_list->name[i])
-			{
-				if (token_list->name[i] == '$')
-				{
-					divide_dollars(token_list, cmds, i);
-					break;
-				}
+				divide_and_get_char(token_list, i, 2, NULL);
 				i++;
 			}
+			else if (i > 0 || token_list->name[i + 1])
+				divide_and_get_char(token_list, i, 1, NULL);
 		}
-		token_list = token_list->next;
-		i = 0;
+		i++;
 	}
-	token_list = head;
 }

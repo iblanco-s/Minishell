@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:50:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/02/02 17:11:22 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/01 20:54:47 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	change_pwd_and_oldpwd(t_cmds *cmds)
 		create_oldpwd(cmds, NULL);
 	if (pwd != NULL)
 		change_env_value(cmds, "PWD", pwd);
-	//free(pwd);
 	return (1);
 }
 

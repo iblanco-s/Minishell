@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/03/24 11:40:12 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:19:24 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_env	*get_next_word(char **line)
 
 	node = malloc(sizeof(t_env));
 	i = 0;
-	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '\"' && (*line)[i] != '\'')
+	while ((*line)[i] && (*line)[i] != ' '
+		&& (*line)[i] != '\"' && (*line)[i] != '\'')
 		i++;
 	node->name = ft_strndup(*line, i - 1);
 	node->single_quote = 0;
@@ -78,6 +79,16 @@ t_env	*get_next_quote(char **line, int single_quote, char quote_type)
 	return (node);
 }
 
+/**
+ * @brief Primer paso del parseo, quitamos espacios
+ * y comillas, tenemos en cuenta pipes, redirecciones
+ * y fuera del bucle expandimos los $
+ * 
+ * @param line Linea de entrada
+ * @param cmds Estructura con los env ya obtenidos
+ * 
+ * @return t_env* Lista con la linea parseada
+*/
 t_env	*general_split(char *line, t_cmds *cmds)
 {
 	t_env	*token_list;
@@ -94,11 +105,17 @@ t_env	*general_split(char *line, t_cmds *cmds)
 		else if (*line)
 		{
 			ft_lstadd_back(&token_list, get_next_word(&line));
+			//TODO: DEBEMOS TENER EN CUENTA || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 			check_pipes_and_redirs(token_list);
 		}
 	}
+	// from echo hola$USER -> echo holaINIGO
 	split_dollar(token_list, cmds);
+	// from "echo holaINIGO | cat -e" -> nodo 1: "echo holaINIGO", nodo 2: "cat -e"
 	group_by_pipes(&token_list);
+
+	// Aqui printeo la lista, libero memoria y termino la ejecucion
+	// para debuggear que se esta parseando bien, luego se eliminara
 	t_env tmp = *token_list;
 	while (tmp.next)
 	{
@@ -117,5 +134,6 @@ t_env	*general_split(char *line, t_cmds *cmds)
 	}
 	free_general(cmds);
 	exit(0);
+	
 	return (token_list);
 }
