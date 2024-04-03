@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/03/29 11:22:36 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:19:24 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_env	*get_next_word(char **line)
 
 	node = malloc(sizeof(t_env));
 	i = 0;
-	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '\"' && (*line)[i] != '\'')
+	while ((*line)[i] && (*line)[i] != ' '
+		&& (*line)[i] != '\"' && (*line)[i] != '\'')
 		i++;
 	node->name = ft_strndup(*line, i - 1);
 	node->single_quote = 0;
@@ -77,6 +78,7 @@ t_env	*get_next_quote(char **line, int single_quote, char quote_type)
 	*line += i + 1;
 	return (node);
 }
+
 /**
  * @brief Primer paso del parseo, quitamos espacios
  * y comillas, tenemos en cuenta pipes, redirecciones
@@ -103,6 +105,7 @@ t_env	*general_split(char *line, t_cmds *cmds)
 		else if (*line)
 		{
 			ft_lstadd_back(&token_list, get_next_word(&line));
+			//TODO: DEBEMOS TENER EN CUENTA || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 			check_pipes_and_redirs(token_list);
 		}
 	}

@@ -6,38 +6,18 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/03/29 11:15:02 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:24:20 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// char	**expander(char **tokenized_line, t_cmds *cmds)
-// {
-// 	int		i;
-// 	char	*value;
-//
-// 	i = 0;
-// 	while (tokenized_line[i])
-// 	{
-// 		if (tokenized_line[i][0] == '$')
-// 		{
-// 			value = get_env_value(cmds, &tokenized_line[i][1]);
-// 			free(tokenized_line[i]);
-// 			if (value)
-// 				tokenized_line[i] = ft_strdup(value);
-// 			else
-// 				tokenized_line[i] = ft_strdup("");
-// 		}
-// 		i++;
-// 	}
-// 	return (tokenized_line);
-// }
-t_env *expander(t_env *env_list, t_cmds *cmds)
+t_env	*expander(t_env *env_list, t_cmds *cmds)
 {
-	t_env *current = env_list;
-	char *value;
+	t_env	*current;
+	char	*value;
 
+	current = env_list;
 	while (current)
 	{
 		if (current->name[0] == '$' && current->single_quote == 0)
@@ -51,7 +31,7 @@ t_env *expander(t_env *env_list, t_cmds *cmds)
 		}
 		current = current->next;
 	}
-	return env_list;
+	return (env_list);
 }
 
 /**
