@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/03 18:24:20 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/03 18:54:40 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ t_env	*expander(t_env *env_list, t_cmds *cmds)
 void	handle_input(char *line, t_cmds *cmds)
 {
 	char	**tokenized_line;
+
+	// AQUI TENDRIAMOS QUE LLAMAR A LA FUNCION QUE CHECKEA TODAS LAS TRAMPAS QUE HAY QUE TAPAR
+	// EJEMPLO: COMILLAS SIN CERRAR; PIPE AL INICIO; DOBLE PIPE; DOBLE REDIRECCION SEPARADO POR ESPACIO
+	// ETC
+	// initial_check(line);
 
 	// Actualmente tras parsear la linea y tener una lista de tokens divida
 	// y lista para ejecutar  
