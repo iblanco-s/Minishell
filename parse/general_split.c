@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/03 18:19:24 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/05 18:31:30 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ t_env	*get_next_word(char **line)
 	while ((*line)[i] && (*line)[i] != ' '
 		&& (*line)[i] != '\"' && (*line)[i] != '\'')
 		i++;
+	if ((*line)[i] == '\"' || (*line)[i] == '\'')
+		node->join_with_quotes = 1;
+	else
+		node->join_with_quotes = 0;
 	node->name = ft_strndup(*line, i - 1);
 	node->single_quote = 0;
 	node->next = NULL;
@@ -75,6 +79,10 @@ t_env	*get_next_quote(char **line, int single_quote, char quote_type)
 	node->name = ft_strndup(*line, i - 1);
 	node->next = NULL;
 	node->single_quote = single_quote;
+	if ((*line)[i + 1] && (*line)[i + 1] != ' ')
+		node->join_with_quotes = 1;
+	else
+		node->join_with_quotes = 0;
 	*line += i + 1;
 	return (node);
 }
@@ -109,11 +117,12 @@ t_env	*general_split(char *line, t_cmds *cmds)
 			check_pipes_and_redirs(token_list);
 		}
 	}
+	// join nodes depending on flag join_with_quotes
+	join_nodes_because_quotes(&token_list);
 	// from echo hola$USER -> echo holaINIGO
 	split_dollar(token_list, cmds);
 	// from "echo holaINIGO | cat -e" -> nodo 1: "echo holaINIGO", nodo 2: "cat -e"
 	group_by_pipes(&token_list);
-
 	// Aqui printeo la lista, libero memoria y termino la ejecucion
 	// para debuggear que se esta parseando bien, luego se eliminara
 	t_env tmp = *token_list;

@@ -6,32 +6,44 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/03 18:54:40 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/05 18:30:43 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_env	*expander(t_env *env_list, t_cmds *cmds)
+/**
+ * @brief Junta los tokens que por las comillas se han dividido
+ * pero que deberian ir juntos
+ * 
+ * @param token_list Lista de tokens
+*/
+void	join_nodes_because_quotes(t_env **token_list)
 {
 	t_env	*current;
-	char	*value;
+	t_env	*tmp;
 
-	current = env_list;
+	current = *token_list;
 	while (current)
 	{
-		if (current->name[0] == '$' && current->single_quote == 0)
+		if (current->join_with_quotes == 1)
 		{
-			value = get_env_value(cmds, &current->name[1]);
-			free(current->name);
-			if (value)
-				current->name = ft_strdup(value);
-			else
-				current->name = ft_strdup("");
+			if (current->next == NULL)
+				break ;
+			tmp = current->next;
+			current->next = tmp->next;
+			current->name = ft_strjoin(current->name, tmp->name);
+			if (tmp->join_with_quotes == 1)
+			{
+				free(tmp->name);
+				free(tmp);
+				continue ;
+			}
+			free(tmp->name);
+			free(tmp);
 		}
 		current = current->next;
 	}
-	return (env_list);
 }
 
 /**
