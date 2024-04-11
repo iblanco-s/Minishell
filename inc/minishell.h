@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/05 18:24:03 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/11 11:08:01 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 # define ERROR 
@@ -92,6 +93,10 @@ void	divide_str_by_char(t_env *token_list, int i);
 void	check_pipes_and_redirs(t_env *token_list);
 char	**list_to_array(t_env *token_list);
 void	join_nodes_because_quotes(t_env **token_list);
+int		in_redir_type(char *node);
+int		out_redir_type(char *node);
+char	infile_name(char *node);
+char	outfile_name(char *node);
 
 // GROUP BY PIPES
 void	group_by_pipes(t_env **token_list);
