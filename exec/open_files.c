@@ -6,7 +6,7 @@
 /*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/11 11:14:23 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/11 11:55:25 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,26 @@
 
 void	heredoc(char *delimiter)
 {
-	
+	char	*line;
+	int		doc_file;
+
+	doc_file = open("/tmp/here_doc", O_CREAT | O_RDWR | O_TRUNC);
+	write(1, "< ", 2);
+	line = get_next_line(STDIN_FILENO);
+	if (!line)
+		close(doc_file);
+		return ;
+	while (ft_strncmp(line, delimiter, ft_strlen(line) - 1))
+	{
+		write(doc_file, line, ft_strlen(line));
+		free (line);
+		write(1, "> ", 2);
+		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			break;
+	}
+	free (line);
+	close (doc_file);
 }
 
 int	open_infile(char *file)
@@ -29,7 +48,10 @@ int	open_infile(char *file)
 	if (!*file)
 		return (STDIN_FILENO);
 	if (redir_type == 2)
-		//heredoc
+	{
+		heredoc(file);
+		fd_in = open("tmp/here_doc", O_RDONLY, 0444);
+	}
 	else
 	{
 		if (access(file, F_OK) != 0)
