@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_out_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:09:11 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/11 10:42:28 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/15 09:23:09 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ char	infile_name(char *node)
 	if (*node == '<')
 	{
 		node++;
-		if (*node =='<')
+		if (*node == '<')
 			node++;
 	}
 	while (ft_isspace(*node))
 		node++;
 	len = 0;
-	while (*node =! ' ')
+	while (*node != ' ')
 		len++;
 	return (ft_substr(node, 0, len));
 }
@@ -84,7 +84,7 @@ char	infile_name(char *node)
 char	outfile_name(char *node)
 {
 	int	len;
-	
+
 	while (*node && *node != '>')
 		node++;
 	if (*node == '>')
@@ -96,7 +96,7 @@ char	outfile_name(char *node)
 	while (ft_isspace(*node))
 		node++;
 	len = 0;
-	while (*node !=' ')
+	while (*node != ' ')
 		len++;
-	return (ft_substr(node, 0 , len));
+	return (ft_substr(node, 0, len));
 }
