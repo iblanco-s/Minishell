@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:48:58 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/21 18:56:58 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:31:43 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(t_cmds *cmds)
+int	ft_exit(t_shell *shell)
 {
-	int	i;
+	int		i;
+	t_cmds	*cmds;
 
+	cmds = &shell->cmds;
 	i = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 		exit(0);

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:55:57 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/21 18:55:44 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:21:11 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_env(t_cmds *cmds)
+int	ft_env(t_shell *shell)
 {
 	t_env	*env;
 	t_env	*aux;
 	int		ret;
 
 	ret = 0;
-	env = cmds->env;
+	env = shell->env;
 	while (env != NULL)
 	{
 		if (env->value)

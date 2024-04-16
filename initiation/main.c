@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/03/29 11:10:14 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/14 20:58:51 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	ft_free_envs(t_env *env)
 	}
 }
 
-void	free_general(t_cmds *cmds)
+void	free_general(t_shell *shell)
 {
-	if (cmds)
+	if (shell)
 	{
-		if (cmds->env)
-			ft_free_envs(cmds->env);
-		free(cmds);
+		if (shell->env)
+			ft_free_envs(shell->env);
+		free(shell);
 	}
 }
 
@@ -42,12 +42,12 @@ void	free_general(t_cmds *cmds)
  * donde se liberara la memoria y sacar mensaje de error
  * 
  * @param msg Mensaje de error
- * @param cmds Estructura con los env ya obtenidos para free
+ * @param shell Estructura con los env ya obtenidos para free
 */
-void	ft_error(char *msg, t_cmds *cmds)
+void	ft_error(char *msg, t_shell *shell)
 {
 	ft_putstr_fd(msg, 2);
-	free_general(cmds);
+	free_general(shell);
 	exit(EXIT_FAILURE);
 }
 
@@ -56,9 +56,9 @@ void	ft_error(char *msg, t_cmds *cmds)
  * donde se leera la entrada del usuario
  * y se procesara una y otra vez 
  * 
- * @param cmds Estructura con los env ya obtenidos
+ * @param shell Estructura con los env ya obtenidos
 */
-void	main_loop(t_cmds *cmds)
+void	main_loop(t_shell *shell)
 {
 	char	*line;
 
@@ -66,9 +66,9 @@ void	main_loop(t_cmds *cmds)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-			ft_error("minishell: init: readline error", cmds);
+			ft_error("minishell: init: readline error", shell);
 		add_history(line);
-		handle_input(line, cmds);
+		handle_input(line, shell);
 		// TODO: ejecutar linea y liberar memoria de la linea
 	}
 }

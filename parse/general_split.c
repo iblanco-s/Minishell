@@ -6,51 +6,52 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/05 18:31:30 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/16 23:37:04 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_lstsize(t_env *lst)
+/**
+ * @brief Junta los tokens que por las comillas se han dividido
+ * pero que deberian ir juntos
+ * 
+ * @param token_list Lista de tokens
+*/
+void	join_nodes_because_quotes(t_parse **token_list)
 {
-	int	i;
+	t_parse	*current;
+	t_parse	*tmp;
 
-	i = 0;
-	while (lst)
+	current = *token_list;
+	while (current)
 	{
-		lst = lst -> next;
-		i++;
+		if (current->join_with_quotes == 1)
+		{
+			if (current->next == NULL)
+				break ;
+			tmp = current->next;
+			current->next = tmp->next;
+			current->token = ft_strjoin(current->token, tmp->token);
+			if (tmp->join_with_quotes == 1)
+			{
+				free(tmp->token);
+				free(tmp);
+				continue ;
+			}
+			free(tmp->token);
+			free(tmp);
+		}
+		current = current->next;
 	}
-	return (i);
 }
 
-char	**list_to_array(t_env *token_list)
-{
-	char	**tokens;
-	t_env	*tmp;
-	int		i;
-
-	i = 0;
-	tokens = malloc(sizeof(char *) * (ft_lstsize(token_list) + 1));
-	while (token_list)
-	{
-		tmp = token_list;
-		tokens[i] = token_list->name;
-		token_list = token_list->next;
-		free(tmp);
-		i++;
-	}
-	tokens[i] = NULL;
-	return (tokens);
-}
-
-t_env	*get_next_word(char **line)
+t_parse	*get_next_word(char **line)
 {
 	int		i;
-	t_env	*node;
+	t_parse	*node;
 
-	node = malloc(sizeof(t_env));
+	node = malloc(sizeof(t_parse));
 	i = 0;
 	while ((*line)[i] && (*line)[i] != ' '
 		&& (*line)[i] != '\"' && (*line)[i] != '\'')
@@ -59,26 +60,26 @@ t_env	*get_next_word(char **line)
 		node->join_with_quotes = 1;
 	else
 		node->join_with_quotes = 0;
-	node->name = ft_strndup(*line, i - 1);
-	node->single_quote = 0;
+	node->token = ft_strndup(*line, i - 1);
+	node->quote = 0;
 	node->next = NULL;
 	*line += i;
 	return (node);
 }
 
-t_env	*get_next_quote(char **line, int single_quote, char quote_type)
+t_parse	*get_next_quote(char **line, int quote, char quote_type)
 {
 	int		i;
-	t_env	*node;
+	t_parse	*node;
 
-	node = malloc(sizeof(t_env));
+	node = malloc(sizeof(t_parse));
 	i = 0;
 	*line += 1;
-	while ((*line)[i] && (*line)[i] != quote_type)
+	while ((*line)[i] && ((*line)[i] != quote_type || (*line)[i - 1] == '\\'))
 		i++;
-	node->name = ft_strndup(*line, i - 1);
+	node->token = ft_strndup(*line, i - 1); //TODO: FUNCION QUE QUITA LAS \ cuando hay " o '
 	node->next = NULL;
-	node->single_quote = single_quote;
+	node->quote = quote;
 	if ((*line)[i + 1] && (*line)[i + 1] != ' ')
 		node->join_with_quotes = 1;
 	else
@@ -97,9 +98,9 @@ t_env	*get_next_quote(char **line, int single_quote, char quote_type)
  * 
  * @return t_env* Lista con la linea parseada
 */
-t_env	*general_split(char *line, t_cmds *cmds)
+t_parse	*general_split(char *line, t_shell *shell)
 {
-	t_env	*token_list;
+	t_parse	*token_list;
 
 	token_list = NULL;
 	while (*line)
@@ -107,42 +108,21 @@ t_env	*general_split(char *line, t_cmds *cmds)
 		while (*line == ' ')
 			line++;
 		if (*line == '\"')
-			ft_lstadd_back(&token_list, get_next_quote(&line, 0, '\"'));
+			ft_lstadd_back_parse(&token_list, get_next_quote(&line, 2, '\"'));
 		else if (*line == '\'')
-			ft_lstadd_back(&token_list, get_next_quote(&line, 1, '\''));
+			ft_lstadd_back_parse(&token_list, get_next_quote(&line, 1, '\''));
 		else if (*line)
 		{
-			ft_lstadd_back(&token_list, get_next_word(&line));
+			ft_lstadd_back_parse(&token_list, get_next_word(&line));
 			//TODO: DEBEMOS TENER EN CUENTA || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 			check_pipes_and_redirs(token_list);
 		}
 	}
+	// from echo hola$USER -> echo holaINIGO
+	split_dollar(token_list, shell);
 	// join nodes depending on flag join_with_quotes
 	join_nodes_because_quotes(&token_list);
-	// from echo hola$USER -> echo holaINIGO
-	split_dollar(token_list, cmds);
 	// from "echo holaINIGO | cat -e" -> nodo 1: "echo holaINIGO", nodo 2: "cat -e"
-	group_by_pipes(&token_list);
-	// Aqui printeo la lista, libero memoria y termino la ejecucion
-	// para debuggear que se esta parseando bien, luego se eliminara
-	t_env tmp = *token_list;
-	while (tmp.next)
-	{
-		printf("Lista final: %s\n", tmp.name);
-		tmp = *tmp.next;
-	}
-	printf("Lista final: %s\n", tmp.name);
-	//free all env and  cmd
-	t_env *tmp2;
-	while (token_list)
-	{
-		tmp2 = token_list;
-		token_list = token_list->next;
-		free(tmp2->name);
-		free(tmp2);
-	}
-	free_general(cmds);
-	exit(0);
-	
+	group_by_pipes_and_redirs(shell, &token_list);
 	return (token_list);
 }
