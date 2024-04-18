@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+         #
+#    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/11 10:50:23 by junesalaber      ###   ########.fr        #
+#    Updated: 2024/04/18 10:48:13 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
+CC = gcc -Wall -Werror -Wextra -fsanitize=address -g3
 
 RM = rm -f
 
@@ -35,6 +35,8 @@ SRCS = builtin/ft_echo.c \
 	   parse/group_by_pipes.c \
 	   parse/expand_dollar.c \
 	   parse/in_out_files.c \
+	   exec/open_files.c \
+	   exec/pipe.c
 
 OBJS = $(SRCS:.c=.o)
 

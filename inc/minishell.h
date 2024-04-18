@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/11 11:08:01 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/18 12:12:10 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,50 @@
 
 // ERRORS
 # define ERROR_MANY_ARGS "minishell: init: too many arguments"
+# define PIPE_ERROR "minishell: pipe() failed"
+# define FORK_ERROR "minishell: fork() failed"
+
+// ESTRUCTURA PARA PARSEO
+typedef struct s_parse
+{
+	char			*token;
+	int				quote;
+	int				join_with_quotes;
+	struct s_parse	*next;
+}	t_parse;
 
 // ESTRUCTURA DE VARIABLES DE ENTORNO
 // NAME: NOMBRE DE LA VARIABLE Y VALUE: VALOR DE LA VARIABLE
-// PERO TAMBIEN SE HA USADO EN EL PARSEO PARA GUARDAR LOS TOKENS
-// NAME: NOMBRE DEL TOKEN, VALUE: NULL Y SINGLE_QUOTE: PARA SABER SI
-// EL TOKEN ESTA EN COMILLAS SIMPLES Y NO SE DEBE EXPANDIR
 typedef struct s_env
 {
 	char			*name;
 	char			*value;
-	int				single_quote;
-	int				join_with_quotes;
 	struct s_env	*next;
 }	t_env;
 
-// ESTRUCTURA GENERAL: 
-// LA IDEA INICIAL ERA QUE CADA
-// COMANDO TUVIERA SU PROPIA ESTRUCTURA, 
-// EJ: ECHO "HOLA" "ADIOS" SERIA UNA ESTRUCTURA, OPTS = [ECHO, "HOLA", "ADIOS"]
-// Y ENV = [VARIABLES DE ENTORNO]
-// PERO SEGURAMENTE TENGAMOS QUE CAMBIAR ESTO, Y POR LO TANTO TAMBIEN
-// CAMBIAR LA FORMA DE PASAR LOS PARAMETROS A LOS BUILTINS
+
 typedef struct s_cmds
 {
 	char			**opts;
-	t_env			*env;
+	t_env			*aux_list_parse;
+	//flags int red;
+	char			*infile;
+	char			*outfile;
+	int				infile_fd;
+	int				outfile_fd;
+	char			*eof;
+	int				write_mode;
+	struct s_cmds	*next;
 }	t_cmds;
+
+
+typedef struct s_shell
+{
+	t_cmds			cmds;
+	t_env			*env; //-> enviroments
+}	t_shell;
+
+extern	long long g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
@@ -93,13 +110,24 @@ void	divide_str_by_char(t_env *token_list, int i);
 void	check_pipes_and_redirs(t_env *token_list);
 char	**list_to_array(t_env *token_list);
 void	join_nodes_because_quotes(t_env **token_list);
-int		in_redir_type(char *node);
-int		out_redir_type(char *node);
-char	infile_name(char *node);
-char	outfile_name(char *node);
+int		ft_lstsize_parse(t_parse *lst);
+t_parse	*ft_lstlast_parse(t_parse *lst);
+void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
+// int		in_redir_type(char *node);
+// int		out_redir_type(char *node);
+// char	infile_name(char *node);
+// char	outfile_name(char *node);
 
 // GROUP BY PIPES
 void	group_by_pipes(t_env **token_list);
+
+// EXEC
+void	heredoc(char *delimiter);
+int		open_infile(char *file);
+int		outfile_type(char *file);
+void	ft_error(t_shell *shell, char *error_msg, int exit_status);
+void	dup_close_fd(int pipe_fd[2], int fd);
+void	start_pipe(t_shell *shell);
 
 // MAIN
 void	free_general(t_cmds *cmds);
