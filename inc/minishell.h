@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/18 12:12:10 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:37:20 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-
 typedef struct s_cmds
 {
 	char			**opts;
@@ -69,7 +68,6 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }	t_cmds;
 
-
 typedef struct s_shell
 {
 	t_cmds			cmds;
@@ -80,12 +78,12 @@ extern	long long g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
-int		ft_unset(t_cmds *cmds);
-int		ft_export(t_cmds *cmds);
-int		ft_env(t_cmds *cmds);
-int		ft_echo(t_cmds *cmds);
-int		ft_exit(t_cmds *cmds);
-int		ft_cd(t_cmds *cmds);
+int ft_unset(t_shell *shell);
+int ft_export(t_shell *shell);
+int ft_env(t_shell *shell);
+int ft_echo(t_shell *shell);
+int ft_exit(t_shell *shell);
+int ft_cd(t_shell *shell);
 
 // BUILTINS UTILS
 char	*ft_strndup(const char *s, size_t n);
@@ -93,23 +91,23 @@ void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 int		ft_strcmp(const char *str1, const char *str2);
 int		check_alpha_env(t_cmds *cmds, char *str, char *name_command);
-int		change_env_value(t_cmds *cmds, char *name_env, char *value_env);
-char	*get_env_value(t_cmds *cmds, char *name);
-int		change_pwd_and_oldpwd(t_cmds *cmds);
-int		go_to_path(t_cmds *cmds, char *path);
+int		change_env_value(t_shell *shell, char *name_env, char *value_env);
+char	*get_env_value(t_shell *shell, char *name);
+int		change_pwd_and_oldpwd(t_shell *shell);
+int		go_to_path(t_shell *shell, char *path);
 
 // INITIATION
 t_env	*env_to_list(char **env);
-t_cmds	*setup_program(char **env);
+t_shell	*setup_program(char **env);
 
 // PARSE
-void	handle_input(char *line, t_cmds *cmds);
-t_env	*general_split(char *line, t_cmds *cmds);
-void	split_dollar(t_env *tokens_list, t_cmds *cmds);
+void	handle_input(char *line, t_shell *shell);
+t_parse	*general_split(char *line, t_shell *shell);
+void	split_dollar(t_parse *tokens_list, t_shell *shell);
 void	divide_str_by_char(t_env *token_list, int i);
-void	check_pipes_and_redirs(t_env *token_list);
+void	check_pipes_and_redirs(t_parse *token_list);
 char	**list_to_array(t_env *token_list);
-void	join_nodes_because_quotes(t_env **token_list);
+void	join_nodes_because_quotes(t_parse **token_list);
 int		ft_lstsize_parse(t_parse *lst);
 t_parse	*ft_lstlast_parse(t_parse *lst);
 void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
@@ -119,7 +117,7 @@ void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
 // char	outfile_name(char *node);
 
 // GROUP BY PIPES
-void	group_by_pipes(t_env **token_list);
+void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
 
 // EXEC
 void	heredoc(char *delimiter);
@@ -130,6 +128,6 @@ void	dup_close_fd(int pipe_fd[2], int fd);
 void	start_pipe(t_shell *shell);
 
 // MAIN
-void	free_general(t_cmds *cmds);
+void	free_general(t_shell *shell);
 
 #endif

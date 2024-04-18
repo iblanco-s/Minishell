@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:57:44 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/03 18:17:53 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/16 20:45:46 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 // Combines the og token + expanded value
 // ex: test$HOME -> test /home/user -> test/home/user
-void	combine(t_env *node, char *value_to_add)
+void	combine(t_parse *node, char *value_to_add)
 {
 	char	*tmp;
 
-	if (node->name == NULL)
-		node->name = ft_strdup(value_to_add);
+	if (node->token == NULL)
+		node->token = ft_strdup(value_to_add);
 	else
 	{
-		tmp = node->name;
-		node->name = ft_strjoin(node->name, value_to_add);
+		tmp = node->token;
+		node->token = ft_strjoin(node->token, value_to_add);
 		free(tmp);
 	}
 }
@@ -48,8 +48,8 @@ char	*check_single_quote(char *string_to_check)
 	return (return_str);
 }
 
-void	expand_and_combine(t_env *actual_node,
-	t_cmds *cmds, char **split_by_dollar, int i)
+void	expand_and_combine(t_parse *actual_node,
+	t_shell *shell, char **split_by_dollar, int i)
 {
 	char	*splitted_single_quote;
 	char	*string_to_expand;
@@ -57,7 +57,7 @@ void	expand_and_combine(t_env *actual_node,
 	while (split_by_dollar[i])
 	{
 		splitted_single_quote = check_single_quote(split_by_dollar[i]);
-		string_to_expand = get_env_value(cmds, split_by_dollar[i]);
+		string_to_expand = get_env_value(shell, split_by_dollar[i]);
 		if (string_to_expand)
 			combine(actual_node, string_to_expand);
 		free(string_to_expand);
@@ -77,42 +77,42 @@ void	expand_and_combine(t_env *actual_node,
 // a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
 // COEMNTAR FUNCIONES LUEGO  NO ME ACUERDO 
 // a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
-void	divide_dollars(t_env *actual_node, t_cmds *cmds, int i)
+void	divide_dollars(t_parse *actual_node, t_shell *shell, int i)
 {
 	char	**split_by_dollar;
 
-	split_by_dollar = ft_split(actual_node->name, '$');
+	split_by_dollar = ft_split(actual_node->token, '$');
 	if (i > 0)
 	{
-		actual_node->name[i] = '\0';
+		actual_node->token[i] = '\0';
 		i = 1;
 		free(split_by_dollar[0]);
 	}
 	else
 	{
-		free(actual_node->name);
-		actual_node->name = NULL;
+		free(actual_node->token);
+		actual_node->token = NULL;
 	}
-	expand_and_combine(actual_node, cmds, split_by_dollar, i);
+	expand_and_combine(actual_node, shell, split_by_dollar, i);
 	free(split_by_dollar);
 }
 
-void	split_dollar(t_env *token_list, t_cmds *cmds)
+void	split_dollar(t_parse *token_list, t_shell *shell)
 {
 	int		i;
-	t_env	*head;
+	t_parse	*head;
 
 	i = 0;
 	head = token_list;
-	while (token_list && token_list->name)
+	while (token_list && token_list->token)
 	{
-		if (token_list->single_quote != 1)
+		if (token_list->quote != 1)
 		{
-			while (token_list->name[i])
+			while (token_list->token[i])
 			{
-				if (token_list->name[i] == '$')
+				if (token_list->token[i] == '$')
 				{
-					divide_dollars(token_list, cmds, i);
+					divide_dollars(token_list, shell, i);
 					break ;
 				}
 				i++;

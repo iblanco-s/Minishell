@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup.c                                            :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 17:46:49 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/14 20:51:54 by inigo            ###   ########.fr       */
+/*   Created: 2024/04/14 20:49:37 by inigo             #+#    #+#             */
+/*   Updated: 2024/04/14 21:01:12 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	update_shlvl(t_shell *shell)
+int	ft_lstsize_parse(t_parse *lst)
 {
-	char	*value;
-	int		lvl;
+	int	i;
 
-	value = get_env_value(shell, "SHLVL");
-	if (value)
+	i = 0;
+	while (lst)
 	{
-		lvl = ft_atoi(value);
-		lvl++;
-		change_env_value(shell, "SHLVL", ft_itoa(lvl));
-		free(value);
+		lst = lst -> next;
+		i++;
 	}
-	else
-		change_env_value(shell, "SHLVL", "1");
+	return (i);
 }
 
-t_shell	*setup_program(char **env)
+t_parse	*ft_lstlast_parse(t_parse *lst)
 {
-	t_shell	*shell;
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
 
-	shell = malloc(sizeof(t_shell));
-	shell->env = env_to_list(env);
-	update_shlvl(shell);
-	return (shell);
+void	ft_lstadd_back_parse(t_parse **lst, t_parse *new)
+{
+	if (!*lst)
+		*lst = new;
+	else
+		ft_lstlast_parse(*lst)->next = new;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:51:36 by inigo             #+#    #+#             */
-/*   Updated: 2023/12/21 18:55:40 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:20:37 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	check_n_case(t_cmds *cmds)
 	return (1);
 }
 
-int	ft_echo(t_cmds *cmds)
+int	ft_echo(t_shell *shell)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_cmds	*cmds;
 
+	cmds = &shell->cmds;
 	j = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 	{

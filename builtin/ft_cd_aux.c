@@ -6,17 +6,17 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:50:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/01 20:54:47 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/14 20:10:03 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*get_env_value(t_cmds *cmds, char *name)
+char	*get_env_value(t_shell *shell, char *name)
 {
 	t_env	*current;
 
-	current = cmds->env;
+	current = shell->env;
 	while (current != NULL)
 	{
 		if (ft_strcmp(current->name, name) == 0)
@@ -26,7 +26,7 @@ char	*get_env_value(t_cmds *cmds, char *name)
 	return (NULL);
 }
 
-int	create_oldpwd(t_cmds *cmds, char *oldpwd)
+int	create_oldpwd(t_shell *shell, char *oldpwd)
 {
 	t_env	*node;
 
@@ -34,30 +34,30 @@ int	create_oldpwd(t_cmds *cmds, char *oldpwd)
 	node->name = "OLDPWD";
 	node->value = oldpwd;
 	node->next = NULL;
-	ft_lstadd_back(&cmds->env, node);
+	ft_lstadd_back(&shell->env, node);
 	return (1);
 }
 
-int	change_pwd_and_oldpwd(t_cmds *cmds)
+int	change_pwd_and_oldpwd(t_shell *shell)
 {
 	char	*pwd;
 	char	*oldpwd;
 
 	pwd = getcwd(NULL, 0);
-	oldpwd = ft_strdup(get_env_value(cmds, "PWD"));
+	oldpwd = ft_strdup(get_env_value(shell, "PWD"));
 	if (oldpwd != NULL)
 	{
-		if (change_env_value(cmds, "OLDPWD", oldpwd) == 0)
-			create_oldpwd(cmds, oldpwd);
+		if (change_env_value(shell, "OLDPWD", oldpwd) == 0)
+			create_oldpwd(shell, oldpwd);
 	}
 	else
-		create_oldpwd(cmds, NULL);
+		create_oldpwd(shell, NULL);
 	if (pwd != NULL)
-		change_env_value(cmds, "PWD", pwd);
+		change_env_value(shell, "PWD", pwd);
 	return (1);
 }
 
-int	go_to_path(t_cmds *cmds, char *path)
+int	go_to_path(t_shell *shell, char *path)
 {
 	int	ret;
 
@@ -72,6 +72,6 @@ int	go_to_path(t_cmds *cmds, char *path)
 		return (1);
 	}
 	ret = chdir(path);
-	change_pwd_and_oldpwd(cmds);
+	change_pwd_and_oldpwd(shell);
 	return (ret);
 }
