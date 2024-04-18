@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
 /*   Updated: 2024/04/16 23:37:20 by inigo            ###   ########.fr       */
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 # define ERROR 
@@ -32,6 +33,8 @@
 
 // ERRORS
 # define ERROR_MANY_ARGS "minishell: init: too many arguments"
+# define PIPE_ERROR "minishell: pipe() failed"
+# define FORK_ERROR "minishell: fork() failed"
 
 // ESTRUCTURA PARA PARSEO
 typedef struct s_parse
@@ -51,7 +54,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-
 typedef struct s_cmds
 {
 	char			**opts;
@@ -66,12 +68,13 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }	t_cmds;
 
-
 typedef struct s_shell
 {
 	t_cmds			cmds;
 	t_env			*env; //-> enviroments
 }	t_shell;
+
+extern	long long g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
@@ -108,9 +111,21 @@ void	join_nodes_because_quotes(t_parse **token_list);
 int		ft_lstsize_parse(t_parse *lst);
 t_parse	*ft_lstlast_parse(t_parse *lst);
 void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
+// int		in_redir_type(char *node);
+// int		out_redir_type(char *node);
+// char	infile_name(char *node);
+// char	outfile_name(char *node);
 
 // GROUP BY PIPES
 void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
+
+// EXEC
+void	heredoc(char *delimiter);
+int		open_infile(char *file);
+int		outfile_type(char *file);
+void	ft_error(t_shell *shell, char *error_msg, int exit_status);
+void	dup_close_fd(int pipe_fd[2], int fd);
+void	start_pipe(t_shell *shell);
 
 // MAIN
 void	free_general(t_shell *shell);
