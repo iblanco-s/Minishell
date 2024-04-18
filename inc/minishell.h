@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/16 23:37:20 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/18 13:50:58 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ extern	long long g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
-int ft_unset(t_shell *shell);
-int ft_export(t_shell *shell);
-int ft_env(t_shell *shell);
-int ft_echo(t_shell *shell);
-int ft_exit(t_shell *shell);
-int ft_cd(t_shell *shell);
+int		ft_unset(t_shell *shell);
+int		ft_export(t_shell *shell);
+int		ft_env(t_shell *shell);
+int		ft_echo(t_shell *shell);
+int		ft_exit(t_shell *shell);
+int		ft_cd(t_shell *shell);
 
 // BUILTINS UTILS
 char	*ft_strndup(const char *s, size_t n);
@@ -121,11 +121,12 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
 
 // EXEC
 void	heredoc(char *delimiter);
-int		open_infile(char *file);
-int		outfile_type(char *file);
+int		open_infile(char *file, int redir_type);
+int		outfile_type(char *file, int redir_type);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
 void	dup_close_fd(int pipe_fd[2], int fd);
-void	start_pipe(t_shell *shell);
+void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2]);
+void	exec_pipe(t_shell *shell, t_cmds *node);
 
 // MAIN
 void	free_general(t_shell *shell);

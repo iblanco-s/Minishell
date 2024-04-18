@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/18 13:29:41 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:52:00 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2])
 {
 	pid_t	fork_pid;
 
+	fork_pid = fork();
 	if (fork_pid == -1)
 		ft_error(shell, FORK_ERROR, EXIT_FAILURE);
 	if (fork_pid == 0)
@@ -67,5 +68,5 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 		node = node->next;
 	}
 	waitpid(-1, &tmp_status, 0);
-	g_exit_status = tmp_status >> 8;
+	// g_exit_status = tmp_status >> 8;
 }

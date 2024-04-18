@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:09:11 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/15 09:23:09 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:44:15 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	infile_name(char *node)
 
 	while (ft_isspace(*node))
 		node++;
-	if (!*node)
-		return (NULL);
+	// if (!*node)
+	// 	return (NULL);
 	if (*node == '<')
 	{
 		node++;
@@ -77,7 +77,7 @@ char	infile_name(char *node)
 	len = 0;
 	while (*node != ' ')
 		len++;
-	return (ft_substr(node, 0, len));
+	return (*ft_substr(node, 0, len));
 }
 
 //coge el nombre del outfile 
@@ -98,5 +98,5 @@ char	outfile_name(char *node)
 	len = 0;
 	while (*node != ' ')
 		len++;
-	return (ft_substr(node, 0, len));
+	return (*ft_substr(node, 0, len));
 }

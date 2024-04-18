@@ -6,13 +6,13 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 09:07:46 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/01/17 10:35:28 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:38:35 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlen_gnl(char *s)
 {
 	size_t	count;
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(char *s)
 	return (count);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
@@ -54,9 +54,9 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (0);
 		s1[0] = 0;
 	}
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	str = (char *)malloc((ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1) * sizeof(char));
 	if (!str)
-		return (ft_free(&s1));
+		return (ft_free_gnl(&s1));
 	i = -1;
 	while (s1[++i])
 		str[i] = s1[i];
@@ -68,7 +68,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*str;
@@ -76,7 +76,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	if (start > ft_strlen(s))
+	if (start > ft_strlen_gnl(s))
 	{
 		str = malloc(sizeof(char) * (1));
 		if (!str)
@@ -84,12 +84,12 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		str[0] = '\0';
 		return (str);
 	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
+	if (ft_strlen_gnl(s) - start < len)
+		len = ft_strlen_gnl(s) - start;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	while (start < ft_strlen(s) && i < len && s[start])
+	while (start < ft_strlen_gnl(s) && i < len && s[start])
 		str[i++] = s[start++];
 	str[i] = '\0';
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 09:07:12 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/01/17 10:21:08 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:38:09 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_free(char **str);
-size_t	ft_strlen(char *s);
-char	*ft_strchr(char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_free_gnl(char **str);
+size_t	ft_strlen_gnl(char *s);
+char	*ft_strchr_gnl(char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
 
 #endif

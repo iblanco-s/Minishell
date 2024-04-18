@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/15 09:41:05 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:46:59 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	heredoc(char *delimiter)
 	close (doc_file);
 }
 
-int	open_infile(char *file)
+int	open_infile(char *file, int redir_type)
 {
 	int		fd_in;
-	int		redir_type;
-	char	*node;
+	// int		redir_type;
+	// char	*node;
 
 	// esto deberia entrar como parametro a la hora de hacer el parseo
-		redir_type = in_redir_type(node);
+		// redir_type = in_redir_type(node);
 	if (!*file)
 		return (STDIN_FILENO);
 	if (redir_type == 2)
@@ -66,14 +66,14 @@ int	open_infile(char *file)
 	return (fd_in);
 }
 
-int	outfile_type(char *file)
+int	outfile_type(char *file, int redir_type)
 {
 	int		fd_out;
-	int		redir_type;
-	char	*node;
+	// int		redir_type;
+	// char	*node;
 	int		mode;
 	// esto deberia entrar como parametro a la hora de hacer el parseo
-	redir_type = out_redir_type(node);
+	// redir_type = out_redir_type(node);
 	if (!file)
 		return (STDOUT_FILENO);
 	if (redir_type == 1)

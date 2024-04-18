@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:33:29 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/11 11:45:25 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/18 13:36:34 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
