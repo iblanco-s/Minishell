@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/18 12:13:26 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:31:58 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,10 @@ void	dup_close_fd(int pipe_fd[2], int fd)
 		close(pipe_fd[0]);
 }
 
-void	start_pipe(t_shell *shell)
+void	start_pipe(t_shell *shell, int pipe_fd[2])
 {
 	pid_t	fork_pid;
-	int		pipe_fd[2];
-
-	if (pipe(pipe_fd) == -1)
-		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
-	fork_pid = fork();
+	
 	if (fork_pid == -1)
 		ft_error(shell, FORK_ERROR, EXIT_FAILURE);
 	if (fork_pid == 0)
@@ -53,6 +49,11 @@ void	start_pipe(t_shell *shell)
 void	exec_pipe(t_shell *shell)
 {
 	int		tmp_status;
+	int		pipe_fd[2];
+
+	if (pipe(pipe_fd) == -1)
+		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
+
 
 	waitpid(fork_pid, &tmp_status, 0);
 	g_exit_status = tmp_status >> 8;
