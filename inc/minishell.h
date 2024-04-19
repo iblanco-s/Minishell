@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/18 13:50:58 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:48:46 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_shell
 	t_env			*env; //-> enviroments
 }	t_shell;
 
-extern	long long g_exit_status;
+extern long long	g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
@@ -84,6 +84,9 @@ int		ft_env(t_shell *shell);
 int		ft_echo(t_shell *shell);
 int		ft_exit(t_shell *shell);
 int		ft_cd(t_shell *shell);
+int		ft_is_builtin(t_shell *shell);
+void	exec_builtin(t_shell *shell);
+void	exec_single_builtin(t_shell *shell);
 
 // BUILTINS UTILS
 char	*ft_strndup(const char *s, size_t n);
@@ -121,12 +124,18 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
 
 // EXEC
 void	heredoc(char *delimiter);
-int		open_infile(char *file, int redir_type);
-int		outfile_type(char *file, int redir_type);
+int		open_infile(char *file, int *infile_fd);
+void	create_outfile(char *file);
+int		outfile_type(char *file, int *outfile_fd);
+void	manage_outfile(t_cmds *node, int *next_pipe);
+void	manage_infile(t_cmds *node, int *prev_pipe);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
 void	dup_close_fd(int pipe_fd[2], int fd);
 void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2]);
 void	exec_pipe(t_shell *shell, t_cmds *node);
+void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
+char	*ft_get_path(char *path, char *cmd);void	exec_cmd(t_shell *shell, char **cmd);
+void 	manage_exec(t_shell *shell);
 
 // MAIN
 void	free_general(t_shell *shell);

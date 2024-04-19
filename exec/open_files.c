@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/18 13:46:59 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/19 09:38:41 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,59 +38,67 @@ void	heredoc(char *delimiter)
 	close (doc_file);
 }
 
-int	open_infile(char *file, int redir_type)
+int	open_infile(char *file, int *infile_fd)
 {
 	int		fd_in;
-	// int		redir_type;
-	// char	*node;
 
-	// esto deberia entrar como parametro a la hora de hacer el parseo
-		// redir_type = in_redir_type(node);
 	if (!*file)
 		return (STDIN_FILENO);
-	if (redir_type == 2)
+	while (*infile_fd)
 	{
-		heredoc(file);
-		fd_in = open("/tmp/here_doc", O_RDONLY, 0444);
+		if (*infile_fd == 2)
+		{
+			heredoc(file);
+			fd_in = open("/tmp/here_doc", O_RDONLY, 0444);
+		}
+		else if (*infile_fd == 1)
+		{
+			if (access(file, F_OK) != 0)
+				ft_putendl_fd("File does not exist", 2);
+			if (access(file, R_OK) != 0)
+				ft_putendl_fd("Read error", 2);
+			fd_in = open(file, O_RDONLY, 0444);
+		}
+		if (fd_in == -1)
+			ft_putendl_fd("Error opening file", 2);
+		infile_fd++;
 	}
-	else
-	{
-		if (access(file, F_OK) != 0)
-			ft_putendl_fd("File does not exist", 2);
-		if (access(file, R_OK) != 0)
-			ft_putendl_fd("Read error", 2);
-		fd_in = open(file, O_RDONLY, 0444);
-	}
-	if (fd_in == -1)
-		ft_putendl_fd("Error opening file", 2);
 	return (fd_in);
 }
 
-int	outfile_type(char *file, int redir_type)
+void	create_outfile(char *file)
 {
 	int		fd_out;
-	// int		redir_type;
-	// char	*node;
-	int		mode;
-	// esto deberia entrar como parametro a la hora de hacer el parseo
-	// redir_type = out_redir_type(node);
+	
 	if (!file)
-		return (STDOUT_FILENO);
-	if (redir_type == 1)
-		mode = O_TRUNC;
-	else
-		mode = O_APPEND;
+		return ;
 	if (access(file, F_OK) != 0)
 	{
-		fd_out = open(file, O_CREAT | O_WRONLY | mode, 0644);
+		fd_out = open(file, O_CREAT, 0644);
 		if (fd_out == -1)
-			ft_putendl_fd("Outfile error", 2);
+			ft_putendl_fd("Outfile create error", 2);
+		close(fd_out);
 	}
-	else
+	
+}
+
+int	outfile_type(char *file, int *outfile_fd)
+{
+	int		fd_out;
+	int		write_mode;
+	
+	if (!file)
+		return (STDOUT_FILENO);
+	while (outfile_fd)
 	{
-		fd_out = open (file, O_WRONLY | mode, 0644);
+		if (*outfile_fd == 1)
+			write_mode = O_APPEND;
+		else if (*outfile_fd == 2)
+			write_mode = O_TRUNC;
+		fd_out = open (file, O_WRONLY | write_mode, 0644);
 		if (fd_out == -1)
 			ft_putendl_fd("Outfile error", 2);
+		outfile_fd++;
 	}
 	return (fd_out);
 }

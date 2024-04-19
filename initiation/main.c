@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/18 13:42:35 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:22:34 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	main_loop(t_shell *shell)
 			ft_error(shell, "minishell: init: readline error", 1);
 		add_history(line);
 		handle_input(line, shell);
+		manage_exec(shell);
 		// TODO: ejecutar linea y liberar memoria de la linea
 	}
 }

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/18 13:52:00 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:43:11 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+long long	g_exit_status = 0;
 
 void	ft_error(t_shell *shell, char *error_msg, int exit_status)
 {
@@ -63,10 +65,15 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	while (node)
 	{
 		pipe(next_pipe);
+		manage_outfile(node, next_pipe);
+		manage_infile(node, pipe_fd);
 		start_pipe(shell, pipe_fd, next_pipe);
 		pipe_fd[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 		node = node->next;
 	}
-	waitpid(-1, &tmp_status, 0);
-	// g_exit_status = tmp_status >> 8;
+	close(pipe_fd[STDIN_FILENO]);
+	unlink("/tmp/here_doc");
+	while (waitpid(-1, &tmp_status, 0) > 0)
+		;
+	g_exit_status = tmp_status >> 8;
 }
