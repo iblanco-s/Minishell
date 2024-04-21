@@ -6,7 +6,7 @@
 /*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/19 16:48:46 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/21 19:50:42 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ typedef struct s_cmds
 {
 	char			**opts;
 	t_env			*aux_list_parse;
-	//flags int red;
-	char			*infile;
-	char			*outfile;
-	int				infile_fd;
-	int				outfile_fd;
+	char			**infile;
+	char			**outfile;
+	int				*infile_fd;
+	int				*outfile_fd;
 	char			*eof;
 	int				write_mode;
 	struct s_cmds	*next;
@@ -70,8 +69,8 @@ typedef struct s_cmds
 
 typedef struct s_shell
 {
-	t_cmds			cmds;
-	t_env			*env; //-> enviroments
+	t_cmds			*cmds;
+	t_env			*env;
 }	t_shell;
 
 extern long long	g_exit_status;
@@ -114,6 +113,8 @@ void	join_nodes_because_quotes(t_parse **token_list);
 int		ft_lstsize_parse(t_parse *lst);
 t_parse	*ft_lstlast_parse(t_parse *lst);
 void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
+void	check_join_quotes_because_special_chars(t_parse *token_list);
+void	delete_empty_nodes(t_parse **token_list);
 // int		in_redir_type(char *node);
 // int		out_redir_type(char *node);
 // char	infile_name(char *node);
@@ -121,6 +122,17 @@ void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
 
 // GROUP BY PIPES
 void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
+void	debugg_print_cmds(t_cmds *current_cmd);
+char	**list_to_array(t_env *token_list);
+int		ft_lstsize_tenv(t_env *lst);
+t_cmds	*create_new_cmds_node(void);
+void	free_list_parse(t_parse *list);
+
+// AUX REDDIRECTIONS
+void	set_output_redirection(t_cmds *cmd, t_parse **current, int fd_type);
+void	set_input_redirection(t_cmds *cmd, t_parse **current, int fd_type);
+char	**append_to_files_array(char **files, char *new_file);
+int		*append_to_reddir_type_array(int *reddir_types, int new_reddir_type);
 
 // EXEC
 void	heredoc(char *delimiter);

@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:24:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/14 20:48:04 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 13:05:49 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_unset(t_shell *shell)
 	int		i;
 	t_cmds	*cmds;
 
-	cmds = &shell->cmds;
+	cmds = shell->cmds;
 	i = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL
 		|| check_alpha_env(cmds, cmds->opts[0], "unset") == 0)

@@ -6,7 +6,7 @@
 #    By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/19 16:20:58 by junesalaber      ###   ########.fr        #
+#    Updated: 2024/04/21 12:51:16 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,13 @@ SRCS = builtin/ft_echo.c \
 	   parse/group_by_pipes.c \
 	   parse/expand_dollar.c \
 	   parse/parse_utils.c \
+	   parse/aux_group_by_pipes.c \
+	   parse/aux_reddirections.c \
 	   parse/in_out_files.c \
 	   exec/open_files.c \
 	   exec/files.c \
 	   exec/pipe.c \
 	   exec/exec.c \
-
 
 OBJS = $(SRCS:.c=.o)
 

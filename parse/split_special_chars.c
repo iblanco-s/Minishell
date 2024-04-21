@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:07:09 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/15 21:21:22 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 21:25:13 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	divide_and_get_char(t_parse *token_list, int i,
 {
 	t_parse	*node_with_char;
 
-	node_with_char = NULL;
 	if (token_list->token[i + char_num])
 	{
 		node_after_char = malloc(sizeof(t_parse));
 		node_after_char->token = ft_strdup(&token_list->token[i + char_num]);
 		node_after_char->quote = token_list->quote;
+		node_after_char->join_with_quotes = token_list->join_with_quotes;
 		token_list->token[i + char_num] = '\0';
 		node_after_char->next = token_list->next;
 		token_list->next = node_after_char;
@@ -37,6 +37,7 @@ void	divide_and_get_char(t_parse *token_list, int i,
 		node_with_char->token = ft_strdup(&token_list->token[i]);
 		node_with_char->quote = token_list->quote;
 		token_list->token[i] = '\0';
+		token_list->join_with_quotes = 0;
 		if (node_after_char)
 			node_with_char->next = node_after_char;
 		else
@@ -55,9 +56,9 @@ void	check_pipes_and_redirs(t_parse *token_list)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	token_list = ft_lstlast_parse(token_list);
-	while (token_list->token[i])
+	while (token_list->token[++i])
 	{
 		if (token_list->token[i] == '|')
 		{
@@ -75,6 +76,29 @@ void	check_pipes_and_redirs(t_parse *token_list)
 			else if (i > 0 || token_list->token[i + 1])
 				divide_and_get_char(token_list, i, 1, NULL);
 		}
-		i++;
+	}
+	if (token_list->next)
+		check_pipes_and_redirs(token_list->next);
+}
+
+void	check_join_quotes_because_special_chars(t_parse *token_list)
+{
+	while (token_list)
+	{
+		if (token_list->token && (token_list->token[0] == '<'
+		|| token_list->token[0] == '>'
+		|| token_list->token[0] == '|'))
+			token_list->join_with_quotes = 0;
+		if (token_list->next)
+		{
+			if (token_list->next->token && (token_list->next->token[0] == '<'
+					|| token_list->next->token[0] == '>'
+					|| token_list->next->token[0] == '|'))
+			{
+				token_list->join_with_quotes = 0;
+				token_list->next->join_with_quotes = 0;
+			}
+		}
+		token_list = token_list->next;
 	}
 }
