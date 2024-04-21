@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
+#    By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
 #    Updated: 2024/04/21 12:51:16 by inigo            ###   ########.fr        #
@@ -21,6 +21,7 @@ SRCS = builtin/ft_echo.c \
 	   builtin/ft_env.c \
 	   builtin/ft_unset.c \
 	   builtin/ft_export.c \
+	   builtin/ft_isbuiltin.c \
 	   builtin/ft_exit.c \
 	   builtin/utils_1.c \
 	   builtin/utils_2.c \
@@ -37,7 +38,11 @@ SRCS = builtin/ft_echo.c \
 	   parse/parse_utils.c \
 	   parse/aux_group_by_pipes.c \
 	   parse/aux_reddirections.c \
-	   
+	   parse/in_out_files.c \
+	   exec/open_files.c \
+	   exec/files.c \
+	   exec/pipe.c \
+	   exec/exec.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
 /*   Updated: 2024/04/21 19:50:42 by inigo            ###   ########.fr       */
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 # define ERROR 
@@ -32,6 +33,8 @@
 
 // ERRORS
 # define ERROR_MANY_ARGS "minishell: init: too many arguments"
+# define PIPE_ERROR "minishell: pipe() failed"
+# define FORK_ERROR "minishell: fork() failed"
 
 // ESTRUCTURA PARA PARSEO
 typedef struct s_parse
@@ -70,6 +73,8 @@ typedef struct s_shell
 	t_env			*env;
 }	t_shell;
 
+extern long long	g_exit_status;
+
 // BUILTINS
 int		ft_pwd(void);
 int		ft_unset(t_shell *shell);
@@ -78,6 +83,9 @@ int		ft_env(t_shell *shell);
 int		ft_echo(t_shell *shell);
 int		ft_exit(t_shell *shell);
 int		ft_cd(t_shell *shell);
+int		ft_is_builtin(t_shell *shell);
+void	exec_builtin(t_shell *shell);
+void	exec_single_builtin(t_shell *shell);
 
 // BUILTINS UTILS
 char	*ft_strndup(const char *s, size_t n);
@@ -107,6 +115,10 @@ t_parse	*ft_lstlast_parse(t_parse *lst);
 void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
 void	check_join_quotes_because_special_chars(t_parse *token_list);
 void	delete_empty_nodes(t_parse **token_list);
+// int		in_redir_type(char *node);
+// int		out_redir_type(char *node);
+// char	infile_name(char *node);
+// char	outfile_name(char *node);
 
 // GROUP BY PIPES
 void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
@@ -121,6 +133,21 @@ void	set_output_redirection(t_cmds *cmd, t_parse **current, int fd_type);
 void	set_input_redirection(t_cmds *cmd, t_parse **current, int fd_type);
 char	**append_to_files_array(char **files, char *new_file);
 int		*append_to_reddir_type_array(int *reddir_types, int new_reddir_type);
+
+// EXEC
+void	heredoc(char *delimiter);
+int		open_infile(char *file, int *infile_fd);
+void	create_outfile(char *file);
+int		outfile_type(char *file, int *outfile_fd);
+void	manage_outfile(t_cmds *node, int *next_pipe);
+void	manage_infile(t_cmds *node, int *prev_pipe);
+void	ft_error(t_shell *shell, char *error_msg, int exit_status);
+void	dup_close_fd(int pipe_fd[2], int fd);
+void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2]);
+void	exec_pipe(t_shell *shell, t_cmds *node);
+void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
+char	*ft_get_path(char *path, char *cmd);void	exec_cmd(t_shell *shell, char **cmd);
+void 	manage_exec(t_shell *shell);
 
 // MAIN
 void	free_general(t_shell *shell);

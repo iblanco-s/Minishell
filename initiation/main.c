@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/14 20:58:51 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/19 16:22:34 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	free_general(t_shell *shell)
  * @param msg Mensaje de error
  * @param shell Estructura con los env ya obtenidos para free
 */
-void	ft_error(char *msg, t_shell *shell)
-{
-	ft_putstr_fd(msg, 2);
-	free_general(shell);
-	exit(EXIT_FAILURE);
-}
+// void	ft_error(char *msg, t_shell *shell)
+// {
+// 	ft_putstr_fd(msg, 2);
+// 	free_general(shell);
+// 	exit(EXIT_FAILURE);
+// }
 
 /**
  * @brief Loop principal del minishell
@@ -66,9 +66,10 @@ void	main_loop(t_shell *shell)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-			ft_error("minishell: init: readline error", shell);
+			ft_error(shell, "minishell: init: readline error", 1);
 		add_history(line);
 		handle_input(line, shell);
+		manage_exec(shell);
 		// TODO: ejecutar linea y liberar memoria de la linea
 	}
 }
@@ -78,6 +79,6 @@ int	main(int argc, char **argv, char **env)
 {
 	// NO PERMITIR ARGUMENTOS SOLO ./MINISHELL
 	if (argc > 1 && argv)
-		ft_error(ERROR_MANY_ARGS, NULL);
+		ft_error(NULL, ERROR_MANY_ARGS, 1);
 	main_loop(setup_program(env));
 }

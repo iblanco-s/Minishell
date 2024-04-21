@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tester_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:49:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2023/12/27 20:17:16 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:37:11 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ t_env *ft_env1(char **env)
 			node->name = strdup(env[i]);
 			node->value = NULL;
 		}
-
 		node->next = NULL;
-
 		if (head == NULL)
 		{
 			head = node;
@@ -49,7 +47,6 @@ t_env *ft_env1(char **env)
 			current = node;
 		}
 	}
-
 	return head;
 }
 
