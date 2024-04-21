@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:50:44 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/14 21:19:36 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 13:08:05 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	create_enviroment(t_shell *shell, char *name_env, int equal_sign)
 	char	*value_env;
 	t_cmds	*cmds;
 
-	cmds = &shell->cmds;
+	cmds = shell->cmds;
 	value_env = ft_strdup(&cmds->opts[0][equal_sign] + 1);
 	if (change_env_value(shell, name_env, value_env) == 0)
 	{
@@ -53,7 +53,7 @@ int	ft_export(t_shell *shell)
 	int		equal_sign;
 	t_cmds	*cmds;
 
-	cmds = &shell->cmds;
+	cmds = shell->cmds;
 	equal_sign = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 		return (no_args_case(shell));

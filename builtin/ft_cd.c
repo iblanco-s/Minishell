@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:49:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/14 21:20:01 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 13:07:49 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ int	go_to_parent_directory(t_shell *shell)
 
 int	ft_cd(t_shell *shell)
 {
-	if (shell->cmds.opts == NULL || shell->cmds.opts[0] == NULL
-		|| ft_strcmp(shell->cmds.opts[0], "~") == 0)
+	if (shell->cmds->opts == NULL || shell->cmds->opts[0] == NULL
+		|| ft_strcmp(shell->cmds->opts[0], "~") == 0)
 		return (go_to_home(shell));
-	else if (ft_strcmp(shell->cmds.opts[0], "..") == 0)
+	else if (ft_strcmp(shell->cmds->opts[0], "..") == 0)
 		return (go_to_parent_directory(shell));
-	else if (ft_strcmp(shell->cmds.opts[0], "-") == 0)
+	else if (ft_strcmp(shell->cmds->opts[0], "-") == 0)
 		return (go_to_previous_directory(shell));
-	else if (ft_strcmp(shell->cmds.opts[0], ".") == 0)
+	else if (ft_strcmp(shell->cmds->opts[0], ".") == 0)
 		return (go_to_current_directory(shell));
 	else
-		return (go_to_path(shell, shell->cmds.opts[0]));
+		return (go_to_path(shell, shell->cmds->opts[0]));
 }

@@ -6,7 +6,7 @@
 #    By: inigo <inigo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/14 21:29:00 by inigo            ###   ########.fr        #
+#    Updated: 2024/04/21 12:51:16 by inigo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,9 @@ SRCS = builtin/ft_echo.c \
 	   parse/group_by_pipes.c \
 	   parse/expand_dollar.c \
 	   parse/parse_utils.c \
+	   parse/aux_group_by_pipes.c \
+	   parse/aux_reddirections.c \
+	   
 
 OBJS = $(SRCS:.c=.o)
 

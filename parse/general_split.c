@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/16 23:37:04 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 18:15:38 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	join_nodes_because_quotes(t_parse **token_list)
 	current = *token_list;
 	while (current)
 	{
-		if (current->join_with_quotes == 1)
+		if (current->join_with_quotes && current->join_with_quotes == 1)
 		{
 			if (current->next == NULL)
 				break ;
@@ -75,9 +75,9 @@ t_parse	*get_next_quote(char **line, int quote, char quote_type)
 	node = malloc(sizeof(t_parse));
 	i = 0;
 	*line += 1;
-	while ((*line)[i] && ((*line)[i] != quote_type || (*line)[i - 1] == '\\'))
+	while ((*line)[i] && (*line)[i] != quote_type)
 		i++;
-	node->token = ft_strndup(*line, i - 1); //TODO: FUNCION QUE QUITA LAS \ cuando hay " o '
+	node->token = ft_strndup(*line, i - 1);
 	node->next = NULL;
 	node->quote = quote;
 	if ((*line)[i + 1] && (*line)[i + 1] != ' ')
@@ -118,11 +118,13 @@ t_parse	*general_split(char *line, t_shell *shell)
 			check_pipes_and_redirs(token_list);
 		}
 	}
+	check_join_quotes_because_special_chars(token_list);
 	// from echo hola$USER -> echo holaINIGO
 	split_dollar(token_list, shell);
 	// join nodes depending on flag join_with_quotes
 	join_nodes_because_quotes(&token_list);
 	// from "echo holaINIGO | cat -e" -> nodo 1: "echo holaINIGO", nodo 2: "cat -e"
+	shell->cmds = create_new_cmds_node();
 	group_by_pipes_and_redirs(shell, &token_list);
 	return (token_list);
 }

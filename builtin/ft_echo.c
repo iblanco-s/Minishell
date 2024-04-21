@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:51:36 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/14 20:20:37 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 13:05:34 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_echo(t_shell *shell)
 	int		j;
 	t_cmds	*cmds;
 
-	cmds = &shell->cmds;
+	cmds = shell->cmds;
 	j = 0;
 	if (cmds->opts == NULL || cmds->opts[0] == NULL)
 	{

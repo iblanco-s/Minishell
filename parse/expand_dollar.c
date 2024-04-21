@@ -6,7 +6,7 @@
 /*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:57:44 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/16 20:45:46 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/21 21:44:59 by inigo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	split_dollar(t_parse *token_list, t_shell *shell)
 		{
 			while (token_list->token[i])
 			{
-				if (token_list->token[i] == '$')
+				if (token_list->token[i] == '$' && token_list->token[i + 1])
 				{
 					divide_dollars(token_list, shell, i);
 					break ;
@@ -122,4 +122,5 @@ void	split_dollar(t_parse *token_list, t_shell *shell)
 		i = 0;
 	}
 	token_list = head;
+	delete_empty_nodes(&token_list);
 }
