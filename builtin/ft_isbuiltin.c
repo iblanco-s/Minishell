@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/19 16:16:06 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/22 13:50:22 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,46 @@ int	ft_is_builtin(t_shell *shell)
 {
 	int	len;
 
-	if (!shell->cmds.opts[0])
+	if (!shell->cmds->opts[0])
 		return (0);
-	len = ft_strlen(shell->cmds.opts[0]);
-	if (!ft_strncmp(shell->cmds.opts[0], "cd", len) && len == 2)
+	len = ft_strlen(shell->cmds->opts[0]);
+	if (!ft_strncmp(shell->cmds->opts[0], "cd", len) && len == 2)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "echo", len) && len == 4)
+	if (!ft_strncmp(shell->cmds->opts[0], "echo", len) && len == 4)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "env", len) && len == 3)
+	if (!ft_strncmp(shell->cmds->opts[0], "env", len) && len == 3)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "exit", len) && len == 4)
+	if (!ft_strncmp(shell->cmds->opts[0], "exit", len) && len == 4)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "export", len) && len == 6)
+	if (!ft_strncmp(shell->cmds->opts[0], "export", len) && len == 6)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "pwd", len) && len == 3)
+	if (!ft_strncmp(shell->cmds->opts[0], "pwd", len) && len == 3)
 		return (1);
-	if (!ft_strncmp(shell->cmds.opts[0], "unset", len) && len == 5)
+	if (!ft_strncmp(shell->cmds->opts[0], "unset", len) && len == 5)
 		return (1);
 	return (0);
 }
 
-void	exec_builtin(t_shell *shell)
+int	exec_builtin(t_shell *shell)
 {
-	if (!shell->cmds.opts[0])
-		return ;
-	if (!ft_strncmp(shell->cmds.opts[0], "cd", 2))
-		ft_cd(shell);
-	else if (!ft_strncmp(shell->cmds.opts[0], "echo", 4))
-		ft_echo(shell);
-	else if (!ft_strncmp(shell->cmds.opts[0], "env", 3))
-		ft_env(shell);
-	else if (!ft_strncmp(shell->cmds.opts[0], "exit", 4))
-		ft_exit(shell);
-	else if (!ft_strncmp(shell->cmds.opts[0], "export", 6))
-		ft_export(shell);
-	else if (!ft_strncmp(shell->cmds.opts[0], "pwd", 3))
-		ft_pwd();
-	else if (!ft_strncmp(shell->cmds.opts[0], "unset", 5))
-		ft_unset(shell);
+	if (ft_is_builtin(shell))
+	{
+		if (!ft_strncmp(shell->cmds->opts[0], "cd", 2))
+			return (ft_cd(shell), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "echo", 4))
+			return (ft_echo(shell), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "env", 3))
+			return (ft_env(shell), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "exit", 4))
+			return (ft_exit(shell), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "export", 6))
+			return (ft_export(shell), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "pwd", 3))
+			return (ft_pwd(), 1);
+		else if (!ft_strncmp(shell->cmds->opts[0], "unset", 5))
+			return (ft_unset(shell), 1);
+	}
+	return (0);
 }
 
 void	exec_single_builtin(t_shell *shell)

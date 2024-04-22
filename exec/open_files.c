@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/19 09:38:41 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/22 13:17:06 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	heredoc(char *delimiter)
 	int		doc_file;
 
 	doc_file = open("/tmp/here_doc", O_CREAT | O_RDWR | O_TRUNC);
-	write(1, "< ", 2);
+	write(1, "> ", 2);
 	line = get_next_line(STDIN_FILENO);
 	if (!line)
 	{
@@ -38,66 +38,77 @@ void	heredoc(char *delimiter)
 	close (doc_file);
 }
 
-int	open_infile(char *file, int *infile_fd)
+int	open_infile(char **file, int *infile_fd)
 {
 	int		fd_in;
 
 	if (!*file)
 		return (STDIN_FILENO);
-	while (*infile_fd)
+	while (*file != NULL)
 	{
 		if (*infile_fd == 2)
 		{
-			heredoc(file);
+			heredoc(*file);
 			fd_in = open("/tmp/here_doc", O_RDONLY, 0444);
 		}
-		else if (*infile_fd == 1)
+		if (*infile_fd == 1 && access(*file, F_OK) != 0)
+			ft_putendl_fd("File does not exist", 2);
+		else if (*infile_fd == 1 && access(*file, R_OK) != 0)
+			ft_putendl_fd("Read error", 2);
+		else if (*infile_fd == 1 && *(file + 1) == NULL)
 		{
-			if (access(file, F_OK) != 0)
-				ft_putendl_fd("File does not exist", 2);
-			if (access(file, R_OK) != 0)
-				ft_putendl_fd("Read error", 2);
-			fd_in = open(file, O_RDONLY, 0444);
+			fd_in = open(*file, O_RDONLY, 0444);
+			if (fd_in == -1)
+				ft_putendl_fd("Error opening file", 2);
 		}
-		if (fd_in == -1)
-			ft_putendl_fd("Error opening file", 2);
+		file ++;
 		infile_fd++;
 	}
 	return (fd_in);
 }
 
-void	create_outfile(char *file)
+void	create_outfile(char **file)
 {
 	int		fd_out;
-	
-	if (!file)
+
+	if (!*file)
 		return ;
-	if (access(file, F_OK) != 0)
+	while (*file)
 	{
-		fd_out = open(file, O_CREAT, 0644);
-		if (fd_out == -1)
-			ft_putendl_fd("Outfile create error", 2);
-		close(fd_out);
+		if (access(*file, F_OK) != 0)
+		{
+			fd_out = open(*file, O_CREAT, 0644);
+			if (fd_out == -1)
+				ft_putendl_fd("Outfile create error", 2);
+			close(fd_out);
+		}
+		file++;
 	}
-	
 }
 
-int	outfile_type(char *file, int *outfile_fd)
+int	outfile_type(char **file, int *outfile_fd)
 {
 	int		fd_out;
 	int		write_mode;
-	
-	if (!file)
+
+	if (!outfile_fd)
 		return (STDOUT_FILENO);
-	while (outfile_fd)
+	fd_out = -1;
+	write_mode = 0;
+	while (*file)
 	{
-		if (*outfile_fd == 1)
-			write_mode = O_APPEND;
-		else if (*outfile_fd == 2)
-			write_mode = O_TRUNC;
-		fd_out = open (file, O_WRONLY | write_mode, 0644);
-		if (fd_out == -1)
-			ft_putendl_fd("Outfile error", 2);
+		if (*(file + 1) == NULL)
+		{
+			if (*outfile_fd == 1)
+				write_mode = O_APPEND;
+			else if (*outfile_fd == 2)
+				write_mode = O_TRUNC;
+			fd_out = open (*file, O_WRONLY | write_mode, 0644);
+			if (fd_out == -1)
+				ft_putendl_fd("Outfile error", 2);
+			break ;
+		}
+		file++;
 		outfile_fd++;
 	}
 	return (fd_out);

@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:40:05 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/19 15:55:59 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/22 11:47:37 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	manage_outfile(t_cmds *node, int *next_pipe)
+void	manage_outfile(t_shell *shell, int *next_pipe)
 {
-	int	pipe_fd[2];
-	
-	if 	(node->outfile)
+	int		pipe_fd[2];
+	t_cmds	*node;
+
+	node = shell->cmds;
+	if (node->outfile)
 	{
 		create_outfile(node->outfile);
-		next_pipe[STDOUT_FILENO] = outfile_type(node->outfile, &node->outfile_fd);
+		next_pipe[STDOUT_FILENO] = outfile_type(node->outfile, node->outfile_fd);
 	}
 	else if (!node->next)
-		next_pipe[STDOUT_FILENO] = outfile_type(node->outfile, &node->outfile_fd);
+		next_pipe[STDOUT_FILENO] = outfile_type(node->outfile, node->outfile_fd);
 	if (node->next)
 	{
 		pipe(pipe_fd);
@@ -33,8 +35,11 @@ void	manage_outfile(t_cmds *node, int *next_pipe)
 	}
 }
 
-void	manage_infile(t_cmds *node, int *prev_pipe)
+void	manage_infile(t_shell *shell, int *prev_pipe)
 {
+	t_cmds	*node;
+
+	node = shell->cmds;
 	if (node->infile)
-		prev_pipe[STDIN_FILENO] = open_infile(node->infile, &node->infile_fd);
+		prev_pipe[STDIN_FILENO] = open_infile(node->infile, node->infile_fd);
 }

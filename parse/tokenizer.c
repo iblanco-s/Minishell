@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/21 23:47:01 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/22 11:58:20 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,5 @@ void	handle_input(char *line, t_shell *shell)
 	if (initial_filter(line) == -1)
 		return ;
 	general_split(line, shell);
-	//builtin_check(tokenized_line, shell);
+	// builtin_check(tokenized_line, shell);
 }

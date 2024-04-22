@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/19 16:43:11 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/22 11:55:45 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	dup_close_fd(int pipe_fd[2], int fd)
 		close(pipe_fd[0]);
 }
 
-void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2])
+void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2], t_cmds *node)
 {
 	pid_t	fork_pid;
 
@@ -43,7 +43,7 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2])
 	{
 		dup_close_fd(pipe_fd, STDIN_FILENO);
 		dup_close_fd(next_pipe, STDOUT_FILENO);
-		//exec_cmd(shell);
+		exec_cmd(shell, node->opts);
 	}
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
@@ -65,9 +65,9 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	while (node)
 	{
 		pipe(next_pipe);
-		manage_outfile(node, next_pipe);
-		manage_infile(node, pipe_fd);
-		start_pipe(shell, pipe_fd, next_pipe);
+		manage_outfile(shell, next_pipe);
+		manage_infile(shell, pipe_fd);
+		start_pipe(shell, pipe_fd, next_pipe, node);
 		pipe_fd[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 		node = node->next;
 	}

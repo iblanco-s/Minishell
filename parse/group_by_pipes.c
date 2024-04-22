@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   group_by_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 10:31:59 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/21 23:48:56 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/22 11:21:00 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 	if (current_cmd->aux_list_parse)
 		current_cmd->opts = list_to_array(current_cmd->aux_list_parse);
 	free_list_parse(*token_list);
-	// current_cmd = shell->cmds;
-	// debugg_print_cmds(current_cmd);
+	current_cmd = shell->cmds;
+	debugg_print_cmds(current_cmd);
 }
 
 
