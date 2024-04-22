@@ -68,7 +68,7 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 	if (!*cmd)
 		exit (0);
 	if (exec_builtin(shell))
-		return ;
+		exit (0);
 	if (!ft_strchr(cmd[0], '/'))
 		path = ft_get_path(path_value, cmd[0]);
 	else if (access(cmd[0], X_OK) == 0)
@@ -93,7 +93,7 @@ void	manage_exec(t_shell *shell)
 {
 	if (!shell)
 		return ;
-	if (shell->cmds->next && !shell->cmds->next->opts && ft_is_builtin(shell))
+	if (shell->cmds && !shell->cmds->next && ft_is_builtin(shell))
 		exec_single_builtin(shell);
 	else
 		exec_pipe(shell, shell->cmds);

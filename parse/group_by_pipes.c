@@ -66,6 +66,8 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 		{
 			current_cmd->opts = list_to_array(current_cmd->aux_list_parse);
 			current_cmd = (current_cmd->next = create_new_cmds_node());
+			// current_cmd->next = create_new_cmds_node();
+			// current_cmd = current_cmd->next;
 		}
 		else
 		{
@@ -80,8 +82,8 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 	if (current_cmd->aux_list_parse)
 		current_cmd->opts = list_to_array(current_cmd->aux_list_parse);
 	free_list_parse(*token_list);
-	current_cmd = shell->cmds;
-	debugg_print_cmds(current_cmd);
+	// current_cmd = shell->cmds;
+	// debugg_print_cmds(current_cmd);
 }
 
 

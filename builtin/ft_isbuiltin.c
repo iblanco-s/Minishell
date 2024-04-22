@@ -57,11 +57,28 @@ int	ft_is_builtin(t_shell *shell)
 	return (0);
 }
 
+void cut_first_opt(char **opts)
+{
+	int i;
+
+	if (opts == NULL || opts[0] == NULL)
+		return;
+	free(opts[0]);
+	i = 0;
+	while (opts[i + 1] != NULL)
+	{
+		opts[i] = opts[i + 1];
+		i++;
+	}
+	opts[i] = NULL;
+}
+
 int	exec_builtin(t_shell *shell)
 {
 	int	builtin;
 
 	builtin = ft_is_builtin(shell);
+	cut_first_opt(shell->cmds->opts);
 	if (builtin == 1)
 		return (ft_cd(shell), 1);
 	else if (builtin == 2)
