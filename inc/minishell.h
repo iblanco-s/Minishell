@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/22 13:48:35 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:38:10 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 
 # define ERROR 
 # define SUCCESS 
@@ -83,6 +84,7 @@ int		ft_env(t_shell *shell);
 int		ft_echo(t_shell *shell);
 int		ft_exit(t_shell *shell);
 int		ft_cd(t_shell *shell);
+void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
 int		ft_is_builtin(t_shell *shell);
 int		exec_builtin(t_shell *shell);
 void	exec_single_builtin(t_shell *shell);
@@ -143,12 +145,12 @@ void	manage_outfile(t_shell *shell, int *next_pipe);
 void	manage_infile(t_shell *shell, int *prev_pipe);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
 void	dup_close_fd(int pipe_fd[2], int fd);
-void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2], t_cmds *node);
+void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node);
 void	exec_pipe(t_shell *shell, t_cmds *node);
-void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
 char	*ft_get_path(char *path, char *cmd);
 void	ft_free_split(char **arr);
-void	exec_cmd(t_shell *shell, char **cmd);
+char	*path_value(t_shell *shell);
+void	exec_cmd(t_shell *shell, char **cmd, char *path_value);
 void	manage_exec(t_shell *shell);
 
 // MAIN

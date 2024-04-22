@@ -6,32 +6,11 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/22 14:09:26 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:30:12 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	manage_redir(t_shell *shell, int *in_copy, int *out_copy)
-{
-	int		infile;
-	int		outfile;
-
-	*in_copy = dup(STDIN_FILENO);
-	*out_copy = dup(STDOUT_FILENO);
-	if (shell->cmds->infile)
-	{
-		infile = open_infile(shell->cmds->infile, shell->cmds->infile_fd);
-		dup2(infile, STDIN_FILENO);
-		close(infile);
-	}
-	if (shell->cmds->outfile)
-	{
-		create_outfile(shell->cmds->outfile);
-		outfile = outfile_type(shell->cmds->outfile, shell->cmds->outfile_fd);
-		dup2(outfile, STDOUT_FILENO);
-	}
-}
 
 void	ft_free_split(char **arr)
 {
@@ -73,16 +52,23 @@ char	*ft_get_path(char *path, char *cmd)
 	return (NULL);
 }
 
-void	exec_cmd(t_shell *shell, char **cmd)
+char	*path_value(t_shell *shell)
+{
+	char	*path_value;
+
+	path_value = get_env_value(shell, "PATH");
+	return (path_value);
+}
+
+void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 {
 	char	*path;
-	char	*path_value;
+	char	**envp;
 
 	if (!*cmd)
 		exit (0);
 	if (exec_builtin(shell))
 		return ;
-	path_value = get_env_value(shell, "PATH");
 	if (!ft_strchr(cmd[0], '/'))
 		path = ft_get_path(path_value, cmd[0]);
 	else if (access(cmd[0], X_OK) == 0)
@@ -94,7 +80,7 @@ void	exec_cmd(t_shell *shell, char **cmd)
 		ft_putendl_fd("Command not found", 2);
 		exit (127);
 	}
-	char *envp[] = {path_value, NULL};
+	envp = (char *[]){path_value, NULL};
 	if (execve(path, cmd, envp) == -1)
 	{
 		free(path);
@@ -106,10 +92,7 @@ void	exec_cmd(t_shell *shell, char **cmd)
 void	manage_exec(t_shell *shell)
 {
 	if (!shell)
-		{
-			ft_putendl_fd("no hay lista", 2);
-        	return ;
-		}
+		return ;
 	if (shell->cmds->next && !shell->cmds->next->opts && ft_is_builtin(shell))
 		exec_single_builtin(shell);
 	else

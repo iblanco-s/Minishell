@@ -6,7 +6,7 @@
 #    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/22 12:16:40 by jsalaber         ###   ########.fr        #
+#    Updated: 2024/04/22 18:23:21 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRCS = builtin/ft_echo.c \
 	   parse/parse_utils.c \
 	   parse/aux_group_by_pipes.c \
 	   parse/aux_reddirections.c \
-	   parse/in_out_files.c \
 	   exec/open_files.c \
 	   exec/files.c \
 	   exec/pipe.c \

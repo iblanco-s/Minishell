@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:33:29 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/18 13:36:34 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:36:49 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define LIBFT_H
 
 # include "get_next_line.h"
+# include <stddef.h>
 # include <unistd.h>
-# include <stdlib.h>
+# include <stdio.h>
 # include <string.h>
+# include <stdlib.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -62,7 +65,6 @@ void		ft_putnbr_fd(int n, int fd);
 
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
-
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));

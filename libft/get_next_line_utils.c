@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 09:07:46 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/18 13:38:35 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:39:41 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 			return (0);
 		s1[0] = 0;
 	}
-	str = (char *)malloc((ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1) * sizeof(char));
+	str = (char *)malloc((ft_strlen_gnl(s1)
+				+ ft_strlen_gnl(s2) + 1) * sizeof(char));
 	if (!str)
 		return (ft_free_gnl(&s1));
 	i = -1;

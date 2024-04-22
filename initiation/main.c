@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/22 13:41:51 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:11:33 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	main_loop(t_shell *shell)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		if (!line)
-			ft_error(shell, "minishell: init: readline error", 1);
+		// if (!line)
+		// 	ft_error(shell, "minishell: init: readline error", 1);
 		add_history(line);
 		handle_input(line, shell);
 		manage_exec(shell);

@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/22 13:17:06 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:45:35 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	outfile_type(char **file, int *outfile_fd)
 	{
 		if (*(file + 1) == NULL)
 		{
-			if (*outfile_fd == 1)
+			if (*outfile_fd == 2)
 				write_mode = O_APPEND;
-			else if (*outfile_fd == 2)
+			else if (*outfile_fd == 1)
 				write_mode = O_TRUNC;
 			fd_out = open (*file, O_WRONLY | write_mode, 0644);
 			if (fd_out == -1)

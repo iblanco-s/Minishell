@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/22 11:55:45 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:31:17 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	dup_close_fd(int pipe_fd[2], int fd)
 		close(pipe_fd[0]);
 }
 
-void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2], t_cmds *node)
+void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 {
 	pid_t	fork_pid;
+	char	*path_val;
 
 	fork_pid = fork();
 	if (fork_pid == -1)
@@ -42,16 +43,17 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int next_pipe[2], t_cmds *node)
 	if (fork_pid == 0)
 	{
 		dup_close_fd(pipe_fd, STDIN_FILENO);
-		dup_close_fd(next_pipe, STDOUT_FILENO);
-		exec_cmd(shell, node->opts);
+		dup_close_fd(n_pipe, STDOUT_FILENO);
+		path_val = path_value(shell);
+		exec_cmd(shell, node->opts, path_val);
 	}
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
-	if (next_pipe[STDOUT_FILENO] != STDOUT_FILENO)
-		close (next_pipe[STDOUT_FILENO]);
+	if (n_pipe[STDOUT_FILENO] != STDOUT_FILENO)
+		close (n_pipe[STDOUT_FILENO]);
 }
 
 void	exec_pipe(t_shell *shell, t_cmds *node)
