@@ -37,7 +37,7 @@ int	ft_is_builtin(t_shell *shell)
 {
 	int	len;
 
-	if (!shell->cmds->opts[0])
+	if (!shell->cmds->opts || !shell->cmds->opts[0])
 		return (0);
 	len = ft_strlen(shell->cmds->opts[0]);
 	if (!ft_strncmp(shell->cmds->opts[0], "cd", len) && len == 2)
@@ -57,12 +57,12 @@ int	ft_is_builtin(t_shell *shell)
 	return (0);
 }
 
-void cut_first_opt(char **opts)
+void	cut_first_opt(char **opts)
 {
-	int i;
+	int	i;
 
 	if (opts == NULL || opts[0] == NULL)
-		return;
+		return ;
 	free(opts[0]);
 	i = 0;
 	while (opts[i + 1] != NULL)
@@ -78,6 +78,8 @@ int	exec_builtin(t_shell *shell)
 	int	builtin;
 
 	builtin = ft_is_builtin(shell);
+	if (builtin == 0)
+		return (0);
 	cut_first_opt(shell->cmds->opts);
 	if (builtin == 1)
 		return (ft_cd(shell), 1);

@@ -86,8 +86,8 @@ void	check_join_quotes_because_special_chars(t_parse *token_list)
 	while (token_list)
 	{
 		if (token_list->token && (token_list->token[0] == '<'
-		|| token_list->token[0] == '>'
-		|| token_list->token[0] == '|'))
+				|| token_list->token[0] == '>'
+				|| token_list->token[0] == '|'))
 			token_list->join_with_quotes = 0;
 		if (token_list->next)
 		{
