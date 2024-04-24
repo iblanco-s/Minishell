@@ -66,7 +66,8 @@ char	get_next_char(char *line)
 int	initial_filter(char *line)
 {
 	if (line == NULL || line[0] == '\0')
-		return (print_error_and_return(EMPTY_LINE_ERROR));
+		return(0);
+	// 	return (print_error_and_return(EMPTY_LINE_ERROR));
 	if (!check_unclosed_quotes(line))
 		return (0);
 	if (!check_pipe_at_start(line))

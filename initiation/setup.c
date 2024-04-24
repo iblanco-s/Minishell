@@ -35,6 +35,7 @@ t_shell	*setup_program(char **env)
 
 	shell = malloc(sizeof(t_shell));
 	shell->env = env_to_list(env);
+	shell->cmds = NULL;
 	update_shlvl(shell);
 	return (shell);
 }

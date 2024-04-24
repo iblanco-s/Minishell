@@ -37,13 +37,47 @@ void	free_general(t_shell *shell)
 	}
 }
 
-/**
- * @brief Si hay un error, salir por aqui, 
- * donde se liberara la memoria y sacar mensaje de error
- * 
- * @param msg Mensaje de error
- * @param shell Estructura con los env ya obtenidos para free
-*/
+void	ft_free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_command(t_shell *shell, char *line)
+{
+	t_cmds	*tmp;
+
+	tmp = shell->cmds;
+	if (line)
+		free(line);
+	if (tmp)
+	{
+		while (tmp)
+		{
+			if (tmp->opts)
+				ft_free_array(tmp->opts);
+			if (tmp->infile)
+				ft_free_array(tmp->infile);
+			if (tmp->outfile)
+				ft_free_array(tmp->outfile);
+			if (tmp->infile_fd)
+				free(tmp->infile_fd);
+			if (tmp->outfile_fd)
+				free(tmp->outfile_fd);
+			tmp = tmp->next;
+		}
+		free(shell->cmds);
+		shell->cmds = NULL;
+	}
+}
+
 // void	ft_error(char *msg, t_shell *shell)
 // {
 // 	ft_putstr_fd(msg, 2);
@@ -68,8 +102,9 @@ void	main_loop(t_shell *shell)
 		// if (!line)
 		// 	ft_error(shell, "minishell: init: readline error", 1);
 		add_history(line);
-		handle_input(line, shell);
-		manage_exec(shell);
+		if (handle_input(line, shell))
+			manage_exec(shell);
+		free_command(shell, line);
 		// TODO: ejecutar linea y liberar memoria de la linea
 	}
 }

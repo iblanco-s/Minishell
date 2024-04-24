@@ -72,6 +72,37 @@ void	expand_and_combine(t_parse *actual_node,
 	}
 }
 
+// GESTIONAR MULTIPLE $ CON $?
+// int	check_question(t_parse *actual_node, int i)
+// {
+// 	char	*string_to_expand;
+// 	char	*tmp;
+// 	char	*tmp2;
+
+// 	if (actual_node->token[i + 1] == '?')
+// 	{
+// 		string_to_expand = ft_itoa(g_exit_status);
+// 		tmp = actual_node->token;
+// 		if (actual_node->token[i + 2])
+// 		{
+// 			tmp2 = string_to_expand;
+// 			string_to_expand = ft_strjoin(string_to_expand, ft_strdup(&actual_node->token[i + 2]));
+// 			free(tmp2);
+// 		}
+// 		else
+// 			actual_node->token = ft_strdup(string_to_expand);
+// 		if (i > 0)
+// 			actual_node->token[i] = '\0';
+// 		else
+// 			actual_node->token = NULL;
+// 		combine(actual_node, string_to_expand);
+// 		free(tmp);
+// 		free(string_to_expand);
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
 // TEST LINE= $PWD"$PWD"'$PWD'aaa$PWD"aaa$PWD"'aaa$PWD'$PWDaaa"$PWDaaa"
 // '$PWDaaa'bbb$PWDbbb$PWD"bbb$PWDbbb$PWD"'bbb$PWDbbb$PWD' 
 // a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
@@ -81,6 +112,8 @@ void	divide_dollars(t_parse *actual_node, t_shell *shell, int i)
 {
 	char	**split_by_dollar;
 
+	// if (check_question(actual_node, i))
+	// 	return ;
 	split_by_dollar = ft_split(actual_node->token, '$');
 	if (i > 0)
 	{

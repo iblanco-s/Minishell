@@ -53,8 +53,6 @@ int	check_special_chars(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (!ft_isascii(line[i]))
-			return (print_error_and_return(NON_ASCII_CHAR_ERROR));
 		if (is_special_char(line[i]))
 		{
 			if (!check_consecutive_special_chars(line, i)
