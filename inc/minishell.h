@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/22 18:38:10 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:35:25 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		*append_to_reddir_type_array(int *reddir_types, int new_reddir_type);
 // EXEC
 void	heredoc(char *delimiter);
 int		open_infile(char **file, int *infile_fd);
-void	create_outfile(char **file);
+void	create_outfile(char **file);//, char **infile);
 int		outfile_type(char **file, int *outfile_fd);
 void	manage_outfile(t_shell *shell, int *next_pipe);
 void	manage_infile(t_shell *shell, int *prev_pipe);

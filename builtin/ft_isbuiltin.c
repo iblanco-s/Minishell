@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/22 18:01:31 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:17:45 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	exec_builtin(t_shell *shell)
 	int	builtin;
 
 	builtin = ft_is_builtin(shell);
+	if (builtin == 0)
+		return (0);
 	cut_first_opt(shell->cmds->opts);
 	if (builtin == 1)
 		return (ft_cd(shell), 1);

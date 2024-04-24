@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/22 18:30:12 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:17:22 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_get_path(char *path, char *cmd)
 	char	*part_path;
 	int		i;
 
+	if (!path)
+		return (NULL);
 	split_path = ft_split(path, ':');
 	if (!split_path)
 		return (NULL);
@@ -42,10 +44,7 @@ char	*ft_get_path(char *path, char *cmd)
 		exec_path = ft_strjoin(part_path, cmd);
 		free(part_path);
 		if (access(exec_path, F_OK | X_OK) == 0)
-		{
-			ft_free_split(split_path);
-			return (exec_path);
-		}
+			return (ft_free_split(split_path), exec_path);
 		free(exec_path);
 	}
 	ft_free_split(split_path);

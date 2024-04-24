@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:40:05 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/22 18:16:59 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:37:11 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ void	manage_outfile(t_shell *shell, int *next_pipe)
 			= outfile_type(node->outfile, node->outfile_fd);
 	if (node->next)
 	{
-		pipe(pipe_fd);
-		{
-			if (pipe_fd[1] == -1)
-				ft_error(NULL, PIPE_ERROR, EXIT_FAILURE);
-		}
+		if (pipe(pipe_fd) == -1)
+			ft_error(NULL, PIPE_ERROR, EXIT_FAILURE);
 	}
 }
 
