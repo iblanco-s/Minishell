@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/23 11:17:22 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:37:45 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 
 	if (!*cmd)
 		exit (0);
-	if (exec_builtin(shell))
+	if (exec_builtin(cmd))
 		exit (0);
 	if (!ft_strchr(cmd[0], '/'))
 		path = ft_get_path(path_value, cmd[0]);

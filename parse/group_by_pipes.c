@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 10:31:59 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/23 12:19:41 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:45:19 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 	if (c_cmd->aux_list_parse)
 		c_cmd->opts = list_to_array(c_cmd->aux_list_parse);
 	free_list_parse(*token_list);
-	// current_cmd = shell->cmds;
-	// debugg_print_cmds(current_cmd);
+	// c_cmd = shell->cmds;
+	// debugg_print_cmds(c_cmd);
 }

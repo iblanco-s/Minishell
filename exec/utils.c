@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 18:00:55 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/24 10:56:31 by jsalaber         ###   ########.fr       */
+/*   Created: 2024/04/24 10:31:05 by jsalaber          #+#    #+#             */
+/*   Updated: 2024/04/24 14:35:17 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_pwd(void)
+void	ft_error(t_shell *shell, char *error_msg, int exit_status)
 {
-	char	*pwd;
-	int		ret;
+	if (shell)
+		free_general(shell);
+	ft_putendl_fd(error_msg, 2);
+	exit(exit_status);
+}
 
-	pwd = NULL;
-	ret = 1;
-	pwd = getcwd(pwd, sizeof(pwd));
-	if (pwd != NULL)
-		printf("%s\n", pwd);
-	else
-		ret = 0;
-	free(pwd);
-	return (ret);
+void	ft_continue_error(char *error_msg)
+{
+	ft_putstr_fd(error_msg, 2);
+	return ;
+}
+
+void	ft_pipe(t_shell *shell, int pipe_fd[2])
+{
+	if (pipe(pipe_fd) == -1)
+		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
 }

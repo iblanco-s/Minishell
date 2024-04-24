@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/23 11:35:25 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:33:06 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define ERROR_MANY_ARGS "minishell: init: too many arguments"
 # define PIPE_ERROR "minishell: pipe() failed"
 # define FORK_ERROR "minishell: fork() failed"
+# define COMMAND_ERROR ""
+# define FILE_ERROR "minishell: No such file or directory\n"
 # define CONSECUTIVE_PIPES_ERROR "minishell: Error: consecutive pipes are not allowed\n"
 # define SPECIAL_CHAR_AT_END_ERROR "minishell: Error: special char can't be at the end\n"
 # define SPECIAL_CHAR_PARAM_ERROR "minishell: Error: special char must be followed by a parameter\n"
@@ -162,6 +164,9 @@ void	ft_free_split(char **arr);
 char	*path_value(t_shell *shell);
 void	exec_cmd(t_shell *shell, char **cmd, char *path_value);
 void	manage_exec(t_shell *shell);
+void	ft_continue_error(char *error_msg);
+void	ft_error(t_shell *shell, char *error_msg, int exit_status);
+void	ft_pipe(t_shell *shell, int pipe_fd[2]);
 
 // MAIN
 void	free_general(t_shell *shell);

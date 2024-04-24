@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/22 16:11:33 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:22:14 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void	main_loop(t_shell *shell)
 		// if (!line)
 		// 	ft_error(shell, "minishell: init: readline error", 1);
 		add_history(line);
-		if (!handle_input(line, shell))
-			continue ;
+		handle_input(line, shell);
 		manage_exec(shell);
 		// TODO: ejecutar linea y liberar memoria de la linea
 	}
@@ -78,6 +77,7 @@ void	main_loop(t_shell *shell)
 // ENTRY POINT
 int	main(int argc, char **argv, char **env)
 {
+	// NO PERMITIR ARGUMENTOS SOLO ./MINISHELL
 	if (argc > 1 && argv)
 		ft_error(NULL, ERROR_MANY_ARGS, 1);
 	main_loop(setup_program(env));

@@ -6,7 +6,7 @@
 #    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/22 18:23:21 by jsalaber         ###   ########.fr        #
+#    Updated: 2024/04/24 10:33:01 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS = builtin/ft_echo.c \
 	   exec/files.c \
 	   exec/pipe.c \
 	   exec/exec.c \
+	   exec/utils.c \
 
 OBJS = $(SRCS:.c=.o)
 

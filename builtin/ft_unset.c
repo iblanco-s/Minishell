@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:24:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/21 13:05:49 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/24 12:12:17 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	remove_env(t_shell *shell, t_env *current, t_env *prev)
 		shell->env = current->next;
 	else
 		prev->next = current->next;
-	printf("\nname = %s\n", current->name);
+	// printf("\nname = %s\n", current->name);
 	free(current->name);
 	free(current->value);
 	free(current);

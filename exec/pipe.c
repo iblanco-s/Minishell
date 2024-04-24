@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/23 12:22:03 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:07:16 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,14 @@
 
 long long	g_exit_status = 0;
 
-void	ft_error(t_shell *shell, char *error_msg, int exit_status)
-{
-	if (shell)
-		free_general(shell);
-	ft_putendl_fd(error_msg, 2);
-	exit(exit_status);
-}
-
 void	dup_close_fd(int pipe_fd[2], int fd)
 {
 	if (pipe_fd[fd] != fd)
+	{
 		dup2(pipe_fd[fd], fd);
-	if (fd == STDIN_FILENO)
 		close(pipe_fd[1]);
-	else if (fd == STDOUT_FILENO)
 		close(pipe_fd[0]);
+	}
 }
 
 void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
@@ -37,8 +29,9 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 	pid_t	fork_pid;
 	char	*path_val;
 
+	if (!shell->cmds->opts || !shell->cmds->opts[0])
+		return ;
 	fork_pid = fork();
-	printf("pid fork %d\n", fork_pid);
 	if (fork_pid == -1)
 		ft_error(shell, FORK_ERROR, EXIT_FAILURE);
 	if (fork_pid == 0)
@@ -62,26 +55,16 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	int		tmp_status;
 	int		pipe_fd[2];
 	int		next_pipe[2];
-	int		valor_pipe;
-	int		valor_pipe1;
 
-	if (pipe(pipe_fd) == -1)
-		ft_error(shell, PIPE_ERROR, EXIT_FAILURE); //aqui sueltas error pero seguiria la ejecucion no sale 
+	ft_pipe(shell, pipe_fd);
 	tmp_status = 0;
-	valor_pipe = pipe(pipe_fd);
-	printf("primer pipe %d\n", valor_pipe);
-	if (valor_pipe == -1)
-		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
 	while (node)
 	{
-		valor_pipe1 = pipe(next_pipe);
-		printf("segundo pipe %d\n", valor_pipe1);
+		ft_pipe(shell, next_pipe);
 		manage_outfile(shell, next_pipe);
 		manage_infile(shell, pipe_fd);
 		if (!node->opts || !node->opts[0])
-			exit (0); //aqui peta si metes solo infile o outfile porque no hay comando y opts esta vacio,
-			// el exit es temporal NECESITAMOS ALGUNA FUNCION QUE HAGA DE EXIT DE LA EJECUCION DE UN INPUT Y VUELVA A SACAR EL PROMPT SIN TENER QUE PASAR POR TODA LA EJECUCION, 
-			//pregunta como lo hace el resto porque bash lo haze raro, <a lo trata de una forma y >a de otro pero ambas son validas para bash
+			ft_continue_error(COMMAND_ERROR);
 		start_pipe(shell, pipe_fd, next_pipe, node);
 		pipe_fd[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 		node = node->next;

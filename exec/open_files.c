@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/23 11:37:18 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:24:13 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int	open_infile(char **file, int *infile_fd)
 			fd_in = open("/tmp/here_doc", O_RDONLY, 0444);
 		}
 		if (*infile_fd == 1 && access(*file, F_OK) != 0)
-			ft_putendl_fd("File does not exist", 2);
+			return (ft_continue_error(FILE_ERROR), -1);
 		else if (*infile_fd == 1 && access(*file, R_OK) != 0)
-			ft_putendl_fd("Read error", 2);
+			return (ft_putendl_fd("Read error", 2), -1);
 		else if (*infile_fd == 1 && *(file + 1) == NULL)
 		{
 			fd_in = open(*file, O_RDONLY, 0444);
 			if (fd_in == -1)
-				ft_putendl_fd("Error opening file", 2);
+				return (ft_putendl_fd("Error opening file", 2), -1);
 		}
 		file ++;
 		infile_fd++;

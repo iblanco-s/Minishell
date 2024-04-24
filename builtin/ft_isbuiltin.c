@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/23 11:17:45 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:13:01 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,26 @@ void	manage_redir(t_shell *shell, int *in_copy, int *out_copy)
 	}
 }
 
-int	ft_is_builtin(t_shell *shell)
+int	ft_is_builtin(char **cmd)
 {
 	int	len;
 
-	if (!shell->cmds->opts || !shell->cmds->opts[0])
+	if (!cmd || !cmd[0])
 		return (0);
-	len = ft_strlen(shell->cmds->opts[0]);
-	if (!ft_strncmp(shell->cmds->opts[0], "cd", len) && len == 2)
+	len = ft_strlen(cmd[0]);
+	if (!ft_strncmp(cmd[0], "cd", len) && len == 2)
 		return (1);
-	if (!ft_strncmp(shell->cmds->opts[0], "echo", len) && len == 4)
+	if (!ft_strncmp(cmd[0], "echo", len) && len == 4)
 		return (2);
-	if (!ft_strncmp(shell->cmds->opts[0], "env", len) && len == 3)
+	if (!ft_strncmp(cmd[0], "env", len) && len == 3)
 		return (3);
-	if (!ft_strncmp(shell->cmds->opts[0], "exit", len) && len == 4)
+	if (!ft_strncmp(cmd[0], "exit", len) && len == 4)
 		return (4);
-	if (!ft_strncmp(shell->cmds->opts[0], "export", len) && len == 6)
+	if (!ft_strncmp(cmd[0], "export", len) && len == 6)
 		return (5);
-	if (!ft_strncmp(shell->cmds->opts[0], "pwd", len) && len == 3)
+	if (!ft_strncmp(cmd[0], "pwd", len) && len == 3)
 		return (6);
-	if (!ft_strncmp(shell->cmds->opts[0], "unset", len) && len == 5)
+	if (!ft_strncmp(cmd[0], "unset", len) && len == 5)
 		return (7);
 	return (0);
 }
@@ -73,28 +73,28 @@ void	cut_first_opt(char **opts)
 	opts[i] = NULL;
 }
 
-int	exec_builtin(t_shell *shell)
+int	exec_builtin(char **cmd)
 {
 	int	builtin;
 
-	builtin = ft_is_builtin(shell);
+	builtin = ft_is_builtin(cmd);
 	if (builtin == 0)
 		return (0);
-	cut_first_opt(shell->cmds->opts);
+	cut_first_opt(cmd);
 	if (builtin == 1)
-		return (ft_cd(shell), 1);
+		return (ft_cd(cmd), 1);
 	else if (builtin == 2)
-		return (ft_echo(shell), 1);
+		return (ft_echo(cmd), 1);
 	else if (builtin == 3)
-		return (ft_env(shell), 1);
+		return (ft_env(cmd), 1);
 	else if (builtin == 4)
-		return (ft_exit(shell), 1);
+		return (ft_exit(cmd), 1);
 	else if (builtin == 5)
-		return (ft_export(shell), 1);
+		return (ft_export(cmd), 1);
 	else if (builtin == 6)
 		return (ft_pwd(), 1);
 	else if (builtin == 7)
-		return (ft_unset(shell), 1);
+		return (ft_unset(cmd), 1);
 	return (0);
 }
 
