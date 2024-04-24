@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/22 18:31:17 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:22:03 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 	char	*path_val;
 
 	fork_pid = fork();
+	printf("pid fork %d\n", fork_pid);
 	if (fork_pid == -1)
 		ft_error(shell, FORK_ERROR, EXIT_FAILURE);
 	if (fork_pid == 0)
@@ -61,12 +62,20 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	int		tmp_status;
 	int		pipe_fd[2];
 	int		next_pipe[2];
+	int		valor_pipe;
+	int		valor_pipe1;
 
 	if (pipe(pipe_fd) == -1)
 		ft_error(shell, PIPE_ERROR, EXIT_FAILURE); //aqui sueltas error pero seguiria la ejecucion no sale 
+	tmp_status = 0;
+	valor_pipe = pipe(pipe_fd);
+	printf("primer pipe %d\n", valor_pipe);
+	if (valor_pipe == -1)
+		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
 	while (node)
 	{
-		pipe(next_pipe);
+		valor_pipe1 = pipe(next_pipe);
+		printf("segundo pipe %d\n", valor_pipe1);
 		manage_outfile(shell, next_pipe);
 		manage_infile(shell, pipe_fd);
 		if (!node->opts || !node->opts[0])
