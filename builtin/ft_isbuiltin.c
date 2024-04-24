@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 16:49:04 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:37:09 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,19 @@ int	exec_builtin(char **cmd, t_shell *shell)
 		return (0);
 	cut_first_opt(cmd);
 	if (builtin == 1)
-		return (ft_cd(cmd), 1);
+		return (ft_cd(cmd, shell), 1);
 	if (builtin == 2)
 		return (ft_echo(cmd), 1);
 	else if (builtin == 3)
-		return (ft_env(cmd), 1);
+		return (ft_env(shell), 1);
 	else if (builtin == 4)
 		return (ft_exit(cmd), 1);
 	else if (builtin == 5)
-		return (ft_export(cmd), 1);
+		return (ft_export(cmd, shell), 1);
 	else if (builtin == 6)
 		return (ft_pwd(), 1);
 	else if (builtin == 7)
-		return (ft_unset(cmd), 1);
+		return (ft_unset(cmd, shell), 1);
 	return (0);
 }
 
