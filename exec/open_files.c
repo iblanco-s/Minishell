@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 16:54:59 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:00:50 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ void	heredoc(char *delimiter)
 	close (doc_file);
 }
 
-int	infile_access(char **file)
-{
-	int	acces_val;
-
-	acces_val = access(*file, F_OK);
-	return (acces_val);
-}
-
 int	open_infile(char **file, int *infile_fd)
 {
 	int		fd_in;
@@ -75,13 +67,11 @@ int	open_infile(char **file, int *infile_fd)
 	return (fd_in);
 }
 
-void	create_outfile(char **file, char **infile)
+void	create_outfile(char **file)
 {
 	int		fd_out;
 
 	if (!*file)
-		return ;
-	if (infile_access(infile) != 0)
 		return ;
 	while (*file)
 	{

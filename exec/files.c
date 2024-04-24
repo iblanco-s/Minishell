@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:40:05 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 16:31:45 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:58:11 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,16 @@ void	manage_outfile(t_shell *shell, int *next_pipe)
 	}
 }
 
-void	manage_infile(t_shell *shell, int *prev_pipe)
+int	manage_infile(t_shell *shell, int *prev_pipe)
 {
 	t_cmds	*node;
 
 	node = shell->cmds;
 	if (node->infile)
+	{
 		prev_pipe[STDIN_FILENO] = open_infile(node->infile, node->infile_fd);
+		if (prev_pipe[STDIN_FILENO] == -1)
+			return (-1);
+	}
+	return (0);
 }

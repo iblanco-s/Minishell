@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 16:47:02 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:01:33 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	while (node)
 	{
 		ft_pipe(shell, next_pipe);
+		if (manage_infile(shell, pipe_fd) == -1)
+			break ;
 		manage_outfile(shell, next_pipe);
-		manage_infile(shell, pipe_fd);
 		if (!node->opts || !node->opts[0])
 			ft_continue_error(COMMAND_ERROR);
 		start_pipe(shell, pipe_fd, next_pipe, node);

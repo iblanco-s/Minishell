@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/24 16:42:47 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:01:00 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,10 @@ int		*append_to_reddir_type_array(int *reddir_types, int new_reddir_type);
 // EXEC
 void	heredoc(char *delimiter);
 int		open_infile(char **file, int *infile_fd);
-void	create_outfile(char **file, char **infile);
+void	create_outfile(char **file);
 int		outfile_type(char **file, int *outfile_fd);
 void	manage_outfile(t_shell *shell, int *next_pipe);
-void	manage_infile(t_shell *shell, int *prev_pipe);
+int		manage_infile(t_shell *shell, int *prev_pipe);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
 void	dup_close_fd(int pipe_fd[2], int fd);
 void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node);
