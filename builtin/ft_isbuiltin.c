@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 17:37:09 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:20:59 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	manage_redir(t_shell *shell, int *in_copy, int *out_copy)
 	}
 	if (shell->cmds->outfile)
 	{
-		create_outfile(shell->cmds->outfile, shell->cmds->infile);
+		create_outfile(shell->cmds->outfile);
 		outfile = outfile_type(shell->cmds->outfile, shell->cmds->outfile_fd);
 		dup2(outfile, STDOUT_FILENO);
 	}
