@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 16:13:01 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:02:29 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	manage_redir(t_shell *shell, int *in_copy, int *out_copy)
 	}
 	if (shell->cmds->outfile)
 	{
-		create_outfile(shell->cmds->outfile);
+		create_outfile(shell->cmds->outfile, shell->cmds->infile);
 		outfile = outfile_type(shell->cmds->outfile, shell->cmds->outfile_fd);
 		dup2(outfile, STDOUT_FILENO);
 	}
@@ -73,7 +73,7 @@ void	cut_first_opt(char **opts)
 	opts[i] = NULL;
 }
 
-int	exec_builtin(char **cmd)
+int	exec_builtin(char **cmd, t_shell *shell)
 {
 	int	builtin;
 
@@ -83,7 +83,7 @@ int	exec_builtin(char **cmd)
 	cut_first_opt(cmd);
 	if (builtin == 1)
 		return (ft_cd(cmd), 1);
-	else if (builtin == 2)
+	if (builtin == 2)
 		return (ft_echo(cmd), 1);
 	else if (builtin == 3)
 		return (ft_env(cmd), 1);
@@ -98,13 +98,13 @@ int	exec_builtin(char **cmd)
 	return (0);
 }
 
-void	exec_single_builtin(t_shell *shell)
+void	exec_single_builtin(t_shell *shell, char **cmd)
 {
 	int		in_copy;
 	int		out_copy;
 
 	manage_redir(shell, &in_copy, &out_copy);
-	exec_builtin(shell);
+	exec_builtin(cmd, shell);
 	dup2(in_copy, STDIN_FILENO);
 	dup2(out_copy, STDOUT_FILENO);
 	close(in_copy);

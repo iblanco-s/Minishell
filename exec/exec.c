@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 15:37:45 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:03:58 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 
 	if (!*cmd)
 		exit (0);
-	if (exec_builtin(cmd))
+	if (exec_builtin(cmd, shell))
 		exit (0);
 	if (!ft_strchr(cmd[0], '/'))
 		path = ft_get_path(path_value, cmd[0]);
@@ -92,8 +92,8 @@ void	manage_exec(t_shell *shell)
 {
 	if (!shell)
 		return ;
-	if (shell->cmds && !shell->cmds->next && ft_is_builtin(shell))
-		exec_single_builtin(shell);
+	if (shell->cmds && !shell->cmds->next && ft_is_builtin(shell->cmds->opts))
+		exec_single_builtin(shell, shell->cmds->opts);
 	else
 		exec_pipe(shell, shell->cmds);
 }
