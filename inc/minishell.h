@@ -36,6 +36,13 @@
 # define ERROR_MANY_ARGS "minishell: init: too many arguments"
 # define PIPE_ERROR "minishell: pipe() failed"
 # define FORK_ERROR "minishell: fork() failed"
+# define CONSECUTIVE_PIPES_ERROR "minishell: Error: consecutive pipes are not allowed\n"
+# define SPECIAL_CHAR_AT_END_ERROR "minishell: Error: special char can't be at the end\n"
+# define SPECIAL_CHAR_PARAM_ERROR "minishell: Error: special char must be followed by a parameter\n"
+# define NON_ASCII_CHAR_ERROR "minishell: Error: non-ASCII character found\n"
+# define UNCLOSED_QUOTES_ERROR "minishell: Error: unclosed quotes\n"
+# define PIPE_AT_START_ERROR "minishell: Error: pipe at start not valid\n"
+# define EMPTY_LINE_ERROR "minishell: Error: empty line\n"
 
 // ESTRUCTURA PARA PARSEO
 typedef struct s_parse
@@ -105,7 +112,10 @@ t_env	*env_to_list(char **env);
 t_shell	*setup_program(char **env);
 
 // PARSE
-void	handle_input(char *line, t_shell *shell);
+int		handle_input(char *line, t_shell *shell);
+int		check_special_chars(char *line);
+char	get_next_char(char *line);
+int		print_error_and_return(char *error_message);
 t_parse	*general_split(char *line, t_shell *shell);
 void	split_dollar(t_parse *tokens_list, t_shell *shell);
 void	divide_str_by_char(t_env *token_list, int i);

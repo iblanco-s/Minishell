@@ -65,6 +65,8 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 	int		valor_pipe;
 	int		valor_pipe1;
 
+	if (pipe(pipe_fd) == -1)
+		ft_error(shell, PIPE_ERROR, EXIT_FAILURE); //aqui sueltas error pero seguiria la ejecucion no sale 
 	tmp_status = 0;
 	valor_pipe = pipe(pipe_fd);
 	printf("primer pipe %d\n", valor_pipe);
@@ -76,6 +78,10 @@ void	exec_pipe(t_shell *shell, t_cmds *node)
 		printf("segundo pipe %d\n", valor_pipe1);
 		manage_outfile(shell, next_pipe);
 		manage_infile(shell, pipe_fd);
+		if (!node->opts || !node->opts[0])
+			exit (0); //aqui peta si metes solo infile o outfile porque no hay comando y opts esta vacio,
+			// el exit es temporal NECESITAMOS ALGUNA FUNCION QUE HAGA DE EXIT DE LA EJECUCION DE UN INPUT Y VUELVA A SACAR EL PROMPT SIN TENER QUE PASAR POR TODA LA EJECUCION, 
+			//pregunta como lo hace el resto porque bash lo haze raro, <a lo trata de una forma y >a de otro pero ambas son validas para bash
 		start_pipe(shell, pipe_fd, next_pipe, node);
 		pipe_fd[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 		node = node->next;

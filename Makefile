@@ -30,7 +30,8 @@ SRCS = builtin/ft_echo.c \
 	   initiation/main.c \
 	   initiation/obtain_env.c \
 	   initiation/setup.c \
-	   parse/tokenizer.c \
+	   parse/initial_check.c \
+	   parse/aux_initial_check.c \
 	   parse/general_split.c \
 	   parse/split_special_chars.c \
 	   parse/group_by_pipes.c \

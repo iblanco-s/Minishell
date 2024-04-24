@@ -98,6 +98,8 @@ t_parse	*get_next_quote(char **line, int quote, char quote_type)
  * 
  * @return t_env* Lista con la linea parseada
 */
+//TODO: DEBEMOS TENER EN CUENTA:
+// || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 t_parse	*general_split(char *line, t_shell *shell)
 {
 	t_parse	*token_list;
@@ -114,16 +116,12 @@ t_parse	*general_split(char *line, t_shell *shell)
 		else if (*line)
 		{
 			ft_lstadd_back_parse(&token_list, get_next_word(&line));
-			//TODO: DEBEMOS TENER EN CUENTA || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 			check_pipes_and_redirs(token_list);
 		}
 	}
 	check_join_quotes_because_special_chars(token_list);
-	// from echo hola$USER -> echo holaINIGO
 	split_dollar(token_list, shell);
-	// join nodes depending on flag join_with_quotes
 	join_nodes_because_quotes(&token_list);
-	// from "echo holaINIGO | cat -e" -> nodo 1: "echo holaINIGO", nodo 2: "cat -e"
 	shell->cmds = create_new_cmds_node();
 	group_by_pipes_and_redirs(shell, &token_list);
 	return (token_list);
