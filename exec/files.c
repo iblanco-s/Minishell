@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:40:05 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/23 11:37:11 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:31:45 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	manage_outfile(t_shell *shell, int *next_pipe)
 	node = shell->cmds;
 	if (node->outfile)
 	{
-		create_outfile(node->outfile);
+		create_outfile(node->outfile, node->infile);
 		next_pipe[STDOUT_FILENO]
 			= outfile_type(node->outfile, node->outfile_fd);
 	}

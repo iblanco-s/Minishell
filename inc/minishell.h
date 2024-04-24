@@ -94,9 +94,9 @@ int		ft_echo(char **opts);
 int		ft_exit(char **opts);
 int		ft_cd(char **opts, t_shell *shell);
 void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
-int		ft_is_builtin(t_shell *shell);
-int		exec_builtin(t_shell *shell);
-void	exec_single_builtin(t_shell *shell);
+int		ft_is_builtin(char **cmd);
+int		exec_builtin(char **cmd, t_shell *shell);
+void	exec_single_builtin(t_shell *shell, char **cmd);
 
 // BUILTINS UTILS
 char	*ft_strndup(const char *s, size_t n);
@@ -151,7 +151,7 @@ int		*append_to_reddir_type_array(int *reddir_types, int new_reddir_type);
 // EXEC
 void	heredoc(char *delimiter);
 int		open_infile(char **file, int *infile_fd);
-void	create_outfile(char **file);//, char **infile);
+void	create_outfile(char **file, char **infile);
 int		outfile_type(char **file, int *outfile_fd);
 void	manage_outfile(t_shell *shell, int *next_pipe);
 void	manage_infile(t_shell *shell, int *prev_pipe);
