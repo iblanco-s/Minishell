@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:24:01 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/24 12:12:17 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:43:36 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	remove_env(t_shell *shell, t_env *current, t_env *prev)
 		shell->env = current->next;
 	else
 		prev->next = current->next;
-	// printf("\nname = %s\n", current->name);
 	free(current->name);
 	free(current->value);
 	free(current);
@@ -41,19 +40,17 @@ void	find_env(char *opts, t_shell *shell)
 	}
 }
 
-int	ft_unset(t_shell *shell)
+int	ft_unset(char **opts, t_shell *shell)
 {
 	int		i;
-	t_cmds	*cmds;
 
-	cmds = shell->cmds;
 	i = 0;
-	if (cmds->opts == NULL || cmds->opts[0] == NULL
-		|| check_alpha_env(cmds, cmds->opts[0], "unset") == 0)
+	if (opts == NULL || opts[0] == NULL
+		|| check_alpha_env(opts, opts[0], "unset") == 0)
 		return (0);
-	while (cmds->opts[i])
+	while (opts[i])
 	{
-		find_env(cmds->opts[i], shell);
+		find_env(opts[i], shell);
 		i++;
 	}
 	return (0);

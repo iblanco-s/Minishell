@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/24 14:33:06 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:42:47 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ extern long long	g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
-int		ft_unset(t_shell *shell);
-int		ft_export(t_shell *shell);
+int		ft_unset(char **opts, t_shell *shell);
+int		ft_export(char **opts, t_shell *shell);
 int		ft_env(t_shell *shell);
-int		ft_echo(t_shell *shell);
-int		ft_exit(t_shell *shell);
-int		ft_cd(t_shell *shell);
+int		ft_echo(char **opts);
+int		ft_exit(char **opts);
+int		ft_cd(char **opts, t_shell *shell);
 void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
 int		ft_is_builtin(t_shell *shell);
 int		exec_builtin(t_shell *shell);
@@ -103,7 +103,7 @@ char	*ft_strndup(const char *s, size_t n);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 int		ft_strcmp(const char *str1, const char *str2);
-int		check_alpha_env(t_cmds *cmds, char *str, char *name_command);
+int		check_alpha_env(char **opts, char *str, char *name);
 int		change_env_value(t_shell *shell, char *name_env, char *value_env);
 char	*get_env_value(t_shell *shell, char *name);
 int		change_pwd_and_oldpwd(t_shell *shell);

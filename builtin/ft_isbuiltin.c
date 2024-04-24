@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 16:13:01 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:49:04 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,20 @@ int	exec_builtin(char **cmd)
 	if (builtin == 0)
 		return (0);
 	cut_first_opt(cmd);
-	if (builtin == 1)
-		return (ft_cd(cmd), 1);
-	else if (builtin == 2)
-		return (ft_echo(cmd), 1);
-	else if (builtin == 3)
-		return (ft_env(cmd), 1);
-	else if (builtin == 4)
-		return (ft_exit(cmd), 1);
-	else if (builtin == 5)
-		return (ft_export(cmd), 1);
-	else if (builtin == 6)
-		return (ft_pwd(), 1);
-	else if (builtin == 7)
-		return (ft_unset(cmd), 1);
+	// if (builtin == 1)
+	// 	return (ft_cd(cmd), 1);
+	// else if (builtin == 2)
+	// 	return (ft_echo(cmd), 1);
+	// else if (builtin == 3)
+	// 	return (ft_env(cmd), 1);
+	// else if (builtin == 4)
+	// 	return (ft_exit(cmd), 1);
+	// else if (builtin == 5)
+	// 	return (ft_export(cmd), 1);
+	// else if (builtin == 6)
+	// 	return (ft_pwd(), 1);
+	// else if (builtin == 7)
+	// 	return (ft_unset(cmd), 1);
 	return (0);
 }
 
