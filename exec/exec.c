@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 17:03:58 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:31:02 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,30 @@ char	*path_value(t_shell *shell)
 	return (path_value);
 }
 
+char	**env_to_envp(t_env *env)
+{
+	char	**envp;
+	char	*tmp;
+
+	envp = malloc(sizeof(char *) * (ft_lstsize_tenv(env) + 1));
+	while(env)
+	{
+		tmp = ft_strjoin(env->name, "=");
+		*envp = ft_strjoin(tmp, env->value);
+		free(tmp);
+		envp++;
+		env = env->next;
+	}
+	*envp = NULL;
+	return (envp);
+}
+
 void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 {
 	char	*path;
 	char	**envp;
 
+	envp = env_to_envp(shell->env);
 	if (!*cmd)
 		exit (0);
 	if (exec_builtin(cmd, shell))
@@ -79,7 +98,6 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 		ft_putendl_fd("Command not found", 2);
 		exit (127);
 	}
-	envp = (char *[]){path_value, NULL};
 	if (execve(path, cmd, envp) == -1)
 	{
 		free(path);
