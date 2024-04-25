@@ -41,6 +41,10 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		path_val = path_value(shell);
 		exec_cmd(shell, node->opts, path_val);
 	}
+	waitpid(fork_pid, NULL, 0);
+	// EL cat no se quedaba esperando porque el padre 
+	// no esperaba a que el hijo terminara, eso waitpid
+	// lo soluciona pero igual no es la forma mas correcta
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
 		close(pipe_fd[0]);

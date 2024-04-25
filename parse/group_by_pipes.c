@@ -63,6 +63,11 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 	c_cmd = shell->cmds;
 	while (c)
 	{
+		if (c->token == NULL)
+		{
+			c = c->next;
+			continue ;
+		}
 		if (c->token[0] == '|' && c->token[1] == '\0')
 		{
 			c_cmd->opts = list_to_array(c_cmd->aux_list_parse);

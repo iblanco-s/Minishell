@@ -62,9 +62,12 @@ char	*path_value(t_shell *shell)
 char	**env_to_envp(t_env *env)
 {
 	char	**envp;
+	char	**tmp_envp;
 	char	*tmp;
 
+
 	envp = malloc(sizeof(char *) * (ft_lstsize_tenv(env) + 1));
+	tmp_envp = envp;
 	while(env)
 	{
 		tmp = ft_strjoin(env->name, "=");
@@ -74,7 +77,7 @@ char	**env_to_envp(t_env *env)
 		env = env->next;
 	}
 	*envp = NULL;
-	return (envp);
+	return (tmp_envp);
 }
 
 void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
@@ -104,6 +107,7 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 		ft_putendl_fd("Error executing command", 2);
 		exit (127);
 	}
+
 }
 
 void	manage_exec(t_shell *shell)

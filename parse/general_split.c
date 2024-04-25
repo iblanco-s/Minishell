@@ -24,7 +24,7 @@ void	join_nodes_because_quotes(t_parse **token_list)
 	t_parse	*tmp;
 
 	current = *token_list;
-	while (current)
+	while (current && current->token)
 	{
 		if (current->join_with_quotes && current->join_with_quotes == 1)
 		{
@@ -77,7 +77,10 @@ t_parse	*get_next_quote(char **line, int quote, char quote_type)
 	*line += 1;
 	while ((*line)[i] && (*line)[i] != quote_type)
 		i++;
-	node->token = ft_strndup(*line, i - 1);
+	if (i == 0)
+		node->token = NULL;
+	else
+		node->token = ft_strndup(*line, i - 1);
 	node->next = NULL;
 	node->quote = quote;
 	if ((*line)[i + 1] && (*line)[i + 1] != ' ')
