@@ -6,13 +6,13 @@
 #    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/24 10:33:01 by jsalaber         ###   ########.fr        #
+#    Updated: 2024/04/26 11:24:32 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -Wall -Werror -Wextra -fsanitize=address -g3
+CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
 
 RM = rm -f
 

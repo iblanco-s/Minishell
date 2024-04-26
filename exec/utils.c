@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:31:05 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 14:35:17 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:27:34 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,17 @@ void	ft_pipe(t_shell *shell, int pipe_fd[2])
 {
 	if (pipe(pipe_fd) == -1)
 		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
+}
+
+void	ft_free_split(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }

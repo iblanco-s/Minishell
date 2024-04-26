@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/24 18:01:00 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:44:12 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_shell
 	t_env			*env;
 }	t_shell;
 
-extern long long	g_exit_status;
+extern int	g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
@@ -162,7 +162,8 @@ void	exec_pipe(t_shell *shell, t_cmds *node);
 char	*ft_get_path(char *path, char *cmd);
 void	ft_free_split(char **arr);
 char	*path_value(t_shell *shell);
-void	exec_cmd(t_shell *shell, char **cmd, char *path_value);
+char	**env_to_envp(t_env *env);
+void	exec_cmd(t_shell *shell, char **cmd, char *path_value, char **envp);
 void	manage_exec(t_shell *shell);
 void	ft_continue_error(char *error_msg);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);

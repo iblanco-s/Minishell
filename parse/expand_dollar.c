@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:57:44 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/21 21:44:59 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/26 09:41:26 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ char	*expand_quote(char *string_to_expand)
 	expanded_value = ft_itoa(g_exit_status);
 	tmp = expanded_value;
 	if (string_to_expand[1])
+	{
 		tmp = ft_strjoin(expanded_value, ft_strdup(&string_to_expand[1]));
-	free(expanded_value);
+		free(expanded_value);
+	}
 	return (tmp);
 }
 

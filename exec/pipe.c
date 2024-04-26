@@ -6,13 +6,13 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/24 18:01:33 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:27:24 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-long long	g_exit_status = 0;
+int	g_exit_status = 0;
 
 void	dup_close_fd(int pipe_fd[2], int fd)
 {
@@ -28,6 +28,7 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 {
 	pid_t	fork_pid;
 	char	*path_val;
+	char	**tmp_envp;
 
 	if (!shell->cmds->opts || !shell->cmds->opts[0])
 		return ;
@@ -39,12 +40,10 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		dup_close_fd(pipe_fd, STDIN_FILENO);
 		dup_close_fd(n_pipe, STDOUT_FILENO);
 		path_val = path_value(shell);
-		exec_cmd(shell, node->opts, path_val);
+		tmp_envp = env_to_envp(shell->env);
+		exec_cmd(shell, node->opts, path_val, tmp_envp);
 	}
-	waitpid(fork_pid, NULL, 0);
-	// EL cat no se quedaba esperando porque el padre 
-	// no esperaba a que el hijo terminara, eso waitpid
-	// lo soluciona pero igual no es la forma mas correcta
+
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
 		close(pipe_fd[0]);

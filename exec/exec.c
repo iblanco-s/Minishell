@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/25 17:31:02 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:26:57 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_free_split(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 
 char	*ft_get_path(char *path, char *cmd)
 {
@@ -65,10 +52,9 @@ char	**env_to_envp(t_env *env)
 	char	**tmp_envp;
 	char	*tmp;
 
-
 	envp = malloc(sizeof(char *) * (ft_lstsize_tenv(env) + 1));
 	tmp_envp = envp;
-	while(env)
+	while (env)
 	{
 		tmp = ft_strjoin(env->name, "=");
 		*envp = ft_strjoin(tmp, env->value);
@@ -80,12 +66,10 @@ char	**env_to_envp(t_env *env)
 	return (tmp_envp);
 }
 
-void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
+void	exec_cmd(t_shell *shell, char **cmd, char *path_value, char **envp)
 {
 	char	*path;
-	char	**envp;
 
-	envp = env_to_envp(shell->env);
 	if (!*cmd)
 		exit (0);
 	if (exec_builtin(cmd, shell))
@@ -107,7 +91,6 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value)
 		ft_putendl_fd("Error executing command", 2);
 		exit (127);
 	}
-
 }
 
 void	manage_exec(t_shell *shell)
