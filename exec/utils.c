@@ -26,10 +26,12 @@ void	ft_continue_error(char *error_msg)
 	return ;
 }
 
-void	ft_pipe(t_shell *shell, int pipe_fd[2])
+void	ft_pipe(int pipe_fd[2])
 {
-	if (pipe(pipe_fd) == -1)
-		ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
+	pipe_fd[0] = 33;
+	pipe_fd[1] = 33;
+	// if (pipe(pipe_fd) == -1)
+	// 	ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
 }
 
 void	ft_free_split(char **arr)

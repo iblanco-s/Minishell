@@ -43,7 +43,6 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		tmp_envp = env_to_envp(shell->env);
 		exec_cmd(shell, node->opts, path_val, tmp_envp);
 	}
-
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
 		close(pipe_fd[0]);
@@ -53,20 +52,21 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		close (n_pipe[STDOUT_FILENO]);
 }
 
-void	exec_pipe(t_shell *shell, t_cmds *node)
+void	exec_pipe(t_shell *shell, t_cmds *node, t_cmds *head_node)
 {
 	int		tmp_status;
 	int		pipe_fd[2];
 	int		next_pipe[2];
 
-	ft_pipe(shell, pipe_fd);
+	ft_pipe(pipe_fd);
 	tmp_status = 0;
 	while (node)
 	{
-		ft_pipe(shell, next_pipe);
-		if (manage_infile(shell, pipe_fd) == -1)
+		if (node->infile)
+		ft_pipe(next_pipe);
+		if (manage_infile(node, pipe_fd, head_node) == -1)
 			break ;
-		manage_outfile(shell, next_pipe);
+		manage_outfile(node, next_pipe);
 		if (!node->opts || !node->opts[0])
 			ft_continue_error(COMMAND_ERROR);
 		start_pipe(shell, pipe_fd, next_pipe, node);

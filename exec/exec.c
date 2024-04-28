@@ -100,5 +100,8 @@ void	manage_exec(t_shell *shell)
 	if (shell->cmds && !shell->cmds->next && ft_is_builtin(shell->cmds->opts))
 		exec_single_builtin(shell, shell->cmds->opts);
 	else
-		exec_pipe(shell, shell->cmds);
+	{
+		exec_pipe(shell, shell->cmds, shell->cmds);
+	}
+		
 }

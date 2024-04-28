@@ -160,12 +160,12 @@ void	heredoc(char *delimiter);
 int		open_infile(char **file, int *infile_fd);
 void	create_outfile(char **file);
 int		outfile_type(char **file, int *outfile_fd);
-void	manage_outfile(t_shell *shell, int *next_pipe);
-int		manage_infile(t_shell *shell, int *prev_pipe);
+void	manage_outfile(t_cmds *node, int *next_pipe);
+int		manage_infile(t_cmds *node, int *prev_pipe, t_cmds *head);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
 void	dup_close_fd(int pipe_fd[2], int fd);
 void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node);
-void	exec_pipe(t_shell *shell, t_cmds *node);
+void	exec_pipe(t_shell *shell, t_cmds *node, t_cmds *head_node);
 char	*ft_get_path(char *path, char *cmd);
 void	ft_free_split(char **arr);
 char	*path_value(t_shell *shell);
@@ -174,7 +174,7 @@ void	exec_cmd(t_shell *shell, char **cmd, char *path_value, char **envp);
 void	manage_exec(t_shell *shell);
 void	ft_continue_error(char *error_msg);
 void	ft_error(t_shell *shell, char *error_msg, int exit_status);
-void	ft_pipe(t_shell *shell, int pipe_fd[2]);
+void	ft_pipe(int pipe_fd[2]);
 
 // MAIN
 void	free_general(t_shell *shell);

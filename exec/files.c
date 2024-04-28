@@ -12,12 +12,10 @@
 
 #include "../inc/minishell.h"
 
-void	manage_outfile(t_shell *shell, int *next_pipe)
+void	manage_outfile(t_cmds *node, int *next_pipe)
 {
 	int		pipe_fd[2];
-	t_cmds	*node;
 
-	node = shell->cmds;
 	if (node->outfile)
 	{
 		create_outfile(node->outfile);
@@ -34,12 +32,9 @@ void	manage_outfile(t_shell *shell, int *next_pipe)
 	}
 }
 
-int	manage_infile(t_shell *shell, int *prev_pipe)
+int	manage_infile(t_cmds *node, int *prev_pipe, t_cmds *head)
 {
-	t_cmds	*node;
-
-	node = shell->cmds;
-	if (node->infile)
+	if (node->infile || node == head)
 	{
 		prev_pipe[STDIN_FILENO] = open_infile(node->infile, node->infile_fd);
 		if (prev_pipe[STDIN_FILENO] == -1)

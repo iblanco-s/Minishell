@@ -12,7 +12,7 @@
 
 NAME = minishell
 
-CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
+CC = gcc -Wall -Werror -Wextra -fsanitize=address -g3
 
 RM = rm -f
 

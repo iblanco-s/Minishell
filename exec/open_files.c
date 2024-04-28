@@ -42,7 +42,7 @@ int	open_infile(char **file, int *infile_fd)
 {
 	int		fd_in;
 
-	if (!*file)
+	if (!file)
 		return (STDIN_FILENO);
 	while (*file != NULL)
 	{
