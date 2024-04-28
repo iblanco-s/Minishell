@@ -25,6 +25,7 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <termios.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
@@ -46,6 +47,10 @@
 # define PIPE_AT_START_ERROR "minishell: Error: pipe at start not valid\n"
 # define EMPTY_LINE_ERROR "minishell: Error: empty line\n"
 
+
+// GLOBAL VARIABLE
+extern int	g_exit_status;
+
 // ESTRUCTURA PARA PARSEO
 typedef struct s_parse
 {
@@ -61,6 +66,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	// int				local;
 	struct s_env	*next;
 }	t_env;
 
@@ -82,8 +88,6 @@ typedef struct s_shell
 	t_cmds			*cmds;
 	t_env			*env;
 }	t_shell;
-
-extern int	g_exit_status;
 
 // BUILTINS
 int		ft_pwd(void);
@@ -112,6 +116,9 @@ int		go_to_path(t_shell *shell, char *path);
 // INITIATION
 t_env	*env_to_list(char **env);
 t_shell	*setup_program(char **env);
+void	organize_signals(void);
+int		is_interactive(int change);
+void	disable_print_signals(void);
 
 // PARSE
 int		handle_input(char *line, t_shell *shell);

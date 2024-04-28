@@ -96,18 +96,29 @@ void	main_loop(t_shell *shell)
 {
 	char	*line;
 
+	// organize_signals();
+	disable_print_signals();
 	while (1)
 	{
 		// int in_fd = dup(STDIN_FILENO);
 		// int out_fd = dup(STDOUT_FILENO);
 		// printf("Input file descriptor: %d\n", in_fd);
 		// printf("Output file descriptor: %d\n", out_fd);
+		is_interactive(1);
 		line = readline("minishell$ ");//aqui se queda parado al llamar minishell en minishell, posiblemente por tema de file descriptors
-		// if (!line)
-		// 	ft_error(shell, "minishell: init: readline error", 1);
-		add_history(line);
-		if (handle_input(line, shell))
-			manage_exec(shell);
+		if (line == NULL)
+		{
+			ft_putstr_fd("Quitting minishell\n", 1);
+			free_general(shell);
+			break;
+		} 
+		else {
+			is_interactive(0);
+			add_history(line);
+			if (handle_input(line, shell))
+				manage_exec(shell);
+		}
+
 		free_command(shell, line);
 	}
 }

@@ -44,6 +44,7 @@ SRCS = builtin/ft_echo.c \
 	   exec/pipe.c \
 	   exec/exec.c \
 	   exec/utils.c \
+	   signal/signals.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -56,10 +57,10 @@ $(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
-	$(CC) -c $< -o $@
+	$(CC) -I /usr/local/opt/readline/include -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L /usr/local/opt/readline/lib -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
