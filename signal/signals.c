@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:02:54 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/28 20:05:09 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/29 15:47:45 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	disable_print_signals(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 }
 
-void	handle_signal_int_inter(int	sig)
+void	handle_signal_int_inter(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -32,7 +32,7 @@ void	handle_signal_int_inter(int	sig)
 	}
 }
 
-void	handle_signal_int_no_inter(int	sig)
+void	handle_signal_int_no_inter(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -42,7 +42,7 @@ void	handle_signal_int_no_inter(int	sig)
 	}
 }
 
-void	handle_signal_quit_no_inter(int	sig)
+void	handle_signal_quit_no_inter(int sig)
 {
 	if (sig == SIGQUIT)
 	{

@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/26 10:44:12 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:33:05 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@
 # define UNCLOSED_QUOTES_ERROR "minishell: Error: unclosed quotes\n"
 # define PIPE_AT_START_ERROR "minishell: Error: pipe at start not valid\n"
 # define EMPTY_LINE_ERROR "minishell: Error: empty line\n"
-
 
 // GLOBAL VARIABLE
 extern int	g_exit_status;

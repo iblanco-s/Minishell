@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:52:21 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 18:00:50 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:53:25 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	open_infile(char **file, int *infile_fd)
 {
 	int		fd_in;
 
-	if (!file)
+	if (!file || !*file)
 		return (STDIN_FILENO);
 	while (*file != NULL)
 	{
@@ -91,7 +91,7 @@ int	outfile_type(char **file, int *outfile_fd)
 	int		fd_out;
 	int		write_mode;
 
-	if (!outfile_fd)
+	if (!file || !*file)
 		return (STDOUT_FILENO);
 	fd_out = -1;
 	write_mode = 0;

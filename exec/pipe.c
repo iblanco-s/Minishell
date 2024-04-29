@@ -6,13 +6,11 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/26 11:27:24 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:06:46 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	g_exit_status = 0;
 
 void	dup_close_fd(int pipe_fd[2], int fd)
 {
@@ -62,14 +60,14 @@ void	exec_pipe(t_shell *shell, t_cmds *node, t_cmds *head_node)
 	tmp_status = 0;
 	while (node)
 	{
-		if (node->infile)
 		ft_pipe(next_pipe);
 		if (manage_infile(node, pipe_fd, head_node) == -1)
 			break ;
 		manage_outfile(node, next_pipe);
 		if (!node->opts || !node->opts[0])
 			ft_continue_error(COMMAND_ERROR);
-		start_pipe(shell, pipe_fd, next_pipe, node);
+		if (pipe_fd[STDIN_FILENO] >= 0)
+			start_pipe(shell, pipe_fd, next_pipe, node);
 		pipe_fd[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 		node = node->next;
 	}

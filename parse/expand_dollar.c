@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:57:44 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/26 09:41:26 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:57:38 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	split_dollar(t_parse *token_list, t_shell *shell)
 			continue ;
 		if (token_list->quote != 1)
 		{
-			while (token_list->token[i])
+			while (token_list->token && token_list->token[i])
 			{
 				if (token_list->token[i] == '$' && token_list->token[i + 1])
 				{

@@ -6,7 +6,7 @@
 #    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/26 11:24:32 by jsalaber         ###   ########.fr        #
+#    Updated: 2024/04/29 20:04:35 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,10 +57,10 @@ $(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
-	$(CC) -I /usr/local/opt/readline/include -c $< -o $@
+	$(CC) -I/Users/jsalaber/Desktop/readline/include -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L /usr/local/opt/readline/lib -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/Users/jsalaber/Desktop/readline/lib -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)

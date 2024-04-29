@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:40:05 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/24 18:21:54 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:06:11 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	manage_outfile(t_cmds *node, int *next_pipe)
 {
-	int		pipe_fd[2];
-
 	if (node->outfile)
 	{
 		create_outfile(node->outfile);
@@ -27,7 +25,7 @@ void	manage_outfile(t_cmds *node, int *next_pipe)
 			= outfile_type(node->outfile, node->outfile_fd);
 	if (node->next)
 	{
-		if (pipe(pipe_fd) == -1)
+		if (pipe(next_pipe) == -1)
 			ft_error(NULL, PIPE_ERROR, EXIT_FAILURE);
 	}
 }

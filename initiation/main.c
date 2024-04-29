@@ -6,11 +6,12 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/26 10:21:47 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:07:57 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+int g_exit_status;
 
 void	ft_free_envs(t_env *env)
 {
@@ -126,6 +127,7 @@ void	main_loop(t_shell *shell)
 // ENTRY POINT
 int	main(int argc, char **argv, char **env)
 {
+	g_exit_status = 0;
 	if (argc > 1 && argv)
 		ft_error(NULL, ERROR_MANY_ARGS, 1);
 	main_loop(setup_program(env));

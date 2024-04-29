@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:31:05 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/26 11:27:34 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:40:43 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	ft_pipe(int pipe_fd[2])
 {
 	pipe_fd[0] = 33;
 	pipe_fd[1] = 33;
-	// if (pipe(pipe_fd) == -1)
-	// 	ft_error(shell, PIPE_ERROR, EXIT_FAILURE);
 }
 
 void	ft_free_split(char **arr)

@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/26 11:26:57 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:05:47 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,4 @@ void	manage_exec(t_shell *shell)
 	{
 		exec_pipe(shell, shell->cmds, shell->cmds);
 	}
-		
 }
