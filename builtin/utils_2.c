@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int	check_alpha_env(char **opts, char *str, char *name)
+int	check_alpha_env(char *opts, char *str, char *name)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	check_alpha_env(char **opts, char *str, char *name)
 		if (!ft_isalpha(str[i]))
 		{
 			printf("minishell: %s: `%s': not a valid identifier\n",
-				name, opts[0]);
+				name, opts);
 			return (0);
 		}
 		i++;
@@ -37,6 +37,11 @@ int	change_env_value(t_shell *shell, char *name_env, char *value_env)
 	node = shell->env;
 	while (node)
 	{
+		if (!node->name || node->local == 0)
+		{
+			node = node->next;
+			continue ;
+		}
 		if (ft_strcmp(node->name, name_env) == 0)
 		{
 			if (node->value)
