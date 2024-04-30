@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:10:26 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/30 17:10:51 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:59:52 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_general(t_shell *shell)
 	{
 		if (shell->env)
 			ft_free_envs(shell->env);
+		if (shell->cmds)
+			free_command(shell, NULL);
 		free(shell);
 	}
 }

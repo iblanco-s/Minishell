@@ -6,13 +6,13 @@
 #    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/30 17:11:13 by dgomez-m         ###   ########.fr        #
+#    Updated: 2024/04/30 17:35:55 by dgomez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
+CC = gcc #-fsanitize=address -g3
 
 RM = rm -f
 

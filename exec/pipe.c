@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/29 20:06:46 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:47:02 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		path_val = path_value(shell);
 		tmp_envp = env_to_envp(shell->env);
 		exec_cmd(shell, node->opts, path_val, tmp_envp);
+		ft_free_array(tmp_envp);
+		free(path_val);
 	}
 	if (pipe_fd[0] != STDIN_FILENO)
 	{
