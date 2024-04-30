@@ -14,30 +14,15 @@
 
 int	g_exit_status;
 
-// void	ft_error(char *msg, t_shell *shell)
-// {
-// 	ft_putstr_fd(msg, 2);
-// 	free_general(shell);
-// 	exit(EXIT_FAILURE);
-// }
-
-/**
- * @brief Loop principal del minishell
- * donde se leera la entrada del usuario
- * y se procesara una y otra vez 
- * 
- * @param shell Estructura con los env ya obtenidos
-*/
 void	main_loop(t_shell *shell)
 {
 	char	*line;
 
-	// organize_signals();
 	disable_print_signals();
 	while (1)
 	{
 		is_interactive(1);
-		line = readline("minishell$ ");//aqui se queda parado al llamar minishell en minishell, posiblemente por tema de file descriptors
+		line = readline("minishell$ ");
 		if (line == NULL)
 		{
 			ft_putstr_fd("Quitting minishell\n", 1);

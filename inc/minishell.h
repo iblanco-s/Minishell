@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/30 17:12:25 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:51:05 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@
 # define FORK_ERROR "minishell: fork() failed"
 # define COMMAND_ERROR ""
 # define FILE_ERROR "minishell: No such file or directory\n"
-# define CONSECUTIVE_PIPES_ERROR "minishell: Error: consecutive pipes are not allowed\n"
-# define SPECIAL_CHAR_AT_END_ERROR "minishell: Error: special char can't be at the end\n"
-# define SPECIAL_CHAR_PARAM_ERROR "minishell: Error: special char must be followed by a parameter\n"
+# define CONSECUTIVE_PIPES_ERROR "minishell: Error:consecutive pipes\n"
+# define SPECIAL_CHAR_AT_END_ERROR "minishell: Error:special char at the end\n"
+# define SPE_CHAR_PARAM_EROR "minishell: Error:special char not with a param\n"
 # define NON_ASCII_CHAR_ERROR "minishell: Error: non-ASCII character found\n"
 # define UNCLOSED_QUOTES_ERROR "minishell: Error: unclosed quotes\n"
 # define PIPE_AT_START_ERROR "minishell: Error: pipe at start not valid\n"
@@ -147,7 +147,8 @@ void	delete_empty_nodes(t_parse **token_list);
 // char	outfile_name(char *node);
 
 // GROUP BY PIPES
-void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list);
+void	group_by_pipes_and_redirs(t_parse **token_list,
+		t_parse *c, t_cmds *c_cmd);
 void	debugg_print_cmds(t_cmds *current_cmd);
 char	**list_to_array(t_env *token_list);
 int		ft_lstsize_tenv(t_env *lst);

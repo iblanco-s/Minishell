@@ -6,7 +6,7 @@
 /*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 10:31:59 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/26 11:29:40 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:50:48 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,9 @@ int	check_reddirs(t_parse **current, t_cmds *current_cmd)
 	return (enter);
 }
 
-// c -> current
-// c_cmd -> current command
-void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
+void	group_by_pipes_and_redirs(t_parse **token_list,
+	t_parse *c, t_cmds *c_cmd)
 {
-	t_parse	*c;
-	t_cmds	*c_cmd;
-
-	c = *token_list;
-	c_cmd = shell->cmds;
 	while (c)
 	{
 		if (c->token == NULL)
@@ -86,6 +80,4 @@ void	group_by_pipes_and_redirs(t_shell *shell, t_parse **token_list)
 	if (c_cmd->aux_list_parse)
 		c_cmd->opts = list_to_array(c_cmd->aux_list_parse);
 	free_list_parse(*token_list);
-	// c_cmd = shell->cmds;
-	// debugg_print_cmds(c_cmd);
 }

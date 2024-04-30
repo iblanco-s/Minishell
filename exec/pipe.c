@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:11:19 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/30 17:47:02 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:23:59 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,23 @@ void	dup_close_fd(int pipe_fd[2], int fd)
 	}
 }
 
+void	child_fun(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
+{
+	char	*path_val;
+	char	**tmp_envp;
+
+	dup_close_fd(pipe_fd, STDIN_FILENO);
+	dup_close_fd(n_pipe, STDOUT_FILENO);
+	path_val = path_value(shell);
+	tmp_envp = env_to_envp(shell->env);
+	exec_cmd(shell, node->opts, path_val, tmp_envp);
+	ft_free_array(tmp_envp);
+	free(path_val);
+}
+
 void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 {
 	pid_t	fork_pid;
-	char	*path_val;
-	char	**tmp_envp;
 
 	if (!shell->cmds->opts || !shell->cmds->opts[0])
 		return ;
@@ -35,13 +47,7 @@ void	start_pipe(t_shell *shell, int pipe_fd[2], int n_pipe[2], t_cmds *node)
 		ft_error(shell, FORK_ERROR, EXIT_FAILURE);
 	if (fork_pid == 0)
 	{
-		dup_close_fd(pipe_fd, STDIN_FILENO);
-		dup_close_fd(n_pipe, STDOUT_FILENO);
-		path_val = path_value(shell);
-		tmp_envp = env_to_envp(shell->env);
-		exec_cmd(shell, node->opts, path_val, tmp_envp);
-		ft_free_array(tmp_envp);
-		free(path_val);
+		child_fun(shell, pipe_fd, n_pipe, node);
 	}
 	if (pipe_fd[0] != STDIN_FILENO)
 	{

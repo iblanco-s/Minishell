@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 13:06:00 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/21 18:15:38 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/30 18:51:14 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ t_parse	*get_next_quote(char **line, int quote, char quote_type)
  * 
  * @return t_env* Lista con la linea parseada
 */
-//TODO: DEBEMOS TENER EN CUENTA:
-// || = Command Chaining? ZONA GRIS, NO SE INDICA EN NINGUN LADO
 t_parse	*general_split(char *line, t_shell *shell)
 {
 	t_parse	*token_list;
@@ -126,6 +124,6 @@ t_parse	*general_split(char *line, t_shell *shell)
 	split_dollar(token_list, shell);
 	join_nodes_because_quotes(&token_list);
 	shell->cmds = create_new_cmds_node();
-	group_by_pipes_and_redirs(shell, &token_list);
+	group_by_pipes_and_redirs(&token_list, token_list, shell->cmds);
 	return (token_list);
 }

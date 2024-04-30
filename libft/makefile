@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
+#    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:41:17 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/30 17:34:17 by dgomez-m         ###   ########.fr        #
+#    Updated: 2024/04/30 18:26:25 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc
+CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
 
 RM = rm -f
 
