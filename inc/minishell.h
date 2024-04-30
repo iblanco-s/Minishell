@@ -65,7 +65,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
-	// int				local;
+	int				local;
 	struct s_env	*next;
 }	t_env;
 
@@ -106,7 +106,7 @@ char	*ft_strndup(const char *s, size_t n);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 int		ft_strcmp(const char *str1, const char *str2);
-int		check_alpha_env(char **opts, char *str, char *name);
+int		check_alpha_env(char *opts, char *str, char *name);
 int		change_env_value(t_shell *shell, char *name_env, char *value_env);
 char	*get_env_value(t_shell *shell, char *name);
 int		change_pwd_and_oldpwd(t_shell *shell);

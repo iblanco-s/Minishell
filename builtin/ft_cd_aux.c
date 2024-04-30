@@ -19,6 +19,11 @@ char	*get_env_value(t_shell *shell, char *name)
 	current = shell->env;
 	while (current != NULL)
 	{
+		if (!current->name || current->local == 0)
+		{
+			current = current->next;
+			continue ;
+		}
 		if (ft_strcmp(current->name, name) == 0)
 			return (ft_strdup(current->value));
 		current = current->next;

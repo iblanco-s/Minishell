@@ -37,6 +37,7 @@ void	create_node(t_env **head, char *env_value)
 		node = malloc(sizeof(t_env));
 		node->name = ft_strndup(env_value, equal_sign - 1);
 		node->value = ft_strdup(&env_value[equal_sign + 1]);
+		node->local = 1;
 		node->next = NULL;
 		if (*head == NULL)
 			*head = node;

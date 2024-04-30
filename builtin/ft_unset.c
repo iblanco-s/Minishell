@@ -46,7 +46,7 @@ int	ft_unset(char **opts, t_shell *shell)
 
 	i = 0;
 	if (opts == NULL || opts[0] == NULL
-		|| check_alpha_env(opts, opts[0], "unset") == 0)
+		|| check_alpha_env(opts[0], opts[0], "unset") == 0)
 		return (0);
 	while (opts[i])
 	{

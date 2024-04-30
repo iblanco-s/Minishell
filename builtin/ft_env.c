@@ -22,6 +22,12 @@ int	ft_env(t_shell *shell)
 	env = shell->env;
 	while (env != NULL)
 	{
+		if (env->local == 0)
+		{
+			aux = env->next;
+			env = aux;
+			continue ;
+		}
 		if (env->value)
 			printf("%s=%s\n", env->name, env->value);
 		else
