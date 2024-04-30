@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:10:26 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/30 17:59:52 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:01:19 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_free_array(char **array)
 void	free_command(t_shell *shell, char *line)
 {
 	t_cmds	*tmp;
+	t_cmds	*tmp2;
 
 	tmp = shell->cmds;
 	if (line)
@@ -73,9 +74,9 @@ void	free_command(t_shell *shell, char *line)
 				free(tmp->infile_fd);
 			if (tmp->outfile_fd)
 				free(tmp->outfile_fd);
-			tmp = tmp->next;
+			tmp2 = tmp->next;
+			free(tmp);
+			tmp = tmp2;
 		}
-		free(shell->cmds);
-		shell->cmds = NULL;
 	}
 }

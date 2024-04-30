@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:25:14 by junesalaber       #+#    #+#             */
-/*   Updated: 2024/04/29 20:05:47 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:23:15 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,20 @@ char	**env_to_envp(t_env *env)
 	char	**envp;
 	char	**tmp_envp;
 	char	*tmp;
-
+	int i;
+	
+	i = 0;
 	envp = malloc(sizeof(char *) * (ft_lstsize_tenv(env) + 1));
 	tmp_envp = envp;
 	while (env)
 	{
 		tmp = ft_strjoin(env->name, "=");
-		*envp = ft_strjoin(tmp, env->value);
+		envp[i] = ft_strjoin(tmp, env->value);
 		free(tmp);
-		envp++;
+		i++;
 		env = env->next;
 	}
-	*envp = NULL;
+	envp[i] = NULL;
 	return (tmp_envp);
 }
 

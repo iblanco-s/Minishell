@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:19:28 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/30 17:13:10 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:02:01 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	main_loop(t_shell *shell)
 	disable_print_signals();
 	while (1)
 	{
-		// int in_fd = dup(STDIN_FILENO);
-		// int out_fd = dup(STDOUT_FILENO);
-		// printf("Input file descriptor: %d\n", in_fd);
-		// printf("Output file descriptor: %d\n", out_fd);
 		is_interactive(1);
 		line = readline("minishell$ ");//aqui se queda parado al llamar minishell en minishell, posiblemente por tema de file descriptors
 		if (line == NULL)
@@ -56,6 +52,7 @@ void	main_loop(t_shell *shell)
 				manage_exec(shell);
 		}
 		free_command(shell, line);
+		shell->cmds = NULL;
 	}
 }
 
