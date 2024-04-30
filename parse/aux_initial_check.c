@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_initial_check.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inigo <inigo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:25:08 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/23 19:31:16 by inigo            ###   ########.fr       */
+/*   Updated: 2024/04/30 18:33:42 by jsalaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_special_char_error(char *line, int i)
 		i++;
 	c = get_next_char(&line[i + 1]);
 	if (c == '\0' || is_special_char(c))
-		return (print_error_and_return(SPECIAL_CHAR_PARAM_ERROR));
+		return (print_error_and_return(SPE_CHAR_PARAM_EROR));
 	return (1);
 }
 

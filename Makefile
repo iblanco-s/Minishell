@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
+#    By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/30 17:35:55 by dgomez-m         ###   ########.fr        #
+#    Updated: 2024/04/30 18:27:33 by jsalaber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc #-fsanitize=address -g3
+CC = gcc -Wall -Werror -Wextra #-fsanitize=address -g3
 
 RM = rm -f
 
@@ -59,10 +59,10 @@ $(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
-	$(CC) -I/opt/homebrew/opt/readline/include -c $< -o $@
+	$(CC) -I/Users/jsalaber/Desktop/readline/include -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/opt/homebrew/opt/readline/lib -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/Users/jsalaber/Desktop/readline/lib -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
