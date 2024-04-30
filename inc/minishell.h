@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/29 18:33:05 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:27:09 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_unset(char **opts, t_shell *shell);
 int		ft_export(char **opts, t_shell *shell);
 int		ft_env(t_shell *shell);
 int		ft_echo(char **opts);
-int		ft_exit(char **opts);
+int		ft_exit(char **opts, t_shell *shell);
 int		ft_cd(char **opts, t_shell *shell);
 void	manage_redir(t_shell *shell, int *in_copy, int *out_copy);
 int		ft_is_builtin(char **cmd);

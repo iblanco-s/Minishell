@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   initial_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/22 11:58:20 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:09:46 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_pipe_at_start(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\"' || line[i] == '\''))
+	while (line[i] && (line[i] == ' ')) //|| line[i] == '\"' || line[i] == '\''))
 		i++;
 	if (line[i] && line[i] == '|')
 		return (print_error_and_return(PIPE_AT_START_ERROR));

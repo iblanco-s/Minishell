@@ -3,22 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:48:58 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/24 16:34:02 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:25:00 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(char **opts)
+static void	util_exit(char **opts)
+{
+	if (opts == NULL || opts[0] == NULL)
+	{
+			g_exit_status = 0;
+			exit(g_exit_status);
+	}
+}
+
+int	ft_exit(char **opts, t_shell *shell)
 {
 	int		i;
 
 	i = 0;
-	if (opts == NULL || opts[0] == NULL)
-		exit(0);
+	util_exit(opts);
 	if (opts[1] != NULL)
 	{
 		printf("exit\n");
@@ -32,9 +40,11 @@ int	ft_exit(char **opts)
 			printf("exit\n");
 			printf("minishell: exit: %s: numeric argument required\n",
 				opts[0]);
-			exit(255);
+			g_exit_status = 255;
 		}
 		i++;
 	}
-	exit(ft_atoi(opts[0]));
+	g_exit_status = ft_atoi(opts[0]);
+	free_general(shell);
+	exit(g_exit_status);
 }

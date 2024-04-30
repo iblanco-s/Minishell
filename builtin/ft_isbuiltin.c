@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsalaber <jsalaber@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 09:21:18 by jsalaber          #+#    #+#             */
-/*   Updated: 2024/04/26 09:58:48 by jsalaber         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:26:48 by junesalaber      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	exec_builtin(char **cmd, t_shell *shell)
 	else if (builtin == 3)
 		return (ft_env(shell), 1);
 	else if (builtin == 4)
-		return (ft_exit(cmd), 1);
+		return (ft_exit(cmd, shell), 1);
 	else if (builtin == 5)
 		return (ft_export(cmd, shell), 1);
 	else if (builtin == 6)
