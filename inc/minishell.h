@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:38:51 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/04/30 12:27:09 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/30 17:12:25 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,10 @@ t_shell	*setup_program(char **env);
 void	organize_signals(void);
 int		is_interactive(int change);
 void	disable_print_signals(void);
+void	ft_free_envs(t_env *env);
+void	free_general(t_shell *shell);
+void	ft_free_array(char **array);
+void	free_command(t_shell *shell, char *line);
 
 // PARSE
 int		handle_input(char *line, t_shell *shell);
@@ -125,6 +129,8 @@ int		check_special_chars(char *line);
 char	get_next_char(char *line);
 int		print_error_and_return(char *error_message);
 t_parse	*general_split(char *line, t_shell *shell);
+void	combine(t_parse *node, char *value_to_add);
+char	*check_single_quote(char *string_to_check);
 void	split_dollar(t_parse *tokens_list, t_shell *shell);
 void	divide_str_by_char(t_env *token_list, int i);
 void	check_pipes_and_redirs(t_parse *token_list);

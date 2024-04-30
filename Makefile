@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+         #
+#    By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/11 16:41:26 by iblanco-          #+#    #+#              #
-#    Updated: 2024/04/30 12:31:55 by junesalaber      ###   ########.fr        #
+#    Updated: 2024/04/30 17:11:13 by dgomez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,13 @@ SRCS = builtin/ft_echo.c \
 	   initiation/main.c \
 	   initiation/obtain_env.c \
 	   initiation/setup.c \
+	   initiation/free.c \
 	   parse/initial_check.c \
 	   parse/aux_initial_check.c \
 	   parse/general_split.c \
 	   parse/split_special_chars.c \
 	   parse/group_by_pipes.c \
+	   parse/expand_dollar_utils.c \
 	   parse/expand_dollar.c \
 	   parse/parse_utils.c \
 	   parse/aux_group_by_pipes.c \
@@ -57,10 +59,10 @@ $(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
-	$(CC) -I/usr/local/opt/readline/include -c $< -o $@
+	$(CC) -I/opt/homebrew/opt/readline/include -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/usr/local/opt/readline/lib -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/opt/homebrew/opt/readline/lib -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:13:39 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/30 12:09:46 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/30 17:05:08 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_pipe_at_start(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ')) //|| line[i] == '\"' || line[i] == '\''))
+	while (line[i] && (line[i] == ' '))
 		i++;
 	if (line[i] && line[i] == '|')
 		return (print_error_and_return(PIPE_AT_START_ERROR));
@@ -66,7 +66,7 @@ char	get_next_char(char *line)
 int	initial_filter(char *line)
 {
 	if (line == NULL || line[0] == '\0')
-		return(0);
+		return (0);
 	// 	return (print_error_and_return(EMPTY_LINE_ERROR));
 	if (!check_unclosed_quotes(line))
 		return (0);

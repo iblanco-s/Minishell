@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junesalaberria <junesalaberria@student.    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:48:58 by inigo             #+#    #+#             */
-/*   Updated: 2024/04/30 12:25:00 by junesalaber      ###   ########.fr       */
+/*   Updated: 2024/04/30 16:57:22 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	util_exit(char **opts)
 {
 	if (opts == NULL || opts[0] == NULL)
 	{
-			g_exit_status = 0;
-			exit(g_exit_status);
+		g_exit_status = 0;
+		exit(g_exit_status);
 	}
 }
 
