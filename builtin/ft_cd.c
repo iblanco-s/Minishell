@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-//TODO: hacer el ft_cd,
-//poner comentarios, revisar leaks, revisar norminette
 
 /*
 cd cases:
@@ -58,7 +56,7 @@ int	go_to_previous_directory(t_shell *shell)
 	oldpwd = get_env_value(shell, "OLDPWD");
 	if (oldpwd == NULL)
 	{
-		printf("minishell: cd: OLDPWD not set\n");
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 		return (1);
 	}
 	else
@@ -92,9 +90,6 @@ int	go_to_parent_directory(t_shell *shell)
 	change_pwd_and_oldpwd(shell);
 	return (ret);
 }
-
-	// else if (ft_strcmp(cmds->opts[0], "/") == 0)
-	// 	return go_to_path(cmds, cmds->opts[0]);
 
 int	ft_cd(char **opts, t_shell *shell)
 {

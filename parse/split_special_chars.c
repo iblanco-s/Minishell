@@ -12,10 +12,6 @@
 
 #include "../inc/minishell.h"
 
-//"testing: echo \"hello > world\" | cat echo \"hello > world\" > 
-//cat hola > adios hola >> adios hola > adios hola >> adios hola> 
-//adios hola >adios hola>adios hola>>adios hola<< adios hola <<adios"
-
 void	divide_and_get_char(t_parse *token_list, int i,
 	int char_num, t_parse *node_after_char)
 {

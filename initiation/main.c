@@ -41,7 +41,6 @@ void	main_loop(t_shell *shell)
 	}
 }
 
-// ENTRY POINT
 int	main(int argc, char **argv, char **env)
 {
 	g_exit_status = 0;

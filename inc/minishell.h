@@ -141,14 +141,10 @@ t_parse	*ft_lstlast_parse(t_parse *lst);
 void	ft_lstadd_back_parse(t_parse **lst, t_parse *new);
 void	check_join_quotes_because_special_chars(t_parse *token_list);
 void	delete_empty_nodes(t_parse **token_list);
-// int		in_redir_type(char *node);
-// int		out_redir_type(char *node);
-// char	infile_name(char *node);
-// char	outfile_name(char *node);
 
 // GROUP BY PIPES
 void	group_by_pipes_and_redirs(t_parse **token_list,
-		t_parse *c, t_cmds *c_cmd);
+			t_parse *c, t_cmds *c_cmd);
 void	debugg_print_cmds(t_cmds *current_cmd);
 char	**list_to_array(t_env *token_list);
 int		ft_lstsize_tenv(t_env *lst);

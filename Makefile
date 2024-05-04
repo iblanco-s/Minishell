@@ -59,10 +59,10 @@ $(LIBFT_A):
 	make bonus -C $(LIBFT)
 
 %.o: %.c
-	$(CC) -I/Users/jsalaber/Desktop/readline/include -c $< -o $@
+	$(CC) -I/usr/local/opt/readline/include -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/Users/jsalaber/Desktop/readline/lib -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT) -lft -lreadline -L/usr/local/opt/readline/lib -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)

@@ -45,12 +45,12 @@ int	ft_echo(char **opts)
 	i = j;
 	while (opts[i])
 	{
-		printf("%s", opts[i]);
+		ft_putstr_fd(opts[i], 1);
 		if (opts[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (j == 0)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 	return (0);
 }

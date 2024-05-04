@@ -51,8 +51,8 @@ char	**env_to_envp(t_env *env)
 	char	**envp;
 	char	**tmp_envp;
 	char	*tmp;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	envp = malloc(sizeof(char *) * (ft_lstsize_tenv(env) + 1));
 	tmp_envp = envp;

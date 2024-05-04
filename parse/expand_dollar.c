@@ -55,11 +55,6 @@ void	expand_and_combine(t_parse *actual_node,
 	}
 }
 
-// TEST LINE= $PWD"$PWD"'$PWD'aaa$PWD"aaa$PWD"'aaa$PWD'$PWDaaa"$PWDaaa"
-// '$PWDaaa'bbb$PWDbbb$PWD"bbb$PWDbbb$PWD"'bbb$PWDbbb$PWD' 
-// a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
-// COEMNTAR FUNCIONES LUEGO  NO ME ACUERDO 
-// a$USER a'a$USER'bb a$USERa$USER a|b a| |b a$HOMEa
 void	divide_dollars(t_parse *actual_node, t_shell *shell, int i)
 {
 	char	**split_by_dollar;
